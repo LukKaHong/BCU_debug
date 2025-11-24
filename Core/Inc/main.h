@@ -31,6 +31,16 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+
+#include "CommCAN_1.h"
+#include "CommCAN_2.h"
+#include "CommCAN_3.h"
+#include "CommLAN_1.h"
+#include "CommLAN_2.h"
+#include "Comm485_1.h"
+#include "Comm485_2.h"
+#include "Comm485_3.h"
 
 /* USER CODE END Includes */
 

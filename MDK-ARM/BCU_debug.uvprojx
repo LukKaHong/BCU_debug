@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
+            <RunUserProg2>1</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -189,7 +189,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -616,6 +616,51 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>User/App</GroupName>
+          <Files>
+            <File>
+              <FileName>Comm485_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\Comm485_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>Comm485_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\Comm485_2.c</FilePath>
+            </File>
+            <File>
+              <FileName>Comm485_3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\Comm485_3.c</FilePath>
+            </File>
+            <File>
+              <FileName>CommCAN_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\CommCAN_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>CommCAN_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\CommCAN_2.c</FilePath>
+            </File>
+            <File>
+              <FileName>CommCAN_3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\CommCAN_3.c</FilePath>
+            </File>
+            <File>
+              <FileName>CommLAN_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\CommLAN_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>CommLAN_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\CommLAN_2.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -634,5 +679,14 @@
     </components>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>BCU_debug</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

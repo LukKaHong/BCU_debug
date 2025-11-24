@@ -90,7 +90,7 @@ const osThreadAttr_t Comm485_1_Task_attributes = {
   .cb_size = sizeof(Comm485_1_TaskControlBlock),
   .stack_mem = &Comm485_1_TaskBuffer[0],
   .stack_size = sizeof(Comm485_1_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal1,
 };
 /* Definitions for Comm485_2_Task */
 osThreadId_t Comm485_2_TaskHandle;
@@ -102,7 +102,7 @@ const osThreadAttr_t Comm485_2_Task_attributes = {
   .cb_size = sizeof(Comm485_2_TaskControlBlock),
   .stack_mem = &Comm485_2_TaskBuffer[0],
   .stack_size = sizeof(Comm485_2_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal2,
 };
 /* Definitions for Comm485_3_Task */
 osThreadId_t Comm485_3_TaskHandle;
@@ -114,7 +114,7 @@ const osThreadAttr_t Comm485_3_Task_attributes = {
   .cb_size = sizeof(Comm485_3_TaskControlBlock),
   .stack_mem = &Comm485_3_TaskBuffer[0],
   .stack_size = sizeof(Comm485_3_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal3,
 };
 /* Definitions for CommCAN_1_Task */
 osThreadId_t CommCAN_1_TaskHandle;
@@ -126,7 +126,7 @@ const osThreadAttr_t CommCAN_1_Task_attributes = {
   .cb_size = sizeof(CommCAN_1_TaskControlBlock),
   .stack_mem = &CommCAN_1_TaskBuffer[0],
   .stack_size = sizeof(CommCAN_1_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal4,
 };
 /* Definitions for CommCAN_2_Task */
 osThreadId_t CommCAN_2_TaskHandle;
@@ -138,7 +138,7 @@ const osThreadAttr_t CommCAN_2_Task_attributes = {
   .cb_size = sizeof(CommCAN_2_TaskControlBlock),
   .stack_mem = &CommCAN_2_TaskBuffer[0],
   .stack_size = sizeof(CommCAN_2_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal5,
 };
 /* Definitions for CommCAN_3_Task */
 osThreadId_t CommCAN_3_TaskHandle;
@@ -150,7 +150,7 @@ const osThreadAttr_t CommCAN_3_Task_attributes = {
   .cb_size = sizeof(CommCAN_3_TaskControlBlock),
   .stack_mem = &CommCAN_3_TaskBuffer[0],
   .stack_size = sizeof(CommCAN_3_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal6,
 };
 /* Definitions for CommLAN_1_Task */
 osThreadId_t CommLAN_1_TaskHandle;
@@ -162,7 +162,7 @@ const osThreadAttr_t CommLAN_1_Task_attributes = {
   .cb_size = sizeof(CommLAN_1_TaskControlBlock),
   .stack_mem = &CommLAN_1_TaskBuffer[0],
   .stack_size = sizeof(CommLAN_1_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityNormal7,
 };
 /* Definitions for CommLAN_2_Task */
 osThreadId_t CommLAN_2_TaskHandle;
@@ -174,7 +174,7 @@ const osThreadAttr_t CommLAN_2_Task_attributes = {
   .cb_size = sizeof(CommLAN_2_TaskControlBlock),
   .stack_mem = &CommLAN_2_TaskBuffer[0],
   .stack_size = sizeof(CommLAN_2_TaskBuffer),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityAboveNormal,
 };
 /* Definitions for BinarySem_485_1_Tx */
 osSemaphoreId_t BinarySem_485_1_TxHandle;
@@ -323,6 +323,14 @@ void StartCommLAN_2_Task(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+int fputc(int ch, FILE *f)
+{
+  uint8_t c = (uint8_t)ch;
+  HAL_UART_Transmit(&huart2, &c, 1, HAL_MAX_DELAY);
+  return ch;
+}
+
+
 
 /* USER CODE END 0 */
 
@@ -1258,7 +1266,11 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    osDelay(1000);
+    printf("__FUNC__: %s\r\n", __func__);
+    HAL_UART_Transmit(&huart1, "huart1", 6, HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart3, "huart3", 6, HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart4, "huart4", 6, HAL_MAX_DELAY);
   }
   /* USER CODE END 5 */
 }
@@ -1274,10 +1286,7 @@ void StartComm485_1_Task(void *argument)
 {
   /* USER CODE BEGIN StartComm485_1_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  Comm485_1_Task();
   /* USER CODE END StartComm485_1_Task */
 }
 
@@ -1292,13 +1301,7 @@ void StartComm485_2_Task(void *argument)
 {
   /* USER CODE BEGIN StartComm485_2_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1000);
-
-    HAL_UART_Transmit(&huart2, (uint8_t *)"Hello World!\r\n", 14, 1000);
-    osDelay(1);
-  }
+  Comm485_2_Task();
   /* USER CODE END StartComm485_2_Task */
 }
 
@@ -1313,10 +1316,7 @@ void StartComm485_3_Task(void *argument)
 {
   /* USER CODE BEGIN StartComm485_3_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  Comm485_3_Task();
   /* USER CODE END StartComm485_3_Task */
 }
 
@@ -1331,10 +1331,7 @@ void StartCommCAN_1_Task(void *argument)
 {
   /* USER CODE BEGIN StartCommCAN_1_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  CommCAN_1_Task();
   /* USER CODE END StartCommCAN_1_Task */
 }
 
@@ -1349,10 +1346,7 @@ void StartCommCAN_2_Task(void *argument)
 {
   /* USER CODE BEGIN StartCommCAN_2_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  CommCAN_2_Task();
   /* USER CODE END StartCommCAN_2_Task */
 }
 
@@ -1367,10 +1361,7 @@ void StartCommCAN_3_Task(void *argument)
 {
   /* USER CODE BEGIN StartCommCAN_3_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  CommCAN_3_Task();
   /* USER CODE END StartCommCAN_3_Task */
 }
 
@@ -1385,10 +1376,7 @@ void StartCommLAN_1_Task(void *argument)
 {
   /* USER CODE BEGIN StartCommLAN_1_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  CommLAN_1_Task();
   /* USER CODE END StartCommLAN_1_Task */
 }
 
@@ -1403,10 +1391,7 @@ void StartCommLAN_2_Task(void *argument)
 {
   /* USER CODE BEGIN StartCommLAN_2_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  CommLAN_2_Task();
   /* USER CODE END StartCommLAN_2_Task */
 }
 

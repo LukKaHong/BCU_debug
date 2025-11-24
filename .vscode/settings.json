@@ -1,0 +1,9 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "main.h": "c",
+        "comm485_1.h": "c",
+        "stdio.h": "c",
+        "cmsis_os.h": "c"
+    }
+}

@@ -41,7 +41,15 @@
 "bcu_debug\cmsis_os2.o"
 "bcu_debug\heap_4.o"
 "bcu_debug\port.o"
---strict --scatter "BCU_debug\BCU_debug.sct"
+"bcu_debug\comm485_1.o"
+"bcu_debug\comm485_2.o"
+"bcu_debug\comm485_3.o"
+"bcu_debug\commcan_1.o"
+"bcu_debug\commcan_2.o"
+"bcu_debug\commcan_3.o"
+"bcu_debug\commlan_1.o"
+"bcu_debug\commlan_2.o"
+--library_type=microlib --strict --scatter "BCU_debug\BCU_debug.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "BCU_debug.map" -o BCU_debug\BCU_debug.axf
