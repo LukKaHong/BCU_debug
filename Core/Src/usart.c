@@ -21,6 +21,19 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include "FreeRTOS.h"
+
+#define Tx_DMA_Buff_Size (1024)
+#define Rx_DMA_Buff_Size (1024)
+
+static uint8_t huart1_Tx_DMA_Buff[Tx_DMA_Buff_Size];
+static uint8_t huart1_Rx_DMA_Buff[Rx_DMA_Buff_Size];
+static uint16_t huart1_Rx_Len;
+
+
+
+
+
 
 /* USER CODE END 0 */
 
@@ -577,5 +590,43 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if(huart->Instance == USART1)
+  {
+    osSemaphoreRelease(BinarySem_485_2_TxHandle);
+  }
+}
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
+{
+  if(huart->RxEventType == HAL_UART_RXEVENT_IDLE || huart->RxEventType == HAL_UART_RXEVENT_TC)
+  {
+    if (huart->Instance == USART1)
+    {
+      huart1_Rx_Len = Size;
+      osSemaphoreRelease(BinarySem_485_2_RxHandle);
+    }
+  }
+}
+
+void UART_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+{
+  Printf_Array("Tx_Buff", Tx_Buff, Tx_Len);
+  
+  //send
+  memcpy(huart1_Tx_DMA_Buff, Tx_Buff, Tx_Len);
+  HAL_UART_Transmit_DMA(&huart1, huart1_Tx_DMA_Buff, Tx_Len);
+  osSemaphoreAcquire(BinarySem_485_2_TxHandle, pdMS_TO_TICKS(1000));
+
+  //receive
+  // HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+  // osSemaphoreAcquire(BinarySem_485_2_RxHandle, pdMS_TO_TICKS(1000));
+
+  // printf("huart1_Rx_Len = %d\r\n", huart1_Rx_Len);
+  // memcpy(Rx_Buff, huart1_Rx_DMA_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+
+  // Printf_Array("Rx_Buff", Rx_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+}
 
 /* USER CODE END 1 */

@@ -410,10 +410,10 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
     osDelay(1000);
-    printf("__FUNC__: %s\r\n", __func__);
-    HAL_UART_Transmit(&huart1, (uint8_t *)"huart1\r\n", 8, HAL_MAX_DELAY);
-    HAL_UART_Transmit(&huart3, (uint8_t *)"huart3\r\n", 8, HAL_MAX_DELAY);
-    HAL_UART_Transmit(&huart4, (uint8_t *)"huart4\r\n", 8, HAL_MAX_DELAY);
+    // printf("__FUNC__: %s\r\n", __func__);
+    // HAL_UART_Transmit(&huart1, (uint8_t *)"huart1\r\n", 8, HAL_MAX_DELAY);
+    // HAL_UART_Transmit(&huart3, (uint8_t *)"huart3\r\n", 8, HAL_MAX_DELAY);
+    // HAL_UART_Transmit(&huart4, (uint8_t *)"huart4\r\n", 8, HAL_MAX_DELAY);
   }
   /* USER CODE END StartDefaultTask */
 }

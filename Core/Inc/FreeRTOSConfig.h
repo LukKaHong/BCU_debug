@@ -44,6 +44,7 @@
  *----------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
+#include "cmsis_os2.h"
 /* Section where include file can be added */
 /* USER CODE END Includes */
 
@@ -165,6 +166,14 @@ standard names. */
 
 /* USER CODE BEGIN Defines */
 /* Section where parameter definitions can be added (for instance, to override default ones in FreeRTOS.h) */
+extern osSemaphoreId_t BinarySem_485_1_TxHandle;
+extern osSemaphoreId_t BinarySem_485_1_RxHandle;
+extern osSemaphoreId_t BinarySem_485_2_TxHandle;
+extern osSemaphoreId_t BinarySem_485_2_RxHandle;
+extern osSemaphoreId_t BinarySem_485_3_TxHandle;
+extern osSemaphoreId_t BinarySem_485_3_RxHandle;
+
+
 /* USER CODE END Defines */
 
 #endif /* FREERTOS_CONFIG_H */

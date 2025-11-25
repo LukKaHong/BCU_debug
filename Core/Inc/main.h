@@ -32,7 +32,7 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-
+#include <string.h>
 #include "CommCAN_1.h"
 #include "CommCAN_2.h"
 #include "CommCAN_3.h"
@@ -159,10 +159,16 @@ void Error_Handler(void);
 #define Tx_485_2_GPIO_Port GPIOA
 #define Rx_485_2_Pin GPIO_PIN_10
 #define Rx_485_2_GPIO_Port GPIOA
+#define _485_DE2_Pin GPIO_PIN_11
+#define _485_DE2_GPIO_Port GPIOA
+#define _485_DE3_Pin GPIO_PIN_3
+#define _485_DE3_GPIO_Port GPIOI
 #define Tx_485_3_Pin GPIO_PIN_10
 #define Tx_485_3_GPIO_Port GPIOC
 #define Rx_485_3_Pin GPIO_PIN_11
 #define Rx_485_3_GPIO_Port GPIOC
+#define _485_DE1_Pin GPIO_PIN_12
+#define _485_DE1_GPIO_Port GPIOC
 #define Rx_485_1_Pin GPIO_PIN_0
 #define Rx_485_1_GPIO_Port GPIOD
 #define Tx_485_1_Pin GPIO_PIN_1
@@ -179,7 +185,7 @@ void Error_Handler(void);
 #define VNC_C_GPIO_Port GPIOI
 
 /* USER CODE BEGIN Private defines */
-
+extern void Printf_Array(uint8_t *str, uint8_t *Array,uint16_t Len);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

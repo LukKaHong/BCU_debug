@@ -5,6 +5,11 @@
         "comm485_1.h": "c",
         "stdio.h": "c",
         "cmsis_os.h": "c",
-        "usart.h": "c"
+        "usart.h": "c",
+        "freertos.h": "c",
+        "task.h": "c",
+        "spi.h": "c",
+        "string.h": "c",
+        "comm485_2.h": "c"
     }
 }
