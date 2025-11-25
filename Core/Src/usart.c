@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "FreeRTOS.h"
+#include <string.h>
 
 #define Tx_DMA_Buff_Size (1024)
 #define Rx_DMA_Buff_Size (1024)
@@ -29,10 +30,6 @@
 static uint8_t huart1_Tx_DMA_Buff[Tx_DMA_Buff_Size];
 static uint8_t huart1_Rx_DMA_Buff[Rx_DMA_Buff_Size];
 static uint16_t huart1_Rx_Len;
-
-
-
-
 
 
 /* USER CODE END 0 */
@@ -610,23 +607,48 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
   }
 }
 
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    HAL_UART_AbortReceive(&huart1);
+    huart1_Rx_Len = 0;
+    memset(huart1_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+  }
+}
+
 void UART_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
   Printf_Array("Tx_Buff", Tx_Buff, Tx_Len);
   
-  //send
+  //复制数据
   memcpy(huart1_Tx_DMA_Buff, Tx_Buff, Tx_Len);
+
+  //清除发送信号量
+  osSemaphoreAcquire(BinarySem_485_2_TxHandle, 0);
+
+  //发送数据
   HAL_UART_Transmit_DMA(&huart1, huart1_Tx_DMA_Buff, Tx_Len);
   osSemaphoreAcquire(BinarySem_485_2_TxHandle, pdMS_TO_TICKS(1000));
 
-  //receive
-  // HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Rx_DMA_Buff_Size);
-  // osSemaphoreAcquire(BinarySem_485_2_RxHandle, pdMS_TO_TICKS(1000));
+  //清除接收信号量
+  osSemaphoreAcquire(BinarySem_485_2_RxHandle, 0);
 
-  // printf("huart1_Rx_Len = %d\r\n", huart1_Rx_Len);
-  // memcpy(Rx_Buff, huart1_Rx_DMA_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+  //配置使能接收DMA
+  huart1_Rx_Len = 0;
+  memset(huart1_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Rx_DMA_Buff_Size);
 
-  // Printf_Array("Rx_Buff", Rx_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+  //等待接收完成
+  osSemaphoreAcquire(BinarySem_485_2_RxHandle, pdMS_TO_TICKS(3000));
+  HAL_UART_AbortReceive(&huart1);
+
+  //复制数据
+  memcpy(Rx_Buff, huart1_Rx_DMA_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+
+  printf("huart1_Rx_Len = %d\r\n", huart1_Rx_Len);
+  Printf_Array("Rx_Buff", Rx_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
 }
 
 /* USER CODE END 1 */

@@ -10,6 +10,7 @@
         "task.h": "c",
         "spi.h": "c",
         "string.h": "c",
-        "comm485_2.h": "c"
+        "comm485_2.h": "c",
+        "comm485_3.h": "c"
     }
 }
