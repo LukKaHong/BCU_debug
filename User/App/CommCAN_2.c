@@ -42,43 +42,34 @@ void Add_CAN_2_SendMsg(CanMsgType *msg)
 
 ----------------------------------------------------------------------------------------------
 */
+void CommCAN_2_Receive_Pro(void)
+{
+    while(CAN_2_ReceiveBuff.CurIndex != CAN_2_ReceiveBuff.RxIndex)
+    {
+        printf("FDCAN2_Receive_Msg: ID=0x%X, Length=%d, Data=", CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].id, CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].length);
+        for(int i = 0; i < CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].length; i++)
+        {
+            printf("%02X ", CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].data[i]);
+        }
+        printf("\n");
+
+        Add_CAN_2_SendMsg(&CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+
+        if(++CAN_2_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_2_ReceiveBuff.CurIndex = 0;
+    }
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
 void CommCAN_2_Task(void)
 {
-    CanMsgType msg;
-    msg.id = 0x00;
-    msg.length = 8;
-    msg.data[0] = 0x08;
-    msg.data[1] = 0x07;
-    msg.data[2] = 0x06;
-    msg.data[3] = 0x05;
-    msg.data[4] = 0x04;
-    msg.data[5] = 0x03;
-    msg.data[6] = 0x02;
-    msg.data[7] = 0x01;
-
     while(1)
     {
         osDelay(1000);
-
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
-        // Add_CAN_2_SendMsg(&msg);
+        
+        CommCAN_2_Receive_Pro();
         CommCAN_2_Send_Pro();
-
-        msg.data[0]++;
-        msg.data[1]++;
-        msg.data[2]++;
-        msg.data[3]++;
-        msg.data[4]++;
-        msg.data[5]++;
-        msg.data[6]++;
-        msg.data[7]++;
     }
 }

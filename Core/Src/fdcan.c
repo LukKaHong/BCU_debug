@@ -21,6 +21,8 @@
 #include "fdcan.h"
 
 /* USER CODE BEGIN 0 */
+// #define CAN_Printf_Debug
+
 tCAN_SendBuff CAN_1_SendBuff;
 tCAN_ReceiveBuff CAN_1_ReceiveBuff;
 
@@ -391,6 +393,7 @@ void ProcessFIFOData(FDCAN_HandleTypeDef *hfdcan, uint32_t FifoLocation, tCAN_Re
         if (HAL_FDCAN_GetRxMessage(hfdcan, FifoLocation, &RxHeader, RxData) == HAL_OK)
         {
             
+#ifdef CAN_Printf_Debug          
           if (FifoLocation == FDCAN_RX_FIFO0)
           {
               printf("FIFO0 msg %d: ID=0x%X\n", RxBuff->RxIndex, RxHeader.Identifier);
@@ -399,6 +402,7 @@ void ProcessFIFOData(FDCAN_HandleTypeDef *hfdcan, uint32_t FifoLocation, tCAN_Re
           {
               printf("FIFO1 msg %d: ID=0x%X\n", RxBuff->RxIndex, RxHeader.Identifier);
           }
+#endif
 
           RxBuff->Msg[RxBuff->RxIndex].id = RxHeader.Identifier;
           RxBuff->Msg[RxBuff->RxIndex].length = RxHeader.DataLength;
@@ -417,19 +421,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 {
   if(hfdcan->Instance == FDCAN1)
   {
-    // FDCAN_RxHeaderTypeDef fdcan1_RxHeader;
-    // uint8_t fdcan1_RxData[64];
-    // HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &fdcan1_RxHeader, fdcan1_RxData);
-
-    // printf("FDCAN1 -- ID = 0x%08lX, Length = %d, Data = ", fdcan1_RxHeader.Identifier, fdcan1_RxHeader.DataLength);
-    // for(int i = 0; i < fdcan1_RxHeader.DataLength; i++)
-    // {
-    //     printf("%02X ", fdcan1_RxData[i]);
-    // }
-    // printf("\n");
-
     ProcessFIFOData(hfdcan, FDCAN_RX_FIFO0, &CAN_1_ReceiveBuff);
-
   }
 }
 
@@ -437,19 +429,7 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
 {
   if(hfdcan->Instance == FDCAN2)
   {
-    // FDCAN_RxHeaderTypeDef fdcan2_RxHeader;
-    // uint8_t fdcan2_RxData[64];
-    // HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO1, &fdcan2_RxHeader, fdcan2_RxData);
-
-    // printf("FDCAN2 -- ID = 0x%08lX, Length = %d, Data = ", fdcan2_RxHeader.Identifier, fdcan2_RxHeader.DataLength);
-    // for(int i = 0; i < fdcan2_RxHeader.DataLength; i++)
-    // {
-    //     printf("%02X ", fdcan2_RxData[i]);
-    // }
-    // printf("\n");
-
     ProcessFIFOData(hfdcan, FDCAN_RX_FIFO1, &CAN_2_ReceiveBuff);
-
   }
 }
 

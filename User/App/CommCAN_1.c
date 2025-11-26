@@ -36,6 +36,27 @@ void Add_CAN_1_SendMsg(CanMsgType *msg)
     CAN_1_SendBuff.Msg[CAN_1_SendBuff.TxIndex] = *msg;
     if(++CAN_1_SendBuff.TxIndex >= CAN_SendBuff_Max) CAN_1_SendBuff.TxIndex = 0;
 }
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+void CommCAN_1_Receive_Pro(void)
+{
+    while(CAN_1_ReceiveBuff.CurIndex != CAN_1_ReceiveBuff.RxIndex)
+    {
+        printf("FDCAN1_Receive_Msg: ID=0x%X, Length=%d, Data=", CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex].id, CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex].length);
+        for(int i = 0; i < CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex].length; i++)
+        {
+            printf("%02X ", CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex].data[i]);
+        }
+        printf("\n");
+
+        Add_CAN_1_SendMsg(&CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
+
+        if(++CAN_1_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_1_ReceiveBuff.CurIndex = 0;
+    }
+}
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -45,41 +66,11 @@ void Add_CAN_1_SendMsg(CanMsgType *msg)
 
 void CommCAN_1_Task(void)
 {
-    CanMsgType msg;
-    msg.id = 0x00;
-    msg.length = 8;
-    msg.data[0] = 0xf1;
-    msg.data[1] = 0xf2;
-    msg.data[2] = 0xf3;
-    msg.data[3] = 0xf4;
-    msg.data[4] = 0xf5;
-    msg.data[5] = 0xf6;
-    msg.data[6] = 0xf7;
-    msg.data[7] = 0xf8;
-
     while(1)
     {
         osDelay(1000);
-
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
-        // Add_CAN_1_SendMsg(&msg);
+  
+        CommCAN_1_Receive_Pro();
         CommCAN_1_Send_Pro();
-
-        msg.data[0]++;
-        msg.data[1]++;
-        msg.data[2]++;
-        msg.data[3]++;
-        msg.data[4]++;
-        msg.data[5]++;
-        msg.data[6]++;
-        msg.data[7]++;
     }
 }
