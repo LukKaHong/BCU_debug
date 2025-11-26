@@ -11,6 +11,9 @@
         "spi.h": "c",
         "string.h": "c",
         "comm485_2.h": "c",
-        "comm485_3.h": "c"
+        "comm485_3.h": "c",
+        "fdcan.h": "c",
+        "stm32h7xx_hal_def.h": "c",
+        "commcan_1.h": "c"
     }
 }
