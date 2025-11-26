@@ -66,11 +66,22 @@ void CommCAN_1_Receive_Pro(void)
 
 void CommCAN_1_Task(void)
 {
+    uint32_t r_event;
+
     while(1)
     {
-        osDelay(1000);
-  
-        CommCAN_1_Receive_Pro();
+        r_event = osEventFlagsWait(CommCAN_1_EventHandle, CommCAN_1_Event_Receive | CommCAN_1_Event_Tick, osFlagsWaitAny, osWaitForever);
+
+        if(r_event & CommCAN_1_Event_Receive)
+        {
+            CommCAN_1_Receive_Pro();
+        }
+
+        if(r_event & CommCAN_1_Event_Tick)
+        {
+            
+        }
+        
         CommCAN_1_Send_Pro();
     }
 }

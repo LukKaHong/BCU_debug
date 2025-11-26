@@ -21,6 +21,9 @@
 #include "fdcan.h"
 
 /* USER CODE BEGIN 0 */
+#include "FreeRTOS.h"
+
+
 // #define CAN_Printf_Debug
 
 tCAN_SendBuff CAN_1_SendBuff;
@@ -422,6 +425,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
   if(hfdcan->Instance == FDCAN1)
   {
     ProcessFIFOData(hfdcan, FDCAN_RX_FIFO0, &CAN_1_ReceiveBuff);
+    osEventFlagsSet(CommCAN_1_EventHandle, CommCAN_1_Event_Receive);
   }
 }
 
@@ -430,6 +434,7 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
   if(hfdcan->Instance == FDCAN2)
   {
     ProcessFIFOData(hfdcan, FDCAN_RX_FIFO1, &CAN_2_ReceiveBuff);
+    osEventFlagsSet(CommCAN_2_EventHandle, CommCAN_2_Event_Receive);
   }
 }
 
