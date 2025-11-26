@@ -233,6 +233,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
+  static uint16_t tick_10ms = 0;
+
+  if (htim->Instance == TIM6) 
+  {
+    if(++tick_10ms >= 1000)
+    {
+      tick_10ms = 0;
+      osEventFlagsSet(CommCAN_1_EventHandle, CommCAN_1_Event_Tick);
+      osEventFlagsSet(CommCAN_2_EventHandle, CommCAN_2_Event_Tick);
+    }
+  }
 
   /* USER CODE END Callback 1 */
 }

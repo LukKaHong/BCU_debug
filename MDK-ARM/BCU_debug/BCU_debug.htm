@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BCU_debug\BCU_debug.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BCU_debug\BCU_debug.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Nov 26 17:27:02 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Nov 26 17:57:50 2025
 <BR><P>
 <H3>Maximum Stack Usage =        496 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -710,13 +710,15 @@ Global Symbols
 <P><STRONG><a name="[c5]"></a>Add_CAN_1_SendMsg</STRONG> (Thumb, 42 bytes, Stack size 12 bytes, commcan_1.o(i.Add_CAN_1_SendMsg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = Add_CAN_1_SendMsg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Receive_Pro
+<BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Task
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Receive_Pro
 </UL>
 
 <P><STRONG><a name="[cb]"></a>Add_CAN_2_SendMsg</STRONG> (Thumb, 42 bytes, Stack size 12 bytes, commcan_2.o(i.Add_CAN_2_SendMsg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = Add_CAN_2_SendMsg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Receive_Pro
+<BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Task
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Receive_Pro
 </UL>
 
 <P><STRONG><a name="[83]"></a>BDMA_Channel0_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32h7xx_it.o(i.BDMA_Channel0_IRQHandler))
@@ -785,11 +787,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Task
 </UL>
 
-<P><STRONG><a name="[c8]"></a>CommCAN_1_Task</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, commcan_1.o(i.CommCAN_1_Task))
+<P><STRONG><a name="[c8]"></a>CommCAN_1_Task</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, commcan_1.o(i.CommCAN_1_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = CommCAN_1_Task &rArr; osEventFlagsWait &rArr; xEventGroupWaitBits &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Send_Pro
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Receive_Pro
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Add_CAN_1_SendMsg
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osEventFlagsWait
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCommCAN_1_Task
@@ -813,11 +816,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Task
 </UL>
 
-<P><STRONG><a name="[ce]"></a>CommCAN_2_Task</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, commcan_2.o(i.CommCAN_2_Task))
+<P><STRONG><a name="[ce]"></a>CommCAN_2_Task</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, commcan_2.o(i.CommCAN_2_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = CommCAN_2_Task &rArr; osEventFlagsWait &rArr; xEventGroupWaitBits &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Send_Pro
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Receive_Pro
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Add_CAN_2_SendMsg
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osEventFlagsWait
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCommCAN_2_Task
@@ -1537,7 +1541,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[123]"></a>HAL_TIM_IRQHandler</STRONG> (Thumb, 328 bytes, Stack size 24 bytes, stm32h7xx_hal_tim.o(i.HAL_TIM_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = HAL_TIM_IRQHandler
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = HAL_TIM_IRQHandler &rArr; HAL_TIM_PeriodElapsedCallback &rArr; osEventFlagsSet &rArr; xEventGroupSetBitsFromISR &rArr; xTimerPendFunctionCallFromISR &rArr; xQueueGenericSendFromISR &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_TriggerCallback
@@ -1559,8 +1563,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler
 </UL>
 
-<P><STRONG><a name="[127]"></a>HAL_TIM_PeriodElapsedCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, main.o(i.HAL_TIM_PeriodElapsedCallback))
-<BR><BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IncTick
+<P><STRONG><a name="[127]"></a>HAL_TIM_PeriodElapsedCallback</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, main.o(i.HAL_TIM_PeriodElapsedCallback))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = HAL_TIM_PeriodElapsedCallback &rArr; osEventFlagsSet &rArr; xEventGroupSetBitsFromISR &rArr; xTimerPendFunctionCallFromISR &rArr; xQueueGenericSendFromISR &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
+</UL>
+<BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osEventFlagsSet
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IncTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler
 </UL>
@@ -2024,7 +2031,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32h743xx.o(.text)
 </UL>
 <P><STRONG><a name="[3f]"></a>TIM6_DAC_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32h7xx_it.o(i.TIM6_DAC_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; HAL_TIM_IRQHandler
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; HAL_TIM_IRQHandler &rArr; HAL_TIM_PeriodElapsedCallback &rArr; osEventFlagsSet &rArr; xEventGroupSetBitsFromISR &rArr; xTimerPendFunctionCallFromISR &rArr; xQueueGenericSendFromISR &rArr; prvCopyDataToQueue &rArr; xTaskPriorityDisinherit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_IRQHandler
 </UL>
@@ -2228,7 +2235,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xEventGroupSetBitsFromISR
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xEventGroupSetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FDCAN_RxFifo1Callback
+<BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PeriodElapsedCallback
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FDCAN_RxFifo1Callback
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FDCAN_RxFifo0Callback
 </UL>
 
@@ -2604,8 +2612,8 @@ Global Symbols
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskRemoveFromUnorderedEventList
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vEventGroupSetBitsCallback
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osEventFlagsSet
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osEventFlagsSet
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vEventGroupSetBitsCallback
 </UL>
 
 <P><STRONG><a name="[16f]"></a>xEventGroupSetBitsFromISR</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, event_groups.o(i.xEventGroupSetBitsFromISR))

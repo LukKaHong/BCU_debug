@@ -78,7 +78,14 @@ void CommCAN_2_Task(void)
 
         if(r_event & CommCAN_2_Event_Tick)
         {
-            
+            static CanMsgType msg;
+            msg.id++;
+            msg.length = 8;
+            for(int i = 0; i < 8; i++)
+            {
+                msg.data[i] = i;
+            }
+            Add_CAN_2_SendMsg(&msg); 
         }
         
         CommCAN_2_Send_Pro();
