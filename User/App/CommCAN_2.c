@@ -48,19 +48,28 @@ void CommCAN_2_Task(void)
     CanMsgType msg;
     msg.id = 0x00;
     msg.length = 8;
-    msg.data[0] = 0x01;
-    msg.data[1] = 0x02;
-    msg.data[2] = 0x03;
-    msg.data[3] = 0x04;
-    msg.data[4] = 0x05;
-    msg.data[5] = 0x06;
-    msg.data[6] = 0x07;
-    msg.data[7] = 0x08;
+    msg.data[0] = 0x08;
+    msg.data[1] = 0x07;
+    msg.data[2] = 0x06;
+    msg.data[3] = 0x05;
+    msg.data[4] = 0x04;
+    msg.data[5] = 0x03;
+    msg.data[6] = 0x02;
+    msg.data[7] = 0x01;
 
     while(1)
     {
         osDelay(1000);
 
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
+        Add_CAN_2_SendMsg(&msg);
         Add_CAN_2_SendMsg(&msg);
         CommCAN_2_Send_Pro();
 

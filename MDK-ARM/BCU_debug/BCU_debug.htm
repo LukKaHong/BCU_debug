@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BCU_debug\BCU_debug.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BCU_debug\BCU_debug.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Nov 26 14:57:08 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Wed Nov 26 15:20:57 2025
 <BR><P>
 <H3>Maximum Stack Usage =        496 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -794,7 +794,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Task
 </UL>
 
-<P><STRONG><a name="[c9]"></a>CommCAN_2_Task</STRONG> (Thumb, 162 bytes, Stack size 24 bytes, commcan_2.o(i.CommCAN_2_Task))
+<P><STRONG><a name="[c9]"></a>CommCAN_2_Task</STRONG> (Thumb, 216 bytes, Stack size 24 bytes, commcan_2.o(i.CommCAN_2_Task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = CommCAN_2_Task &rArr; CommCAN_2_Send_Pro &rArr; FDCAN2_Send_Msg &rArr; HAL_FDCAN_AddMessageToTxFifoQ &rArr; FDCAN_CopyMessageToRAM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
@@ -911,7 +911,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32h743xx.o(RESET)
 </UL>
-<P><STRONG><a name="[c3]"></a>FDCAN1_Send_Msg</STRONG> (Thumb, 48 bytes, Stack size 48 bytes, fdcan.o(i.FDCAN1_Send_Msg))
+<P><STRONG><a name="[c3]"></a>FDCAN1_Send_Msg</STRONG> (Thumb, 50 bytes, Stack size 48 bytes, fdcan.o(i.FDCAN1_Send_Msg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = FDCAN1_Send_Msg &rArr; HAL_FDCAN_AddMessageToTxFifoQ &rArr; FDCAN_CopyMessageToRAM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FDCAN_AddMessageToTxFifoQ
@@ -927,7 +927,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32h743xx.o(RESET)
 </UL>
-<P><STRONG><a name="[c8]"></a>FDCAN2_Send_Msg</STRONG> (Thumb, 48 bytes, Stack size 48 bytes, fdcan.o(i.FDCAN2_Send_Msg))
+<P><STRONG><a name="[c8]"></a>FDCAN2_Send_Msg</STRONG> (Thumb, 50 bytes, Stack size 48 bytes, fdcan.o(i.FDCAN2_Send_Msg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = FDCAN2_Send_Msg &rArr; HAL_FDCAN_AddMessageToTxFifoQ &rArr; FDCAN_CopyMessageToRAM
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FDCAN_AddMessageToTxFifoQ
@@ -1740,7 +1740,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[142]"></a>MX_FDCAN1_Init</STRONG> (Thumb, 150 bytes, Stack size 56 bytes, fdcan.o(i.MX_FDCAN1_Init))
+<P><STRONG><a name="[142]"></a>MX_FDCAN1_Init</STRONG> (Thumb, 152 bytes, Stack size 56 bytes, fdcan.o(i.MX_FDCAN1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = MX_FDCAN1_Init &rArr; HAL_FDCAN_Init &rArr; HAL_FDCAN_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
@@ -1752,7 +1752,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[146]"></a>MX_FDCAN2_Init</STRONG> (Thumb, 138 bytes, Stack size 56 bytes, fdcan.o(i.MX_FDCAN2_Init))
+<P><STRONG><a name="[146]"></a>MX_FDCAN2_Init</STRONG> (Thumb, 144 bytes, Stack size 56 bytes, fdcan.o(i.MX_FDCAN2_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = MX_FDCAN2_Init &rArr; HAL_FDCAN_Init &rArr; HAL_FDCAN_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler

@@ -65,7 +65,7 @@ void MX_FDCAN1_Init(void)
   hfdcan1.Init.RxBufferSize = FDCAN_DATA_BYTES_8;
   hfdcan1.Init.TxEventsNbr = 0;
   hfdcan1.Init.TxBuffersNbr = 0;
-  hfdcan1.Init.TxFifoQueueElmtsNbr = 1;
+  hfdcan1.Init.TxFifoQueueElmtsNbr = 32;
   hfdcan1.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
   hfdcan1.Init.TxElmtSize = FDCAN_DATA_BYTES_8;
   if (HAL_FDCAN_Init(&hfdcan1) != HAL_OK)
@@ -105,7 +105,7 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.DataSyncJumpWidth = 8;
   hfdcan2.Init.DataTimeSeg1 = 31;
   hfdcan2.Init.DataTimeSeg2 = 8;
-  hfdcan2.Init.MessageRAMOffset = 0;
+  hfdcan2.Init.MessageRAMOffset = 1280;
   hfdcan2.Init.StdFiltersNbr = 1;
   hfdcan2.Init.ExtFiltersNbr = 1;
   hfdcan2.Init.RxFifo0ElmtsNbr = 0;
@@ -116,7 +116,7 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.RxBufferSize = FDCAN_DATA_BYTES_8;
   hfdcan2.Init.TxEventsNbr = 0;
   hfdcan2.Init.TxBuffersNbr = 0;
-  hfdcan2.Init.TxFifoQueueElmtsNbr = 1;
+  hfdcan2.Init.TxFifoQueueElmtsNbr = 32;
   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
   hfdcan2.Init.TxElmtSize = FDCAN_DATA_BYTES_8;
   if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
@@ -342,14 +342,14 @@ HAL_StatusTypeDef FDCAN1_Send_Msg(CanMsgType *msg)
 {	
     FDCAN_TxHeaderTypeDef fdcan1_TxHeader;
     
-    fdcan1_TxHeader.Identifier          = msg->id;                           //32位ID
-    fdcan1_TxHeader.IdType              = FDCAN_STANDARD_ID;                  //标准ID
-    fdcan1_TxHeader.TxFrameType         = FDCAN_DATA_FRAME;              //数据帧
-    fdcan1_TxHeader.DataLength          = Ret_FDCAN_DLC_BYTES(msg->length);                            //数据长度
-    fdcan1_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;            
-    fdcan1_TxHeader.BitRateSwitch       = FDCAN_BRS_OFF;               //关闭速率切换
-    fdcan1_TxHeader.FDFormat            = FDCAN_CLASSIC_CAN;                //传统的CAN模式
-    fdcan1_TxHeader.TxEventFifoControl  = FDCAN_NO_TX_EVENTS;     //无发送事件
+    fdcan1_TxHeader.Identifier          = msg->id;
+    fdcan1_TxHeader.IdType              = FDCAN_EXTENDED_ID;
+    fdcan1_TxHeader.TxFrameType         = FDCAN_DATA_FRAME;
+    fdcan1_TxHeader.DataLength          = Ret_FDCAN_DLC_BYTES(msg->length);
+    fdcan1_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+    fdcan1_TxHeader.BitRateSwitch       = FDCAN_BRS_OFF;
+    fdcan1_TxHeader.FDFormat            = FDCAN_CLASSIC_CAN;
+    fdcan1_TxHeader.TxEventFifoControl  = FDCAN_NO_TX_EVENTS;
     fdcan1_TxHeader.MessageMarker       = 0;                           
     
     return HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan1,&fdcan1_TxHeader,msg->data);
@@ -360,14 +360,14 @@ HAL_StatusTypeDef FDCAN2_Send_Msg(CanMsgType *msg)
 {	
     FDCAN_TxHeaderTypeDef fdcan2_TxHeader;
     
-    fdcan2_TxHeader.Identifier          = msg->id;                           //32位ID
-    fdcan2_TxHeader.IdType              = FDCAN_STANDARD_ID;                  //标准ID
-    fdcan2_TxHeader.TxFrameType         = FDCAN_DATA_FRAME;              //数据帧
-    fdcan2_TxHeader.DataLength          = Ret_FDCAN_DLC_BYTES(msg->length);                            //数据长度
-    fdcan2_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;            
-    fdcan2_TxHeader.BitRateSwitch       = FDCAN_BRS_OFF;               //关闭速率切换
-    fdcan2_TxHeader.FDFormat            = FDCAN_CLASSIC_CAN;                //传统的CAN模式
-    fdcan2_TxHeader.TxEventFifoControl  = FDCAN_NO_TX_EVENTS;     //无发送事件
+    fdcan2_TxHeader.Identifier          = msg->id;
+    fdcan2_TxHeader.IdType              = FDCAN_EXTENDED_ID;
+    fdcan2_TxHeader.TxFrameType         = FDCAN_DATA_FRAME;
+    fdcan2_TxHeader.DataLength          = Ret_FDCAN_DLC_BYTES(msg->length);
+    fdcan2_TxHeader.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
+    fdcan2_TxHeader.BitRateSwitch       = FDCAN_BRS_OFF;
+    fdcan2_TxHeader.FDFormat            = FDCAN_CLASSIC_CAN;
+    fdcan2_TxHeader.TxEventFifoControl  = FDCAN_NO_TX_EVENTS;
     fdcan2_TxHeader.MessageMarker       = 0;                           
     
     return HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2,&fdcan2_TxHeader,msg->data);
