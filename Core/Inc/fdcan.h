@@ -53,6 +53,8 @@ typedef struct
   uint8_t TxIndex;
   uint8_t CurIndex;
 }tCAN_SendBuff;
+extern tCAN_SendBuff CAN_1_SendBuff;
+extern tCAN_SendBuff CAN_2_SendBuff;
 
 typedef struct
 {
@@ -60,9 +62,8 @@ typedef struct
   uint8_t RxIndex;
   uint8_t CurIndex;
 }tCAN_ReceiveBuff;
-
-
-
+extern tCAN_ReceiveBuff CAN_1_ReceiveBuff;
+extern tCAN_ReceiveBuff CAN_2_ReceiveBuff;
 
 /* USER CODE END Private defines */
 

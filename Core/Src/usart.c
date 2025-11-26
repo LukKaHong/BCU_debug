@@ -685,7 +685,7 @@ void _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   memcpy(Rx_Buff, huart4_Rx_DMA_Buff, huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len);
 
 #ifdef _485_1_Printf_Debug
-  printf("485_1_Rx_Len = %d\r\n", huart4_Rx_Len);
+  printf("485_1_Rx_Len = %d\n", huart4_Rx_Len);
   Printf_Array("485_1_Rx_Buff", Rx_Buff, huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len);
 #endif
 
@@ -717,7 +717,7 @@ void _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   memcpy(Rx_Buff, huart1_Rx_DMA_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
 
 #ifdef _485_2_Printf_Debug
-  printf("485_2_Rx_Len = %d\r\n", huart1_Rx_Len);
+  printf("485_2_Rx_Len = %d\n", huart1_Rx_Len);
   Printf_Array("485_2_Rx_Buff", Rx_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
 #endif
 }
@@ -747,7 +747,7 @@ void _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   memcpy(Rx_Buff, huart3_Rx_DMA_Buff, huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len);
 
 #ifdef _485_3_Printf_Debug
-  printf("485_3_Rx_Len = %d\r\n", huart3_Rx_Len);
+  printf("485_3_Rx_Len = %d\n", huart3_Rx_Len);
   Printf_Array("485_3_Rx_Buff", Rx_Buff, huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len);
 #endif
 }

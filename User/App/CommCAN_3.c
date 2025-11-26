@@ -12,6 +12,6 @@ void CommCAN_3_Task(void)
     while(1)
     {
         osDelay(1000);
-        // printf("__FUNC__: %s\r\n", __func__);
+        // printf("__FUNC__: %s\n", __func__);
     }
 }

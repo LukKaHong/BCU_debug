@@ -6,8 +6,7 @@
 
 ----------------------------------------------------------------------------------------------
 */
-tCAN_SendBuff CAN_2_SendBuff;
-tCAN_ReceiveBuff CAN_2_ReceiveBuff;
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -19,7 +18,7 @@ void CommCAN_2_Send_Pro(void)
     {
         if(FDCAN2_Send_Msg(&CAN_2_SendBuff.Msg[CAN_2_SendBuff.CurIndex]) != HAL_OK)
         {
-            printf("FDCAN2_Send_Msg error\r\n");
+            printf("FDCAN2_Send_Msg error\n");
             break;
         }
 
@@ -61,16 +60,16 @@ void CommCAN_2_Task(void)
     {
         osDelay(1000);
 
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
-        Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
+        // Add_CAN_2_SendMsg(&msg);
         CommCAN_2_Send_Pro();
 
         msg.data[0]++;

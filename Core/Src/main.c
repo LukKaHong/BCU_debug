@@ -77,7 +77,7 @@ void Printf_Array(uint8_t *str, uint8_t *Array,uint16_t Len)
     for(int i = 0; i < Len; i++)
         printf("0x%02x, ", Array[i]);
 
-    printf("\r\n");
+    printf("\n");
 }
 
 

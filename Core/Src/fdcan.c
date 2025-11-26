@@ -21,6 +21,11 @@
 #include "fdcan.h"
 
 /* USER CODE BEGIN 0 */
+tCAN_SendBuff CAN_1_SendBuff;
+tCAN_ReceiveBuff CAN_1_ReceiveBuff;
+
+tCAN_SendBuff CAN_2_SendBuff;
+tCAN_ReceiveBuff CAN_2_ReceiveBuff;
 
 static void FDCAN1_Filter_Cfg(void);
 static void FDCAN2_Filter_Cfg(void);
@@ -57,7 +62,7 @@ void MX_FDCAN1_Init(void)
   hfdcan1.Init.MessageRAMOffset = 0;
   hfdcan1.Init.StdFiltersNbr = 1;
   hfdcan1.Init.ExtFiltersNbr = 1;
-  hfdcan1.Init.RxFifo0ElmtsNbr = 1;
+  hfdcan1.Init.RxFifo0ElmtsNbr = 64;
   hfdcan1.Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
   hfdcan1.Init.RxFifo1ElmtsNbr = 0;
   hfdcan1.Init.RxFifo1ElmtSize = FDCAN_DATA_BYTES_8;
@@ -110,7 +115,7 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.ExtFiltersNbr = 1;
   hfdcan2.Init.RxFifo0ElmtsNbr = 0;
   hfdcan2.Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
-  hfdcan2.Init.RxFifo1ElmtsNbr = 1;
+  hfdcan2.Init.RxFifo1ElmtsNbr = 64;
   hfdcan2.Init.RxFifo1ElmtSize = FDCAN_DATA_BYTES_8;
   hfdcan2.Init.RxBuffersNbr = 0;
   hfdcan2.Init.RxBufferSize = FDCAN_DATA_BYTES_8;
@@ -372,5 +377,82 @@ HAL_StatusTypeDef FDCAN2_Send_Msg(CanMsgType *msg)
     
     return HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2,&fdcan2_TxHeader,msg->data);
 }
+
+
+void ProcessFIFOData(FDCAN_HandleTypeDef *hfdcan, uint32_t FifoLocation, tCAN_ReceiveBuff *RxBuff)
+{
+    FDCAN_RxHeaderTypeDef RxHeader;
+    uint8_t RxData[8];
+
+    uint32_t fifoCount = HAL_FDCAN_GetRxFifoFillLevel(hfdcan, FifoLocation);
+    
+    while (fifoCount > 0)
+    {
+        if (HAL_FDCAN_GetRxMessage(hfdcan, FifoLocation, &RxHeader, RxData) == HAL_OK)
+        {
+            
+          if (FifoLocation == FDCAN_RX_FIFO0)
+          {
+              printf("FIFO0 msg %d: ID=0x%X\n", RxBuff->RxIndex, RxHeader.Identifier);
+          }
+          else if (FifoLocation == FDCAN_RX_FIFO1)
+          {
+              printf("FIFO1 msg %d: ID=0x%X\n", RxBuff->RxIndex, RxHeader.Identifier);
+          }
+
+          RxBuff->Msg[RxBuff->RxIndex].id = RxHeader.Identifier;
+          RxBuff->Msg[RxBuff->RxIndex].length = RxHeader.DataLength;
+          memcpy(RxBuff->Msg[RxBuff->RxIndex].data, RxData, sizeof(RxBuff->Msg[RxBuff->RxIndex].data));
+          if(++RxBuff->RxIndex >= CAN_ReceiveBuff_Max) RxBuff->RxIndex = 0;
+
+        }
+
+        fifoCount = HAL_FDCAN_GetRxFifoFillLevel(hfdcan, FifoLocation);
+    }
+}
+
+
+
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
+{
+  if(hfdcan->Instance == FDCAN1)
+  {
+    // FDCAN_RxHeaderTypeDef fdcan1_RxHeader;
+    // uint8_t fdcan1_RxData[64];
+    // HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &fdcan1_RxHeader, fdcan1_RxData);
+
+    // printf("FDCAN1 -- ID = 0x%08lX, Length = %d, Data = ", fdcan1_RxHeader.Identifier, fdcan1_RxHeader.DataLength);
+    // for(int i = 0; i < fdcan1_RxHeader.DataLength; i++)
+    // {
+    //     printf("%02X ", fdcan1_RxData[i]);
+    // }
+    // printf("\n");
+
+    ProcessFIFOData(hfdcan, FDCAN_RX_FIFO0, &CAN_1_ReceiveBuff);
+
+  }
+}
+
+void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
+{
+  if(hfdcan->Instance == FDCAN2)
+  {
+    // FDCAN_RxHeaderTypeDef fdcan2_RxHeader;
+    // uint8_t fdcan2_RxData[64];
+    // HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO1, &fdcan2_RxHeader, fdcan2_RxData);
+
+    // printf("FDCAN2 -- ID = 0x%08lX, Length = %d, Data = ", fdcan2_RxHeader.Identifier, fdcan2_RxHeader.DataLength);
+    // for(int i = 0; i < fdcan2_RxHeader.DataLength; i++)
+    // {
+    //     printf("%02X ", fdcan2_RxData[i]);
+    // }
+    // printf("\n");
+
+    ProcessFIFOData(hfdcan, FDCAN_RX_FIFO1, &CAN_2_ReceiveBuff);
+
+  }
+}
+
+
 
 /* USER CODE END 1 */
