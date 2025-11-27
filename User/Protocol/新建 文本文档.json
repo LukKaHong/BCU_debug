@@ -1,0 +1,38 @@
+{
+    "protocol": "modbus",
+    "config": {
+        "addr": 1,
+        "baud": 115200,
+        "date_bit": 8,
+        "stop_bit": 1,
+        "parity": 0
+    },
+    "read_area": [
+        {
+            "start": 0,
+            "end": 10,
+            "cycle": 1000
+        },
+        {
+            "start": 20,
+            "end": 30,
+            "cycle": 500
+        },
+        {
+            "start": 100,
+            "end": 130,
+            "cycle": 100
+        }
+    ],
+    "table": [
+        {
+            "id": 200,
+            "name": "current",
+            "date_type": 0,
+            "reg_addr": 0,
+            "bit_field": 0,
+            "factor": 1,
+            "offset": 0
+        }
+    ]
+}
