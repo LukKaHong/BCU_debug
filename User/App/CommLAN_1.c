@@ -9,10 +9,16 @@
 */
 void CommLAN_1_Task(void)
 {
+    uint32_t r_event;
+    
     while(1)
     {
-        osDelay(1000);
-        // printf("__FUNC__: %s\n", __func__);
+        r_event = osEventFlagsWait(CommLAN_1_EventHandle, CommLAN_1_Event_Tick, osFlagsWaitAny, osWaitForever);
+
+        if(r_event & CommLAN_1_Event_Tick)
+        {
+            printf("%s\r\n", __func__);
+        }
     }
 }
 

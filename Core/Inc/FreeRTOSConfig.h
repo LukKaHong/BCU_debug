@@ -173,25 +173,32 @@ extern osSemaphoreId_t BinarySem_485_2_RxHandle;
 extern osSemaphoreId_t BinarySem_485_3_TxHandle;
 extern osSemaphoreId_t BinarySem_485_3_RxHandle;
 
+
+#define Comm485_1_Event_Tick      (1 << 0)
 extern osEventFlagsId_t Comm485_1_EventHandle;
+
+#define Comm485_2_Event_Tick      (1 << 0)
 extern osEventFlagsId_t Comm485_2_EventHandle;
+
+#define Comm485_3_Event_Tick      (1 << 0)
 extern osEventFlagsId_t Comm485_3_EventHandle;
 
-#define CommCAN_1_Event_Receive   (1 << 0)
-#define CommCAN_1_Event_Tick      (1 << 1)
+#define CommCAN_1_Event_Tick      (1 << 0)
+#define CommCAN_1_Event_Receive   (1 << 1)
 extern osEventFlagsId_t CommCAN_1_EventHandle;
 
-#define CommCAN_2_Event_Receive   (1 << 0)
-#define CommCAN_2_Event_Tick      (1 << 1)
+#define CommCAN_2_Event_Tick      (1 << 0)
+#define CommCAN_2_Event_Receive   (1 << 1)
 extern osEventFlagsId_t CommCAN_2_EventHandle;
 
-
-
+#define CommCAN_3_Event_Tick      (1 << 0)
+#define CommCAN_3_Event_Receive   (1 << 1)
 extern osEventFlagsId_t CommCAN_3_EventHandle;
 
-
-
+#define CommLAN_1_Event_Tick      (1 << 0)
 extern osEventFlagsId_t CommLAN_1_EventHandle;
+
+#define CommLAN_2_Event_Tick      (1 << 0)
 extern osEventFlagsId_t CommLAN_2_EventHandle;
 
 

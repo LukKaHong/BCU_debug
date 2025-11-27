@@ -78,6 +78,8 @@ void CommCAN_2_Task(void)
 
         if(r_event & CommCAN_2_Event_Tick)
         {
+            printf("%s\r\n", __func__);
+            
             static CanMsgType msg;
             msg.id++;
             msg.length = 8;
