@@ -1,38 +1,55 @@
 {
-    "protocol": "modbus",
+    "protocol": "0",
     "config": {
+        "device_type": 0,
+        "port": 1,
         "addr": 1,
-        "baud": 115200,
+        "baud": 9600,
         "date_bit": 8,
         "stop_bit": 1,
-        "parity": 0
+        "parity": 0,
+        "area": {
+            "area_num": 2,
+            "area_attr": [
+                {
+                    "start": 0,
+                    "end": 10,
+                    "cycle": 100
+                },
+                {
+                    "start": 20,
+                    "end": 40,
+                    "cycle": 200
+                }
+            ]
+        }
     },
-    "read_area": [
-        {
-            "start": 0,
-            "end": 10,
-            "cycle": 1000
-        },
-        {
-            "start": 20,
-            "end": 30,
-            "cycle": 500
-        },
-        {
-            "start": 100,
-            "end": 130,
-            "cycle": 100
-        }
-    ],
-    "table": [
-        {
-            "id": 200,
-            "name": "current",
-            "date_type": 0,
-            "reg_addr": 0,
-            "bit_field": 0,
-            "factor": 1,
-            "offset": 0
-        }
-    ]
+    "node": {
+        "node_num": 1,
+        "node_attr": [
+            {
+                "id": 100,
+                "date_type": 17,
+                "reg_addr": 1,
+                "bit_field_msb": 4,
+                "bit_field_lsb": 0,
+                "factor": 1,
+                "offset": 0,
+                "enum": {
+                    "enum_num": 3,
+                    "enum_attr": [
+                        {
+                            "20": 1
+                        },
+                        {
+                            "21": 2
+                        },
+                        {
+                            "22": 3
+                        }
+                    ]
+                }
+            }
+        ]
+    }
 }
