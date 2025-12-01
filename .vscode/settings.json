@@ -14,6 +14,9 @@
         "comm485_3.h": "c",
         "fdcan.h": "c",
         "stm32h7xx_hal_def.h": "c",
-        "commcan_1.h": "c"
+        "commcan_1.h": "c",
+        "commlan_2.h": "c",
+        "commcan_2.h": "c",
+        "commcan_3.h": "c"
     }
 }

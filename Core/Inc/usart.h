@@ -41,7 +41,8 @@ extern UART_HandleTypeDef huart2;
 extern UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN Private defines */
-
+#define Uart_Tx_Buff_Size 1024
+#define Uart_Rx_Buff_Size 1024
 /* USER CODE END Private defines */
 
 void MX_UART4_Init(void);
@@ -50,10 +51,10 @@ void MX_USART2_UART_Init(void);
 void MX_USART3_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-extern void _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
-extern void _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
-extern void _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
-
+extern uint16_t _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
+extern uint16_t _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
+extern uint16_t _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
+extern uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
 
 /* USER CODE END Prototypes */
 

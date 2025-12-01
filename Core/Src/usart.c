@@ -28,19 +28,16 @@
 // #define _485_2_Printf_Debug
 // #define _485_3_Printf_Debug
 
-#define Tx_DMA_Buff_Size (1024)
-#define Rx_DMA_Buff_Size (1024)
-
-static uint8_t huart1_Tx_DMA_Buff[Tx_DMA_Buff_Size];
-static uint8_t huart1_Rx_DMA_Buff[Rx_DMA_Buff_Size];
+static uint8_t huart1_Tx_DMA_Buff[Uart_Tx_Buff_Size];
+static uint8_t huart1_Rx_DMA_Buff[Uart_Rx_Buff_Size];
 static uint16_t huart1_Rx_Len;
 
-static uint8_t huart3_Tx_DMA_Buff[Tx_DMA_Buff_Size];
-static uint8_t huart3_Rx_DMA_Buff[Rx_DMA_Buff_Size];
+static uint8_t huart3_Tx_DMA_Buff[Uart_Tx_Buff_Size];
+static uint8_t huart3_Rx_DMA_Buff[Uart_Rx_Buff_Size];
 static uint16_t huart3_Rx_Len;
 
-static uint8_t huart4_Tx_DMA_Buff[Tx_DMA_Buff_Size];
-static uint8_t huart4_Rx_DMA_Buff[Rx_DMA_Buff_Size];
+static uint8_t huart4_Tx_DMA_Buff[Uart_Tx_Buff_Size];
+static uint8_t huart4_Rx_DMA_Buff[Uart_Rx_Buff_Size];
 static uint16_t huart4_Rx_Len;
 /* USER CODE END 0 */
 
@@ -641,26 +638,26 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   {
     HAL_UART_AbortReceive(&huart1);
     huart1_Rx_Len = 0;
-    memset(huart1_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
-    HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+    memset(huart1_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Uart_Rx_Buff_Size);
   }
   else if(huart->Instance == USART3)
   {
     HAL_UART_AbortReceive(&huart3);
     huart3_Rx_Len = 0;
-    memset(huart3_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
-    HAL_UARTEx_ReceiveToIdle_DMA(&huart3,huart3_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+    memset(huart3_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart3,huart3_Rx_DMA_Buff,Uart_Rx_Buff_Size);
   }
   else if(huart->Instance == UART4)
   {
     HAL_UART_AbortReceive(&huart4);
     huart4_Rx_Len = 0;
-    memset(huart4_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
-    HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+    memset(huart4_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Uart_Rx_Buff_Size);
   }
 }
 
-void _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+uint16_t _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
 #ifdef _485_1_Printf_Debug
   Printf_Array("485_1_Tx_Buff", Tx_Buff, Tx_Len);
@@ -676,8 +673,8 @@ void _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   osSemaphoreAcquire(BinarySem_485_1_RxHandle, 0);
 
   huart4_Rx_Len = 0;
-  memset(huart4_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
-  HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+  memset(huart4_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Uart_Rx_Buff_Size);
 
   osSemaphoreAcquire(BinarySem_485_1_RxHandle, pdMS_TO_TICKS(3000));
   HAL_UART_AbortReceive(&huart4);
@@ -689,10 +686,11 @@ void _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   Printf_Array("485_1_Rx_Buff", Rx_Buff, huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len);
 #endif
 
+  return huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len;
 }
 
 
-void _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+uint16_t _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
 #ifdef _485_2_Printf_Debug
   Printf_Array("485_2_Tx_Buff", Tx_Buff, Tx_Len);
@@ -708,8 +706,8 @@ void _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   osSemaphoreAcquire(BinarySem_485_2_RxHandle, 0);
 
   huart1_Rx_Len = 0;
-  memset(huart1_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
-  HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+  memset(huart1_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Uart_Rx_Buff_Size);
 
   osSemaphoreAcquire(BinarySem_485_2_RxHandle, pdMS_TO_TICKS(3000));
   HAL_UART_AbortReceive(&huart1);
@@ -720,9 +718,11 @@ void _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   printf("485_2_Rx_Len = %d\n", huart1_Rx_Len);
   Printf_Array("485_2_Rx_Buff", Rx_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
 #endif
+
+  return huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len;
 }
 
-void _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+uint16_t _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
 #ifdef _485_3_Printf_Debug
   Printf_Array("485_3_Tx_Buff", Tx_Buff, Tx_Len);
@@ -738,8 +738,8 @@ void _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   osSemaphoreAcquire(BinarySem_485_3_RxHandle, 0);
 
   huart3_Rx_Len = 0;
-  memset(huart3_Rx_DMA_Buff, 0, Rx_DMA_Buff_Size);
-  HAL_UARTEx_ReceiveToIdle_DMA(&huart3,huart3_Rx_DMA_Buff,Rx_DMA_Buff_Size);
+  memset(huart3_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart3,huart3_Rx_DMA_Buff,Uart_Rx_Buff_Size);
 
   osSemaphoreAcquire(BinarySem_485_3_RxHandle, pdMS_TO_TICKS(3000));
   HAL_UART_AbortReceive(&huart3);
@@ -750,8 +750,28 @@ void _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint1
   printf("485_3_Rx_Len = %d\n", huart3_Rx_Len);
   Printf_Array("485_3_Rx_Buff", Rx_Buff, huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len);
 #endif
+
+  return huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len;
 }
 
+
+
+uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+{
+  switch(port)
+  {
+      case 0:
+          return _485_1_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
+      case 1:
+          return _485_2_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
+      case 2:
+          return _485_3_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
+      default:
+          break;
+  }
+
+  return 0;
+}
 
 
 

@@ -1,4 +1,90 @@
 #include "ProtocolConvert.h"
+#include "ModbusRTU.h"
+#include "usart.h"
+
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+#define Node_PCS_Max 2
+#define Node_Air_Max 2
+#define Node_Meter_Max 2
+#define Node_FIre_Max 2
+#define Node_Doil_Max 2
+#define Node_PvPCS_Max 2
+
+typedef struct
+{
+    uint16_t Node[512];
+}Node_PCS_t;
+Node_PCS_t Node_PCS[Node_PCS_Max];
+
+typedef struct
+{
+    uint16_t Node[512];
+}Node_Air_t;
+Node_Air_t Node_Air[Node_Air_Max];
+
+typedef struct
+{
+    uint16_t Node[512];
+}Node_Meter_t;
+Node_Meter_t Node_Meter[Node_Meter_Max];
+
+typedef struct
+{
+    uint16_t Node[512];
+}Node_FIre_t;
+Node_FIre_t Node_FIre[Node_FIre_Max];
+
+typedef struct
+{
+    uint16_t Node[512];
+}Node_Doil_t;
+Node_Doil_t Node_Doil[Node_Doil_Max];
+
+typedef struct
+{
+    uint16_t Node[512];
+}Node_PvPCS_t;
+Node_PvPCS_t Node_PvPCS[Node_PvPCS_Max];
+
+
+
+PortConfig_t PortConfig;
+
+
+
+
+
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+uint16_t* GetNode(ProtocolConvert_device_type_t device_type, uint8_t no)
+{
+    switch (device_type)
+    {
+    // case DEVICE_TYPE_PCS:
+    //     return &Node_PCS[no][0];
+    // case DEVICE_TYPE_Air:
+    //     return &Node_Air[no][0];
+    // case DEVICE_TYPE_Meter:
+    //     return &Node_Meter[no][0];
+    // case DEVICE_TYPE_FIre:
+    //     return &Node_FIre[no][0];
+    // case DEVICE_TYPE_Doil:
+    //     return &Node_Doil[no][0];
+    // case DEVICE_TYPE_PvPCS:
+    //     return &Node_PvPCS[no][0];
+    default:
+        return NULL;
+    }
+}
 
 
 
@@ -80,7 +166,7 @@ void DataToNode(uint16_t* node, double temp, ProtocolConvert_model_type_t model_
 
 ----------------------------------------------------------------------------------------------
 */
-void ProtocolConvert_485(uint16_t* node, uint8_t* byte, ProtocolConvert_CAN_t* convert)
+void ProtocolConvert_485(uint16_t* node, uint8_t* byte, ProtocolConvert_485_t* convert)
 {
     double temp = 0.0;
 
@@ -339,6 +425,102 @@ void ProtocolConvert_CAN(uint16_t* node, uint8_t* byte, ProtocolConvert_CAN_t* c
 
     DataToNode(node, temp, convert->model_type, convert->model_id);
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+void Comm_485_Pro(uint8_t port)
+{
+    PortConfig_485_t *config = &PortConfig._485[port];
+
+    for(int i = 0; i < config->device_num; i++)//扫描所有设备
+    {
+        for(int j = 0; j < config->device_attr[i].area_num; j++)//扫描所有区域
+        {
+            config->device_attr[i].area_attr[j].cyclecnt++;
+            if(config->device_attr[i].area_attr[j].cyclecnt >= config->device_attr[i].area_attr[j].cycle)//定时查询
+            {
+                config->device_attr[i].area_attr[j].cyclecnt = 0;
+
+                //send
+                uint16_t tx_len = 0;
+                uint16_t rx_len = 0;
+                uint16_t quantity = config->device_attr[i].area_attr[j].end_addr - config->device_attr[i].area_attr[j].start_addr + 1;
+                //encode
+                ModbusRTU_BuildReadHolding(
+                    config->device_attr[i].device_addr,//设备地址
+                    config->device_attr[i].area_attr[j].start_addr,//寄存器地址
+                    quantity,//寄存器数量
+                    config->tx_buff,
+                    &tx_len
+                );
+
+                //send and receive
+                rx_len = _485_Tx_And_Rx(port, config->tx_buff, tx_len, config->rx_buff, Uart_Rx_Buff_Size);
+
+                const uint8_t* data;
+                uint16_t data_len;
+
+                //校验
+                int32_t result = ModbusRTU_ParseReadHoldingRsp(
+                        config->rx_buff,
+                        rx_len,//接收到的数据长度
+                        config->device_attr[i].device_addr,//从机地址
+                        quantity,//寄存器数量
+                        &data,//存寄存器数据的指针
+                        &data_len//寄存器数据长度
+                    );
+
+                if(result == MB_OK)
+                {
+
+                    // for(int k = 0; k < quantity; k++)
+                    // {
+                    //     uint16_t node = config->device_attr[i].area_attr[j].start_addr + k;
+                    //     ProtocolConvert_485(&node, &data[k * 2], &config->device_attr[i].area_attr[j]);
+                    // }
+
+
+
+
+                    // ProtocolConvert_485(GetNode(config->device_attr[i].device_type, config->device_attr[i].device_no), 
+                    // &data[k * 2], 
+                    // &config->device_attr[i].area_attr[j]);
+
+
+
+
+                }
+            }
+        }
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+
+
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
 
 
