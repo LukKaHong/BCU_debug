@@ -1070,6 +1070,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Protocol\ProtocolConvert.c</FilePath>
             </File>
+            <File>
+              <FileName>ModbusRTU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Protocol\ModbusRTU.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -7,9 +7,6 @@
 
 ----------------------------------------------------------------------------------------------
 */
-uint32_t commonNode[10] = {0};
-
-
 uint16_t GetBits_16(uint16_t data, uint8_t bit_field_msb, uint8_t bit_field_lsb)
 {
     data <<= 15 - bit_field_msb;
