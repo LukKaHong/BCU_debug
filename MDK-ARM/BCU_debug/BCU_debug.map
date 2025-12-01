@@ -2266,7 +2266,6 @@ Section Cross References
     protocolconvert.o(i.Comm_485_Pro) refers to modbusrtu.o(i.ModbusRTU_BuildReadHolding) for ModbusRTU_BuildReadHolding
     protocolconvert.o(i.Comm_485_Pro) refers to usart.o(i._485_Tx_And_Rx) for _485_Tx_And_Rx
     protocolconvert.o(i.Comm_485_Pro) refers to modbusrtu.o(i.ModbusRTU_ParseReadHoldingRsp) for ModbusRTU_ParseReadHoldingRsp
-    protocolconvert.o(i.Comm_485_Pro) refers to protocolconvert.o(.bss) for PortConfig
     protocolconvert.o(i.ProtocolConvert_485) refers to protocolconvert.o(i.GetBits_8) for GetBits_8
     protocolconvert.o(i.ProtocolConvert_485) refers to protocolconvert.o(i.GetBits_16) for GetBits_16
     protocolconvert.o(i.ProtocolConvert_485) refers to protocolconvert.o(i.DataToNode) for DataToNode
@@ -3821,14 +3820,14 @@ Removing Unused input sections from the image.
     Removing protocolconvert.o(.rev16_text), (4 bytes).
     Removing protocolconvert.o(.revsh_text), (4 bytes).
     Removing protocolconvert.o(.rrx_text), (6 bytes).
-    Removing protocolconvert.o(i.Comm_485_Pro), (376 bytes).
+    Removing protocolconvert.o(i.Comm_485_Pro), (226 bytes).
     Removing protocolconvert.o(i.DataToNode), (184 bytes).
     Removing protocolconvert.o(i.GetBits_16), (20 bytes).
     Removing protocolconvert.o(i.GetBits_8), (20 bytes).
     Removing protocolconvert.o(i.GetNode), (8 bytes).
     Removing protocolconvert.o(i.ProtocolConvert_485), (928 bytes).
     Removing protocolconvert.o(i.ProtocolConvert_CAN), (1058 bytes).
-    Removing protocolconvert.o(.bss), (13116 bytes).
+    Removing protocolconvert.o(.bss), (12456 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildReadHolding), (86 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildWriteMultiple), (140 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildWriteSingle), (80 bytes).
@@ -3843,7 +3842,7 @@ Removing Unused input sections from the image.
     Removing d2f.o(.text), (56 bytes).
     Removing fepilogue.o(.text), (110 bytes).
 
-1220 unused section(s) (total 146631 bytes) removed from the image.
+1220 unused section(s) (total 145821 bytes) removed from the image.
 
 ==============================================================================
 
