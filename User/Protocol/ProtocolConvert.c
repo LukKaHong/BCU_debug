@@ -1,6 +1,7 @@
 #include "ProtocolConvert.h"
 #include "ModbusRTU.h"
 #include "usart.h"
+#include "cJSON.h"
 
 
 /*
@@ -581,11 +582,63 @@ void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
 
 ----------------------------------------------------------------------------------------------
 */
-// void cJSON_To_PortConfig(char *message, )
-// {
+void cJSON_To_PortConfig(char *message)
+{
+    printf("message : %s\n", message);
 
+    cJSON *root = cJSON_Parse(message);
+    if(root == NULL)
+        return;
 
-// }
+    cJSON *root_modbus = cJSON_GetObjectItem(root, "modbus"); 
+    if(root_modbus != NULL)
+    {
+        for(uint8_t i = 0; i < cJSON_GetArraySize(root_modbus); i++)
+        {
+            cJSON *root_modbus_array = cJSON_GetArrayItem(root_modbus, i);
+            PortConfig_modbus_t* modbus = GetPortConfig_modbus((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "port")));
+            modbus->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "baud"));
+            modbus->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "date_bit"));
+            modbus->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "stop_bit"));
+            modbus->parity     = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "parity"));
+            modbus->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "device_num"));
+
+            cJSON *root_modbus_array_device_attr = cJSON_GetObjectItem(root_modbus_array, "device_attr"); 
+
+            for(uint8_t j = 0; j < cJSON_GetArraySize(root_modbus_array_device_attr); j++)
+            {
+                cJSON *root_modbus_array_device_attr_array = cJSON_GetArrayItem(root_modbus_array_device_attr, j);
+                modbus->device_attr[j].device_type = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_type"));
+                modbus->device_attr[j].device_no = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_no"));
+                modbus->device_attr[j].device_addr = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_addr"));
+            }
+        }
+    }
+
+    cJSON *root_CAN = cJSON_GetObjectItem(root, "CAN"); 
+    if(root_CAN != NULL)
+    {
+        for(uint8_t i = 0; i < cJSON_GetArraySize(root_CAN); i++)
+        {
+            cJSON *root_CAN_array = cJSON_GetArrayItem(root_CAN, i);
+            PortConfig_CAN_t* CAN = GetPortConfig_CAN((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "port")));
+            CAN->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "baud"));
+            CAN->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "device_num"));
+
+            cJSON *root_CAN_array_device_attr = cJSON_GetObjectItem(root_CAN_array, "device_attr"); 
+
+            for(uint8_t j = 0; j < cJSON_GetArraySize(root_CAN_array_device_attr); j++)
+            {
+                cJSON *root_CAN_array_device_attr_array = cJSON_GetArrayItem(root_CAN_array_device_attr, j);
+                CAN->device_attr[j].device_type = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_type"));
+                CAN->device_attr[j].device_no = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_no"));
+                CAN->device_attr[j].master_addr = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "master_addr"));
+                CAN->device_attr[j].slave_addr = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "slave_addr"));
+                CAN->device_attr[j].addr_format = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "addr_format"));
+            }
+        }
+    }
+}
 /*
 ----------------------------------------------------------------------------------------------
 

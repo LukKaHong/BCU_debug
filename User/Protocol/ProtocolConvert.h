@@ -158,7 +158,6 @@ typedef struct
     uint8_t parity;//校验位
     uint8_t device_num;//设备数量
     modbus_device_attr_t device_attr[PortConfig_modbus_Device_Num];//设备属性
-
 }PortConfig_modbus_t;
 
 
