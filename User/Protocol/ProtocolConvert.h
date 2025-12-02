@@ -18,12 +18,14 @@
 */
 typedef enum
 {
-    DEVICE_TYPE_PCS    = 0,
-    DEVICE_TYPE_Air    = 1,
-    DEVICE_TYPE_Meter  = 2,
-    DEVICE_TYPE_FIre   = 3,
-    DEVICE_TYPE_Doil   = 4,
-    DEVICE_TYPE_PvPCS  = 5,
+    DEVICE_TYPE_PCS       = 0,
+    DEVICE_TYPE_Air       = 1,
+    DEVICE_TYPE_Meter     = 2,
+    DEVICE_TYPE_Fire      = 3,
+    DEVICE_TYPE_Doil      = 4,
+    DEVICE_TYPE_Pv        = 5,
+    DEVICE_TYPE_Coolwater = 6,
+    DEVICE_TYPE_Dehum     = 7,
     DEVICE_TYPE_Max,
 }DEVICE_TYPE_e;
 
@@ -70,10 +72,10 @@ typedef struct
 ----------------------------------------------------------------------------------------------
 */
 #define enum_num_max (8)
-#define _485_area_num_max (10)
-#define _485_node_attr_num_max (512)
+#define modbus_area_num_max (10)
+#define modbus_node_attr_num_max (256)
 
-#define can_node_attr_num_max (512)
+#define can_node_attr_num_max (256)
 
 typedef struct
 {
@@ -87,23 +89,22 @@ typedef struct
     float offset;//偏移量
     uint16_t enum_num;//枚举数量
     EnumConvert_t enum_convert[enum_num_max];//枚举转换
-}_485_node_attr_t;
+}modbus_node_attr_t;
 
 typedef struct
 {
     uint16_t reg_addr;//寄存器地址
     uint16_t reg_num;//寄存器数量
     uint16_t cycle;//周期
-}_485_area_attr_t;
+}modbus_area_attr_t;
 
 typedef struct
 {
     uint8_t area_num;//区域数量
-    _485_area_attr_t area_attr[_485_area_num_max];//区域属性
+    modbus_area_attr_t area_attr[modbus_area_num_max];//区域属性
     uint16_t node_num;//点表数量
-    _485_node_attr_t node_attr[_485_node_attr_num_max];//点表属性
-}ProtocolConvert_485_t;
-
+    modbus_node_attr_t node_attr[modbus_node_attr_num_max];//点表属性
+}ProtocolConvert_modbus_t;
 
 
 
@@ -133,8 +134,8 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-#define PortConfig_485_Num (3)
-#define PortConfig_485_Device_Num (3)
+#define PortConfig_modbus_Num (3)
+#define PortConfig_modbus_Device_Num (3)
 
 #define PortConfig_CAN_Num (3)
 #define PortConfig_CAN_Device_Num (3)
@@ -146,8 +147,8 @@ typedef struct
     uint8_t device_addr;//设备地址
 
     /*----------------*/
-    uint16_t cyclecnt[_485_area_num_max];//周期计数器
-}_485_device_attr_t;
+    uint16_t cyclecnt[modbus_area_num_max];//周期计数器
+}modbus_device_attr_t;
 
 typedef struct
 {
@@ -156,9 +157,9 @@ typedef struct
     uint8_t stop_bit;//停止位
     uint8_t parity;//校验位
     uint8_t device_num;//设备数量
-    _485_device_attr_t device_attr[PortConfig_485_Device_Num];//设备属性
+    modbus_device_attr_t device_attr[PortConfig_modbus_Device_Num];//设备属性
 
-}PortConfig_485_t;
+}PortConfig_modbus_t;
 
 
 typedef struct
@@ -185,51 +186,82 @@ typedef struct
 */
 #define PCS_Node_Max (1024)
 #define PCS_Num_Max (2)
-
-#define Air_Node_Max (1024)
-#define Air_Num_Max (2)
-
-#define Meter_Node_Max (1024)
-#define Meter_Num_Max (2)
-
-#define FIre_Node_Max (1024)
-#define FIre_Num_Max (2)
-
-#define Doil_Node_Max (1024)
-#define Doil_Num_Max (2)
-
-#define PvPCS_Node_Max (1024)
-#define PvPCS_Num_Max (2)
-
 typedef struct
 {
     uint16_t Node[PCS_Node_Max];
 }Node_PCS_t;
 
+#define Air_Node_Max (1024)
+#define Air_Num_Max (1)
 typedef struct
 {
     uint16_t Node[Air_Node_Max];
 }Node_Air_t;
 
+#define Meter_Node_Max (1024)
+#define Meter_Num_Max (2)
 typedef struct
 {
     uint16_t Node[Meter_Node_Max];
 }Node_Meter_t;
 
+#define Fire_Node_Max (1024)
+#define Fire_Num_Max (2)
 typedef struct
 {
-    uint16_t Node[FIre_Node_Max];
-}Node_FIre_t;
+    uint16_t Node[Fire_Node_Max];
+}Node_Fire_t;
 
+#define Doil_Node_Max (1024)
+#define Doil_Num_Max (1)
 typedef struct
 {
     uint16_t Node[Doil_Node_Max];
 }Node_Doil_t;
 
+#define Pv_Node_Max (1024)
+#define Pv_Num_Max (2)
 typedef struct
 {
-    uint16_t Node[PvPCS_Node_Max];
-}Node_PvPCS_t;
+    uint16_t Node[Pv_Node_Max];
+}Node_Pv_t;
+
+#define Coolwater_Node_Max (1024)
+#define Coolwater_Num_Max (1)
+typedef struct
+{
+    uint16_t Node[Coolwater_Node_Max];
+}Node_Coolwater_t;
+
+#define Dehum_Node_Max (1024)
+#define Dehum_Num_Max (1)
+typedef struct
+{
+    uint16_t Node[Dehum_Node_Max];
+}Node_Dehum_t;
+
+
+
+// #define ECU_Node_Max (1024)
+// #define ECU_Num_Max (1)
+// typedef struct
+// {
+//     uint16_t Node[ECU_Node_Max];
+// }Node_ECU_t;
+
+// #define BMS_Node_Max (1024)
+// #define BMS_Num_Max (1)
+// typedef struct
+// {
+//     uint16_t Node[BMS_Node_Max];
+// }Node_BMS_t;
+
+// #define BMU_Node_Max (1024)
+// #define BMU_Num_Max (20)
+// typedef struct
+// {
+//     uint16_t Node[BMU_Node_Max];
+// }Node_BMU_t;
 /*
 ----------------------------------------------------------------------------------------------
 
