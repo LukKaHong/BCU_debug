@@ -548,6 +548,66 @@ void StartCommLAN_2_Task(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void Task_Cycle_Count(void)
+{
+  static uint16_t Comm485_1_tick = 0;
+  static uint16_t Comm485_2_tick = 0;
+  static uint16_t Comm485_3_tick = 0;
+  static uint16_t CommCAN_1_tick = 0;
+  static uint16_t CommCAN_2_tick = 0;
+  static uint16_t CommCAN_3_tick = 0;
+  static uint16_t CommLAN_1_tick = 0;
+  static uint16_t CommLAN_2_tick = 0;
+
+  if(++Comm485_1_tick >= Comm485_1_Task_Cycle)
+  {
+    Comm485_1_tick = 0;
+    osEventFlagsSet(Comm485_1_EventHandle, Comm485_1_Event_Tick);
+  }
+
+  if(++Comm485_2_tick >= Comm485_2_Task_Cycle)
+  {
+    Comm485_2_tick = 0;
+    osEventFlagsSet(Comm485_2_EventHandle, Comm485_2_Event_Tick);
+  }
+
+  if(++Comm485_3_tick >= Comm485_3_Task_Cycle)
+  {
+    Comm485_3_tick = 0;
+    osEventFlagsSet(Comm485_3_EventHandle, Comm485_3_Event_Tick);
+  }
+
+  if(++CommCAN_1_tick >= CommCAN_1_Task_Cycle)
+  {
+    CommCAN_1_tick = 0;
+    osEventFlagsSet(CommCAN_1_EventHandle, CommCAN_1_Event_Tick);
+  }
+
+  if(++CommCAN_2_tick >= CommCAN_2_Task_Cycle)
+  {
+    CommCAN_2_tick = 0;
+    osEventFlagsSet(CommCAN_2_EventHandle, CommCAN_2_Event_Tick);
+  }
+
+  if(++CommCAN_3_tick >= CommCAN_3_Task_Cycle)
+  {
+    CommCAN_3_tick = 0;
+    osEventFlagsSet(CommCAN_3_EventHandle, CommCAN_3_Event_Tick);
+  }
+
+  if(++CommLAN_1_tick >= CommLAN_1_Task_Cycle)
+  {
+    CommLAN_1_tick = 0;
+    osEventFlagsSet(CommLAN_1_EventHandle, CommLAN_1_Event_Tick);
+  }
+
+  if(++CommLAN_2_tick >= CommLAN_2_Task_Cycle)
+  {
+    CommLAN_2_tick = 0;
+    osEventFlagsSet(CommLAN_2_EventHandle, CommLAN_2_Event_Tick);
+  }
+}
+
 
 /* USER CODE END Application */
 

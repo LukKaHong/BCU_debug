@@ -755,16 +755,15 @@ uint16_t _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, u
 }
 
 
-
 uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
   switch(port)
   {
-      case 0:
-          return _485_1_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
       case 1:
-          return _485_2_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
+          return _485_1_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
       case 2:
+          return _485_2_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
+      case 3:
           return _485_3_Tx_And_Rx(Tx_Buff, Tx_Len, Rx_Buff, Rx_Len);
       default:
           break;
@@ -772,10 +771,6 @@ uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t
 
   return 0;
 }
-
-
-
-
 
 
 /* USER CODE END 1 */

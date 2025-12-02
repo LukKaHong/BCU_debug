@@ -2,7 +2,7 @@
 #define __PROTOCOL_CONVERT_H__
 
 #include "main.h"
-
+#include "fdcan.h"
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -69,8 +69,11 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-#define enum_num_max 16
+#define enum_num_max (8)
 #define _485_area_num_max (10)
+#define _485_node_attr_num_max (512)
+
+#define can_node_attr_num_max (512)
 
 typedef struct
 {
@@ -98,7 +101,7 @@ typedef struct
     uint8_t area_num;//区域数量
     _485_area_attr_t area_attr[_485_area_num_max];//区域属性
     uint16_t node_num;//点表数量
-    _485_node_attr_t node_attr[1024];//点表属性
+    _485_node_attr_t node_attr[_485_node_attr_num_max];//点表属性
 }ProtocolConvert_485_t;
 
 
@@ -123,7 +126,7 @@ typedef struct
 typedef struct
 {
     uint16_t node_num;//点表数量
-    CAN_node_attr_t node_attr[1024];//点表属性
+    CAN_node_attr_t node_attr[can_node_attr_num_max];//点表属性
 }ProtocolConvert_CAN_t;
 /*
 ----------------------------------------------------------------------------------------------
@@ -131,9 +134,9 @@ typedef struct
 ----------------------------------------------------------------------------------------------
 */
 #define PortConfig_485_Num (3)
-#define PortConfig_CAN_Num (3)
-
 #define PortConfig_485_Device_Num (3)
+
+#define PortConfig_CAN_Num (3)
 #define PortConfig_CAN_Device_Num (3)
 
 typedef struct
@@ -155,9 +158,6 @@ typedef struct
     uint8_t device_num;//设备数量
     _485_device_attr_t device_attr[PortConfig_485_Device_Num];//设备属性
 
-    /*----------------*/
-    uint8_t *tx_buff;//发送缓冲区
-    uint8_t *rx_buff;//接收缓冲区
 }PortConfig_485_t;
 
 
@@ -177,12 +177,67 @@ typedef struct
     CAN_device_attr_t device_attr[PortConfig_CAN_Device_Num];//设备属性
 }PortConfig_CAN_t;
 
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+#define PCS_Node_Max (1024)
+#define PCS_Num_Max (2)
+
+#define Air_Node_Max (1024)
+#define Air_Num_Max (2)
+
+#define Meter_Node_Max (1024)
+#define Meter_Num_Max (2)
+
+#define FIre_Node_Max (1024)
+#define FIre_Num_Max (2)
+
+#define Doil_Node_Max (1024)
+#define Doil_Num_Max (2)
+
+#define PvPCS_Node_Max (1024)
+#define PvPCS_Num_Max (2)
+
 typedef struct
 {
-    PortConfig_485_t _485[PortConfig_485_Num];
-    PortConfig_CAN_t can[PortConfig_CAN_Num];
-}PortConfig_t;
-extern PortConfig_t PortConfig;
+    uint16_t Node[PCS_Node_Max];
+}Node_PCS_t;
+
+typedef struct
+{
+    uint16_t Node[Air_Node_Max];
+}Node_Air_t;
+
+typedef struct
+{
+    uint16_t Node[Meter_Node_Max];
+}Node_Meter_t;
+
+typedef struct
+{
+    uint16_t Node[FIre_Node_Max];
+}Node_FIre_t;
+
+typedef struct
+{
+    uint16_t Node[Doil_Node_Max];
+}Node_Doil_t;
+
+typedef struct
+{
+    uint16_t Node[PvPCS_Node_Max];
+}Node_PvPCS_t;
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+extern void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff);
+extern void Comm_CAN_Pro(uint8_t port, CanMsgType *msg);
+
 /*
 ----------------------------------------------------------------------------------------------
 

@@ -1,6 +1,9 @@
 #include "CommCAN_2.h"
 #include "cmsis_os.h"
 #include "fdcan.h"
+#include "ProtocolConvert.h"
+
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -46,14 +49,16 @@ void CommCAN_2_Receive_Pro(void)
 {
     while(CAN_2_ReceiveBuff.CurIndex != CAN_2_ReceiveBuff.RxIndex)
     {
-        printf("FDCAN2_Receive_Msg: ID=0x%X, Length=%d, Data=", CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].id, CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].length);
-        for(int i = 0; i < CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].length; i++)
-        {
-            printf("%02X ", CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].data[i]);
-        }
-        printf("\n");
+        // printf("FDCAN2_Receive_Msg: ID=0x%X, Length=%d, Data=", CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].id, CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].length);
+        // for(int i = 0; i < CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].length; i++)
+        // {
+        //     printf("%02X ", CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex].data[i]);
+        // }
+        // printf("\n");
 
-        Add_CAN_2_SendMsg(&CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+        // Add_CAN_2_SendMsg(&CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+
+        Comm_CAN_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
 
         if(++CAN_2_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_2_ReceiveBuff.CurIndex = 0;
     }
@@ -65,30 +70,28 @@ void CommCAN_2_Receive_Pro(void)
 */
 void CommCAN_2_Task(void)
 {
-    uint32_t r_event;
-
     while(1)
     {
-        r_event = osEventFlagsWait(CommCAN_2_EventHandle, CommCAN_2_Event_Receive | CommCAN_2_Event_Tick, osFlagsWaitAny, osWaitForever);
+        uint32_t r_event = osEventFlagsWait(CommCAN_2_EventHandle, CommCAN_2_Event_Receive | CommCAN_2_Event_Tick, osFlagsWaitAny, osWaitForever);
 
         if(r_event & CommCAN_2_Event_Receive)
         {
             CommCAN_2_Receive_Pro();
         }
 
-        if(r_event & CommCAN_2_Event_Tick)
-        {
-            printf("%s\r\n", __func__);
+        // if(r_event & CommCAN_2_Event_Tick)
+        // {
+        //     printf("%s\r\n", __func__);
             
-            static CanMsgType msg;
-            msg.id++;
-            msg.length = 8;
-            for(int i = 0; i < 8; i++)
-            {
-                msg.data[i] = i;
-            }
-            Add_CAN_2_SendMsg(&msg); 
-        }
+        //     static CanMsgType msg;
+        //     msg.id++;
+        //     msg.length = 8;
+        //     for(int i = 0; i < 8; i++)
+        //     {
+        //         msg.data[i] = i;
+        //     }
+        //     Add_CAN_2_SendMsg(&msg); 
+        // }
         
         CommCAN_2_Send_Pro();
     }

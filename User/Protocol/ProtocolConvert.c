@@ -8,59 +8,19 @@
 
 ----------------------------------------------------------------------------------------------
 */
-#define Node_PCS_Max 2
-#define Node_Air_Max 2
-#define Node_Meter_Max 2
-#define Node_FIre_Max 2
-#define Node_Doil_Max 2
-#define Node_PvPCS_Max 2
-
-typedef struct
-{
-    uint16_t Node[512];
-}Node_PCS_t;
-Node_PCS_t Node_PCS[Node_PCS_Max];
-
-typedef struct
-{
-    uint16_t Node[512];
-}Node_Air_t;
-Node_Air_t Node_Air[Node_Air_Max];
-
-typedef struct
-{
-    uint16_t Node[512];
-}Node_Meter_t;
-Node_Meter_t Node_Meter[Node_Meter_Max];
-
-typedef struct
-{
-    uint16_t Node[512];
-}Node_FIre_t;
-Node_FIre_t Node_FIre[Node_FIre_Max];
-
-typedef struct
-{
-    uint16_t Node[512];
-}Node_Doil_t;
-Node_Doil_t Node_Doil[Node_Doil_Max];
-
-typedef struct
-{
-    uint16_t Node[512];
-}Node_PvPCS_t;
-Node_PvPCS_t Node_PvPCS[Node_PvPCS_Max];
+Node_PCS_t Node_PCS[PCS_Num_Max];
+Node_Air_t Node_Air[Air_Num_Max];
+Node_Meter_t Node_Meter[Meter_Num_Max];
+Node_FIre_t Node_FIre[FIre_Num_Max];
+Node_Doil_t Node_Doil[Doil_Num_Max];
+Node_PvPCS_t Node_PvPCS[PvPCS_Num_Max];
 
 
+ProtocolConvert_485_t ProtocolConvert_485[DEVICE_TYPE_Max];
+ProtocolConvert_CAN_t ProtocolConvert_CAN[DEVICE_TYPE_Max];
 
-PortConfig_t PortConfig;
-
-
-
-
-
-
-
+PortConfig_485_t PortConfig_485[PortConfig_485_Num];
+PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -69,27 +29,87 @@ PortConfig_t PortConfig;
 */
 uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no)
 {
+    if(no == 0)
+        return NULL;
+
     switch (device_type)
     {
     case DEVICE_TYPE_PCS:
-        return &Node_PCS[no].Node[0];
+        if(no > PCS_Num_Max)
+            return NULL;
+        return &Node_PCS[no - 1].Node[0];
     case DEVICE_TYPE_Air:
-        return &Node_Air[no].Node[0];
+        if(no > Air_Num_Max)
+            return NULL;
+        return &Node_Air[no - 1].Node[0];
     case DEVICE_TYPE_Meter:
-        return &Node_Meter[no].Node[0];
+        if(no > Meter_Num_Max)
+            return NULL;
+        return &Node_Meter[no - 1].Node[0];
     case DEVICE_TYPE_FIre:
-        return &Node_FIre[no].Node[0];
+        if(no > FIre_Num_Max)
+            return NULL;
+        return &Node_FIre[no - 1].Node[0];
     case DEVICE_TYPE_Doil:
-        return &Node_Doil[no].Node[0];
+        if(no > Doil_Num_Max)
+            return NULL;
+        return &Node_Doil[no - 1].Node[0];
     case DEVICE_TYPE_PvPCS:
-        return &Node_PvPCS[no].Node[0];
+        if(no > PvPCS_Num_Max)
+            return NULL;
+        return &Node_PvPCS[no - 1].Node[0];
     default:
         return NULL;
     }
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+ProtocolConvert_485_t* GetProtocolConvert_485(DEVICE_TYPE_e device_type)
+{
+    if(device_type >= DEVICE_TYPE_Max)
+        return NULL;
 
+    return &ProtocolConvert_485[device_type];
+}
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+ProtocolConvert_CAN_t* GetProtocolConvert_CAN(DEVICE_TYPE_e device_type)
+{
+    if(device_type >= DEVICE_TYPE_Max)
+        return NULL;
+
+    return &ProtocolConvert_CAN[device_type];
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+PortConfig_485_t* GetPortConfig_485(uint8_t no)
+{
+    if(no == 0 || no > PortConfig_485_Num)
+        return NULL;
+
+    return &PortConfig_485[no - 1];
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no)
+{
+    if(no == 0 || no > PortConfig_CAN_Num)
+        return NULL;
+
+    return &PortConfig_CAN[no - 1];
+}
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -301,6 +321,17 @@ void ConvertToNode_485(uint16_t* node, uint8_t* byte, _485_node_attr_t* convert)
 
 ----------------------------------------------------------------------------------------------
 */
+uint32_t CAN_ID_offset_calc(uint32_t id, CAN_device_attr_t* device_attr)
+{
+    switch (device_attr->addr_format)
+    {
+    case 0:
+        return id;
+    default:
+        return id;
+    }
+}
+
 void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
 {
     double temp = 0.0;
@@ -312,7 +343,6 @@ void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
             uint32_t data = GetBits_8(byte[convert->frame_byte], convert->bit_field_msb, convert->bit_field_lsb);
             temp = (double)data * convert->factor + convert->offset;
         }
-        /* code */
         break;
     case DATE_TYPE_U16_AB:
         {
@@ -433,10 +463,19 @@ void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
 
 ----------------------------------------------------------------------------------------------
 */
-void Comm_485_Pro(uint8_t port,PortConfig_485_t *_485, ProtocolConvert_485_t *convert)
+void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 {
+    PortConfig_485_t* _485 = GetPortConfig_485(port);
+    if(_485 == NULL)
+        return;
+
     for(uint8_t device_num = 0; device_num < _485->device_num; device_num++)//扫描所有设备
     {
+        //获取协议
+        ProtocolConvert_485_t* convert = GetProtocolConvert_485(_485->device_attr[device_num].device_type);
+        if(convert == NULL)
+            continue;
+        
         for(uint8_t area_num = 0; area_num < convert->area_num; area_num++)//扫描所有区域
         {
             if(++_485->device_attr[device_num].cyclecnt[area_num] >= convert->area_attr[area_num].cycle)//定时查询
@@ -449,18 +488,18 @@ void Comm_485_Pro(uint8_t port,PortConfig_485_t *_485, ProtocolConvert_485_t *co
                     _485->device_attr[device_num].device_addr,//设备地址
                     convert->area_attr[area_num].reg_addr,//寄存器地址
                     convert->area_attr[area_num].reg_num,//寄存器数量
-                    _485->tx_buff,
+                    tx_buff,
                     &tx_len
                 );
 
-                uint16_t rx_len = _485_Tx_And_Rx(port, _485->tx_buff, tx_len, _485->rx_buff, Uart_Rx_Buff_Size);
+                uint16_t rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
 
                 const uint8_t* data;
                 uint16_t data_len;
 
                 //校验
                 int32_t result = ModbusRTU_ParseReadHoldingRsp(
-                        _485->rx_buff,
+                        rx_buff,
                         rx_len,//接收到的数据长度
                         _485->device_attr[device_num].device_addr,//设备地址
                         convert->area_attr[area_num].reg_num,//寄存器数量
@@ -481,6 +520,8 @@ void Comm_485_Pro(uint8_t port,PortConfig_485_t *_485, ProtocolConvert_485_t *co
                                 ConvertToNode_485(GetNode(_485->device_attr[device_num].device_type, _485->device_attr[device_num].device_no), 
                                                 (uint8_t*)data,
                                                 &convert->node_attr[node_num]);
+
+                                break;
                             }
                         }
                         data += 2;//指针增加2字节
@@ -490,22 +531,38 @@ void Comm_485_Pro(uint8_t port,PortConfig_485_t *_485, ProtocolConvert_485_t *co
             }
         }
     }
-
 }
-
-
-
 /*
 ----------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
 */
+void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
+{
+    PortConfig_CAN_t* CAN = GetPortConfig_CAN(port);
+    if(CAN == NULL)
+        return;
 
+    for(uint8_t device_num = 0; device_num < CAN->device_num; device_num++)//扫描所有设备
+    {
+        //获取协议
+        ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN(CAN->device_attr[device_num].device_type);
+        if(convert == NULL)
+            continue;
 
+        for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
+        {
+            if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
+            {
+                ConvertToNode_CAN(GetNode(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no), 
+                                                msg->data,
+                                                &convert->node_attr[node_num]);
 
-
-
-
+                break;
+            }
+        }
+    }
+}
 /*
 ----------------------------------------------------------------------------------------------
 
