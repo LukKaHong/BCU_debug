@@ -60,6 +60,8 @@ PortConfig_t PortConfig;
 
 
 
+
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -69,18 +71,18 @@ uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no)
 {
     switch (device_type)
     {
-    // case DEVICE_TYPE_PCS:
-    //     return &Node_PCS[no][0];
-    // case DEVICE_TYPE_Air:
-    //     return &Node_Air[no][0];
-    // case DEVICE_TYPE_Meter:
-    //     return &Node_Meter[no][0];
-    // case DEVICE_TYPE_FIre:
-    //     return &Node_FIre[no][0];
-    // case DEVICE_TYPE_Doil:
-    //     return &Node_Doil[no][0];
-    // case DEVICE_TYPE_PvPCS:
-    //     return &Node_PvPCS[no][0];
+    case DEVICE_TYPE_PCS:
+        return &Node_PCS[no].Node[0];
+    case DEVICE_TYPE_Air:
+        return &Node_Air[no].Node[0];
+    case DEVICE_TYPE_Meter:
+        return &Node_Meter[no].Node[0];
+    case DEVICE_TYPE_FIre:
+        return &Node_FIre[no].Node[0];
+    case DEVICE_TYPE_Doil:
+        return &Node_Doil[no].Node[0];
+    case DEVICE_TYPE_PvPCS:
+        return &Node_PvPCS[no].Node[0];
     default:
         return NULL;
     }
@@ -113,7 +115,7 @@ uint8_t GetBits_8(uint8_t data, uint8_t bit_field_msb, uint8_t bit_field_lsb)
 
 ----------------------------------------------------------------------------------------------
 */
-void DataToNode(uint16_t* node, double temp, MODEL_TYPE_e model_type, uint16_t id)
+void DataToNode(uint16_t* node, double temp, MODEL_TYPE_e model_type)
 {
     switch (model_type)
     {
@@ -121,38 +123,38 @@ void DataToNode(uint16_t* node, double temp, MODEL_TYPE_e model_type, uint16_t i
         {
             uint16_t data = (uint16_t)temp;
 
-            node[id] &= 0;
-            node[id] |= data;
+            node[0] &= 0;
+            node[0] |= data;
         }
         break;
     case MODEL_TYPE_S16:
         {
             int16_t data = (int16_t)temp;
 
-            node[id] &= 0;
-            node[id] |= data;
+            node[0] &= 0;
+            node[0] |= data;
         }
         break;
     case MODEL_TYPE_U32:
         {
             uint32_t data = (uint32_t)temp;
 
-            node[id] &= 0;
-            node[id] |= (data >> 16) & 0xffff;
+            node[0] &= 0;
+            node[0] |= (data >> 16) & 0xffff;
 
-            node[id] &= 0;
-            node[id] |= data & 0xffff;
+            node[1] &= 0;
+            node[1] |= data & 0xffff;
         }
         break;
     case MODEL_TYPE_S32:
         {
             int32_t data = (int32_t)temp;
 
-            node[id] &= 0;
-            node[id] |= (data >> 16) & 0xffff;
+            node[0] &= 0;
+            node[0] |= (data >> 16) & 0xffff;
 
-            node[id] &= 0;
-            node[id] |= data & 0xffff;
+            node[1] &= 0;
+            node[1] |= data & 0xffff;
         }
         break;
     default:
@@ -166,7 +168,7 @@ void DataToNode(uint16_t* node, double temp, MODEL_TYPE_e model_type, uint16_t i
 
 ----------------------------------------------------------------------------------------------
 */
-void ProtocolConvert_485(uint16_t* node, uint8_t* byte, _485_node_attr_t* convert)
+void ConvertToNode_485(uint16_t* node, uint8_t* byte, _485_node_attr_t* convert)
 {
     double temp = 0.0;
 
@@ -290,7 +292,7 @@ void ProtocolConvert_485(uint16_t* node, uint8_t* byte, _485_node_attr_t* conver
         break;
     }
 
-    DataToNode(node, temp, convert->model_type, convert->model_id);
+    DataToNode(&node[convert->model_id], temp, convert->model_type);
 }
 
 
@@ -299,7 +301,7 @@ void ProtocolConvert_485(uint16_t* node, uint8_t* byte, _485_node_attr_t* conver
 
 ----------------------------------------------------------------------------------------------
 */
-void ProtocolConvert_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
+void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
 {
     double temp = 0.0;
 
@@ -423,7 +425,7 @@ void ProtocolConvert_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert
         break;
     }
 
-    DataToNode(node, temp, convert->model_type, convert->model_id);
+    DataToNode(&node[convert->model_id], temp, convert->model_type);
 }
 
 /*
@@ -433,20 +435,20 @@ void ProtocolConvert_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert
 */
 void Comm_485_Pro(uint8_t port,PortConfig_485_t *_485, ProtocolConvert_485_t *convert)
 {
-    for(uint8_t i = 0; i < _485->device_num; i++)//扫描所有设备
+    for(uint8_t device_num = 0; device_num < _485->device_num; device_num++)//扫描所有设备
     {
-        for(uint8_t j = 0; j < convert->area_num; j++)//扫描所有区域
+        for(uint8_t area_num = 0; area_num < convert->area_num; area_num++)//扫描所有区域
         {
-            if(++_485->device_attr[i].cyclecnt >= convert->area_attr[0].cycle)//定时查询
+            if(++_485->device_attr[device_num].cyclecnt[area_num] >= convert->area_attr[area_num].cycle)//定时查询
             {
-                _485->device_attr[i].cyclecnt = 0;
+                _485->device_attr[device_num].cyclecnt[area_num] = 0;
 
                 uint16_t tx_len = 0;
                 //encode
                 ModbusRTU_BuildReadHolding(
-                    _485->device_attr[i].device_addr,//设备地址
-                    convert->area_attr[j].reg_addr,//寄存器地址
-                    convert->area_attr[j].reg_num,//寄存器数量
+                    _485->device_attr[device_num].device_addr,//设备地址
+                    convert->area_attr[area_num].reg_addr,//寄存器地址
+                    convert->area_attr[area_num].reg_num,//寄存器数量
                     _485->tx_buff,
                     &tx_len
                 );
@@ -460,25 +462,34 @@ void Comm_485_Pro(uint8_t port,PortConfig_485_t *_485, ProtocolConvert_485_t *co
                 int32_t result = ModbusRTU_ParseReadHoldingRsp(
                         _485->rx_buff,
                         rx_len,//接收到的数据长度
-                        _485->device_attr[i].device_addr,//设备地址
-                        convert->area_attr[j].reg_num,//寄存器数量
+                        _485->device_attr[device_num].device_addr,//设备地址
+                        convert->area_attr[area_num].reg_num,//寄存器数量
                         &data,//存寄存器数据的指针
-                        &data_len//寄存器数据长度
+                        &data_len//字节数
                     );
 
                 if(result == MB_OK)
                 {
+                    uint16_t reg_addr = convert->area_attr[area_num].reg_addr;
 
-
+                    for(uint16_t reg_num = 0; reg_num < convert->area_attr[area_num].reg_num; reg_num++)//扫描读取出来的寄存器
+                    {
+                        for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
+                        {
+                            if(convert->node_attr[node_num].reg_addr == reg_addr)//匹配点表
+                            {
+                                ConvertToNode_485(GetNode(_485->device_attr[device_num].device_type, _485->device_attr[device_num].device_no), 
+                                                (uint8_t*)data,
+                                                &convert->node_attr[node_num]);
+                            }
+                        }
+                        data += 2;//指针增加2字节
+                        reg_addr++;//寄存器地址增加1
+                    } 
                 }
             }
         }
     }
-
-
-
-    
-
 
 }
 
