@@ -26,6 +26,7 @@
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
+#include "ProtocolConvert.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -125,7 +126,11 @@ int main(void)
   MX_SPI4_Init();
   MX_SPI5_Init();
   /* USER CODE BEGIN 2 */
+  char json_string[] = "{\"modbus\":[{\"port\":1,\"baud\":9600,\"date_bit\":8,\"stop_bit\":1,\"parity\":0,\"device_num\":3,\"device_attr\":[{\"device_type\":1,\"device_no\":1,\"device_addr\":1},{\"device_type\":1,\"device_no\":2,\"device_addr\":1},{\"device_type\":1,\"device_no\":3,\"device_addr\":1}]},{\"port\":2,\"baud\":9600,\"date_bit\":8,\"stop_bit\":1,\"parity\":0,\"device_num\":3,\"device_attr\":[{\"device_type\":2,\"device_no\":1,\"device_addr\":1},{\"device_type\":2,\"device_no\":2,\"device_addr\":1},{\"device_type\":2,\"device_no\":3,\"device_addr\":1}]},{\"port\":3,\"baud\":115200,\"date_bit\":8,\"stop_bit\":1,\"parity\":0,\"device_num\":3,\"device_attr\":[{\"device_type\":3,\"device_no\":1,\"device_addr\":1},{\"device_type\":3,\"device_no\":2,\"device_addr\":1},{\"device_type\":3,\"device_no\":3,\"device_addr\":1}]}],\"CAN\":[{\"port\":1,\"baud\":500000,\"device_num\":3,\"device_attr\":[{\"device_type\":1,\"device_no\":1,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0},{\"device_type\":2,\"device_no\":2,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0},{\"device_type\":3,\"device_no\":3,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0}]},{\"port\":2,\"baud\":500000,\"device_num\":3,\"device_attr\":[{\"device_type\":1,\"device_no\":1,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0},{\"device_type\":2,\"device_no\":2,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0},{\"device_type\":3,\"device_no\":3,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0}]},{\"port\":3,\"baud\":500000,\"device_num\":3,\"device_attr\":[{\"device_type\":1,\"device_no\":1,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0},{\"device_type\":2,\"device_no\":2,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0},{\"device_type\":3,\"device_no\":3,\"master_addr\":1,\"slave_addr\":1,\"addr_format\":0}]}]}";
 
+
+
+  cJSON_To_PortConfig(json_string);
   /* USER CODE END 2 */
 
   /* Init scheduler */

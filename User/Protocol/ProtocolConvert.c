@@ -28,6 +28,14 @@ ProtocolConvert_CAN_t ProtocolConvert_CAN[DEVICE_TYPE_Max];
 PortConfig_modbus_t PortConfig_modbus[PortConfig_modbus_Num];
 PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+static void Printf_PortConfig(void);
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -659,6 +667,8 @@ void cJSON_To_PortConfig(char *message)
             }
         }
     }
+
+    Printf_PortConfig();
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -785,12 +795,55 @@ void cJSON_To_ProtocolConvert(char *message)
         }
     }
 
+}
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+static void Printf_PortConfig(void)
+{
+    for(uint8_t i = 1; i <= PortConfig_modbus_Num; i++)
+    {
+        PortConfig_modbus_t* modbus = GetPortConfig_modbus(i);
+        if(modbus == NULL)
+            return;
 
+        printf("modbus port: %d, baud: %d, date_bit: %d, stop_bit: %d, parity: %d, device_num: %d\r\n",
+            i, modbus->baud, modbus->date_bit, modbus->stop_bit, modbus->parity, modbus->device_num);
 
+        for(uint8_t j = 0; j < modbus->device_num; j++)
+        {
+            printf("----- %d : modbus device_type: %d, device_no: %d, device_addr: %d\r\n",
+                j, modbus->device_attr[j].device_type, modbus->device_attr[j].device_no, modbus->device_attr[j].device_addr);
+        }
+        printf("\r\n");
+    }
 
+    for(uint8_t i = 1; i <= PortConfig_CAN_Num; i++)
+    {
+        PortConfig_CAN_t* can = GetPortConfig_CAN(i);
+        if(can == NULL)
+            return;
 
+        printf("CAN port: %d, baud: %d, device_num: %d\r\n",
+            i, can->baud, can->device_num);
 
+        for(uint8_t j = 0; j < can->device_num; j++)
+        {
+            printf("----- %d : CAN device_type: %d, device_no: %d, master_addr: %d, slave_addr: %d, addr_format: %d\r\n",
+                j, can->device_attr[j].device_type, can->device_attr[j].device_no, can->device_attr[j].master_addr, can->device_attr[j].slave_addr, can->device_attr[j].addr_format);
+        }
+        printf("\r\n");
+    }
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+static void Printf_ProtocolConvert_modbus(void)
+{
 
 }
 /*
@@ -798,5 +851,8 @@ void cJSON_To_ProtocolConvert(char *message)
 
 ----------------------------------------------------------------------------------------------
 */
+static void Printf_ProtocolConvert_CAN(void)
+{
 
+}
 
