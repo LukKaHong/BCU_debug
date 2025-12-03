@@ -17,7 +17,7 @@ void CommCAN_3_Task(void)
 
         if(r_event & CommCAN_3_Event_Tick)
         {
-            printf("%s\r\n", __func__);
+            // printf("%s\r\n", __func__);
         }
     }
 }

@@ -269,6 +269,8 @@ typedef struct
 extern void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff);
 extern void Comm_CAN_Pro(uint8_t port, CanMsgType *msg);
 
+extern void cJSON_To_PortConfig(char *message);
+extern void cJSON_To_ProtocolConvert(char *message);
 /*
 ----------------------------------------------------------------------------------------------
 

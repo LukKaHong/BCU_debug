@@ -22,8 +22,8 @@ void Comm485_3_Task(void)
 
         if(r_event & Comm485_3_Event_Tick)
         {
-            printf("%s\r\n", __func__);
-            Comm_485_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
+            // printf("%s\r\n", __func__);
+            // Comm_485_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
         }
     }
 }

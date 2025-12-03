@@ -23,8 +23,8 @@ void Comm485_2_Task(void)
 
         if(r_event & Comm485_2_Event_Tick)
         {
-            printf("%s\r\n", __func__);
-            Comm_485_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
+            // printf("%s\r\n", __func__);
+            // Comm_485_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
         }
     }
 }

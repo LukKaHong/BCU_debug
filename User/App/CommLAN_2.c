@@ -15,7 +15,7 @@ void CommLAN_2_Task(void)
 
         if(r_event & CommLAN_2_Event_Tick)
         {
-            printf("%s\r\n", __func__);
+            // printf("%s\r\n", __func__);
         }
     }
 }

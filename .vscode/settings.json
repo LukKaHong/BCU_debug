@@ -17,6 +17,8 @@
         "commcan_1.h": "c",
         "commlan_2.h": "c",
         "commcan_2.h": "c",
-        "commcan_3.h": "c"
+        "commcan_3.h": "c",
+        "stdlib.h": "c",
+        "protocolconvert.h": "c"
     }
 }

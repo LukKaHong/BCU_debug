@@ -2,7 +2,7 @@
 #include "ModbusRTU.h"
 #include "usart.h"
 #include "cJSON.h"
-
+#include <stdlib.h>
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -584,11 +584,18 @@ void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
 */
 void cJSON_To_PortConfig(char *message)
 {
-    printf("message : %s\n", message);
+    printf("message : \n%s\n", message);
 
     cJSON *root = cJSON_Parse(message);
     if(root == NULL)
+    {
+        const char *ep = cJSON_GetErrorPtr();
+        if (ep != NULL)
+        {
+            printf("cJSON parse error near: %s\r\n", ep);
+        }
         return;
+    }
 
     cJSON *root_modbus = cJSON_GetObjectItem(root, "modbus"); 
     if(root_modbus != NULL)
@@ -604,13 +611,18 @@ void cJSON_To_PortConfig(char *message)
             modbus->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "device_num"));
 
             cJSON *root_modbus_array_device_attr = cJSON_GetObjectItem(root_modbus_array, "device_attr"); 
-
-            for(uint8_t j = 0; j < cJSON_GetArraySize(root_modbus_array_device_attr); j++)
+            if(modbus->device_num != cJSON_GetArraySize(root_modbus_array_device_attr))
+            {
+                modbus->device_num = 0;
+                continue;
+            }
+  
+            for(uint8_t j = 0; j < modbus->device_num; j++)
             {
                 cJSON *root_modbus_array_device_attr_array = cJSON_GetArrayItem(root_modbus_array_device_attr, j);
-                modbus->device_attr[j].device_type = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_type"));
-                modbus->device_attr[j].device_no = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_no"));
-                modbus->device_attr[j].device_addr = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_addr"));
+                modbus->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_type"));
+                modbus->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_no"));
+                modbus->device_attr[j].device_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_addr"));
             }
         }
     }
@@ -626,18 +638,156 @@ void cJSON_To_PortConfig(char *message)
             CAN->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "device_num"));
 
             cJSON *root_CAN_array_device_attr = cJSON_GetObjectItem(root_CAN_array, "device_attr"); 
-
-            for(uint8_t j = 0; j < cJSON_GetArraySize(root_CAN_array_device_attr); j++)
+            if(CAN->device_num != cJSON_GetArraySize(root_CAN_array_device_attr))
+            {
+                CAN->device_num = 0;
+                continue;
+            }
+                
+            for(uint8_t j = 0; j < CAN->device_num; j++)
             {
                 cJSON *root_CAN_array_device_attr_array = cJSON_GetArrayItem(root_CAN_array_device_attr, j);
-                CAN->device_attr[j].device_type = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_type"));
-                CAN->device_attr[j].device_no = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_no"));
-                CAN->device_attr[j].master_addr = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "master_addr"));
-                CAN->device_attr[j].slave_addr = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "slave_addr"));
-                CAN->device_attr[j].addr_format = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "addr_format"));
+                CAN->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_type"));
+                CAN->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_no"));
+                CAN->device_attr[j].master_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "master_addr"));
+                CAN->device_attr[j].slave_addr          = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "slave_addr"));
+                CAN->device_attr[j].addr_format         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "addr_format"));
             }
         }
     }
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+void cJSON_To_ProtocolConvert(char *message)
+{
+    // printf("message : %s\n", message);
+
+    cJSON *root = cJSON_Parse(message);
+    if(root == NULL)
+        return;
+    
+    cJSON *root_protocol = cJSON_GetObjectItem(root, "protocol");
+
+    if(cJSON_GetNumberValue(root_protocol) == 0)//modbus
+    {
+        ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus((DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "device_type")));
+
+        cJSON *root_area = cJSON_GetObjectItem(root, "area");
+        convert->area_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area, "area_num"));
+
+        cJSON *root_area_area_attr = cJSON_GetObjectItem(root_area, "area_attr");
+        if(convert->area_num != cJSON_GetArraySize(root_area_area_attr))
+        {
+            convert->area_num = 0;
+            return;
+        }
+
+        for(uint8_t i = 0; i < convert->area_num; i++)
+        {
+            cJSON *root_area_area_attr_array = cJSON_GetArrayItem(root_area_area_attr, i);
+            convert->area_attr[i].reg_addr   = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "a"));
+            convert->area_attr[i].reg_num    = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "n"));
+            convert->area_attr[i].cycle      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "c"));
+        }
+        
+        cJSON *root_node = cJSON_GetObjectItem(root, "node");
+        convert->node_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node, "node_num"));
+
+        cJSON *root_node_node_attr = cJSON_GetObjectItem(root_node, "node_attr");
+        if(convert->node_num != cJSON_GetArraySize(root_node_node_attr))
+        {
+            convert->node_num = 0;
+            return;
+        }
+
+        for(uint8_t i = 0; i < convert->node_num; i++)
+        {
+            cJSON *root_node_node_attr_array    = cJSON_GetArrayItem(root_node_node_attr, i);
+            convert->node_attr[i].model_id      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "i"));
+            convert->node_attr[i].model_type    = (MODEL_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mt"));
+            convert->node_attr[i].date_type     = (DATE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "dt"));
+            convert->node_attr[i].reg_addr      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "a"));
+            convert->node_attr[i].bit_field_msb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "m"));
+            convert->node_attr[i].bit_field_lsb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "l"));
+            convert->node_attr[i].factor        = (float)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "f"));
+            convert->node_attr[i].offset        = (float)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "o"));
+
+            cJSON *root_node_node_attr_enum = cJSON_GetObjectItem(root_node_node_attr_array, "e");
+            convert->node_attr[i].enum_num      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_enum, "n"));
+
+            cJSON *root_node_node_attr_enum_enum_attr = cJSON_GetObjectItem(root_node_node_attr_enum, "a");
+            if(convert->node_attr[i].enum_num != cJSON_GetArraySize(root_node_node_attr_enum_enum_attr))
+            {
+                convert->node_attr[i].enum_num = 0;
+                continue;
+            }
+
+            for(uint16_t j = 0; j < convert->node_attr[i].enum_num; j++)
+            {
+                cJSON *root_node_node_attr_enum_enum_attr_array = cJSON_GetArrayItem(root_node_node_attr_enum_enum_attr, j);
+
+                convert->node_attr[i].enum_convert[j].value_src = (uint16_t)atoi(root_node_node_attr_enum_enum_attr_array->string);
+                convert->node_attr[i].enum_convert[j].value_dst = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_enum_enum_attr, root_node_node_attr_enum_enum_attr_array->string));
+            }
+        }
+    }
+    else if(cJSON_GetNumberValue(root_protocol) == 1)//CAN
+    {
+        ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN((DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "device_type")));
+
+        cJSON *root_node = cJSON_GetObjectItem(root, "node");
+        convert->node_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node, "node_num"));
+
+        cJSON *root_node_node_attr = cJSON_GetObjectItem(root_node, "node_attr");
+        if(convert->node_num != cJSON_GetArraySize(root_node_node_attr))
+        {
+            convert->node_num = 0;
+            return;
+        }
+
+        for(uint8_t i = 0; i < convert->node_num; i++)
+        {
+            cJSON *root_node_node_attr_array    = cJSON_GetArrayItem(root_node_node_attr, i);
+            convert->node_attr[i].model_id      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "i"));
+            convert->node_attr[i].model_type    = (MODEL_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mt"));
+            convert->node_attr[i].date_type     = (DATE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "dt"));
+            convert->node_attr[i].frame_ID      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fi"));
+            convert->node_attr[i].frame_byte    = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fb"));
+            convert->node_attr[i].bit_field_msb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "m"));
+            convert->node_attr[i].bit_field_lsb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "l"));
+            convert->node_attr[i].factor        = (float)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "f"));
+            convert->node_attr[i].offset        = (float)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "o"));
+
+            cJSON *root_node_node_attr_enum = cJSON_GetObjectItem(root_node_node_attr_array, "e");
+            convert->node_attr[i].enum_num      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_enum, "n"));
+
+            cJSON *root_node_node_attr_enum_enum_attr = cJSON_GetObjectItem(root_node_node_attr_enum, "a");
+            if(convert->node_attr[i].enum_num != cJSON_GetArraySize(root_node_node_attr_enum_enum_attr))
+            {
+                convert->node_attr[i].enum_num = 0;
+                continue;
+            }
+
+            for(uint16_t j = 0; j < convert->node_attr[i].enum_num; j++)
+            {
+                cJSON *root_node_node_attr_enum_enum_attr_array = cJSON_GetArrayItem(root_node_node_attr_enum_enum_attr, j);
+
+                convert->node_attr[i].enum_convert[j].value_src = (uint16_t)atoi(root_node_node_attr_enum_enum_attr_array->string);
+                convert->node_attr[i].enum_convert[j].value_dst = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_enum_enum_attr, root_node_node_attr_enum_enum_attr_array->string));
+            }
+        }
+    }
+
+
+
+
+
+
+
+
 }
 /*
 ----------------------------------------------------------------------------------------------
