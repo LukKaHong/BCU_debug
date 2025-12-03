@@ -35,6 +35,8 @@ PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 ----------------------------------------------------------------------------------------------
 */
 static void Printf_PortConfig(void);
+static void Printf_ProtocolConvert_modbus(void);
+static void Printf_ProtocolConvert_CAN(void);
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -677,7 +679,7 @@ void cJSON_To_PortConfig(char *message)
 */
 void cJSON_To_ProtocolConvert(char *message)
 {
-    // printf("message : %s\n", message);
+    printf("message : %s\n", message);
 
     cJSON *root = cJSON_Parse(message);
     if(root == NULL)
@@ -747,6 +749,8 @@ void cJSON_To_ProtocolConvert(char *message)
                 convert->node_attr[i].enum_convert[j].value_dst = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_enum_enum_attr, root_node_node_attr_enum_enum_attr_array->string));
             }
         }
+
+        Printf_ProtocolConvert_modbus();
     }
     else if(cJSON_GetNumberValue(root_protocol) == 1)//CAN
     {
@@ -793,8 +797,9 @@ void cJSON_To_ProtocolConvert(char *message)
                 convert->node_attr[i].enum_convert[j].value_dst = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_enum_enum_attr, root_node_node_attr_enum_enum_attr_array->string));
             }
         }
-    }
 
+        Printf_ProtocolConvert_CAN();
+    }
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -844,7 +849,27 @@ static void Printf_PortConfig(void)
 */
 static void Printf_ProtocolConvert_modbus(void)
 {
+    for(DEVICE_TYPE_e i = DEVICE_TYPE_PCS; i < DEVICE_TYPE_Max; i++)
+    {
+        ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus(i);
 
+        printf("modbus device_type: %d, area_num: %d, node_num: %d\r\n",
+            i, convert->area_num, convert->node_num);
+
+        for(uint8_t j = 0; j < convert->area_num; j++)
+        {
+            printf("----- area %d : reg_addr: %d, reg_num: %d, cycle: %d\r\n",
+                j, convert->area_attr[j].reg_addr, convert->area_attr[j].reg_num, convert->area_attr[j].cycle);
+        }
+
+        for(uint8_t j = 0; j < convert->node_num; j++)
+        {
+            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, reg_addr: %d, bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
+                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].reg_addr, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
+        }
+
+        printf("\r\n");
+    }
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -853,6 +878,20 @@ static void Printf_ProtocolConvert_modbus(void)
 */
 static void Printf_ProtocolConvert_CAN(void)
 {
+    for(DEVICE_TYPE_e i = DEVICE_TYPE_PCS; i < DEVICE_TYPE_Max; i++)
+    {
+        ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN(i);
 
+        printf("CAN device_type: %d, node_num: %d\r\n",
+            i, convert->node_num);
+
+        for(uint8_t j = 0; j < convert->node_num; j++)
+        {
+            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, frame_ID: %d, frame_byte: %d,bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
+                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].frame_ID, convert->node_attr[j].frame_byte, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
+        }
+        
+        printf("\r\n");
+    }
 }
 
