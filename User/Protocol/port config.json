@@ -1,7 +1,7 @@
 {
     "modbus": [
         {
-            "port": 0,
+            "port": 1,
             "baud": 9600,
             "date_bit": 8,
             "stop_bit": 1,
@@ -18,7 +18,7 @@
     ],
     "CAN": [
         {
-            "port": 0,
+            "port": 1,
             "baud": 500000,
             "device_num": 1,
             "device_attr": [

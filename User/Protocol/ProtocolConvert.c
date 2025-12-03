@@ -604,6 +604,8 @@ void cJSON_To_PortConfig(char *message)
         {
             cJSON *root_modbus_array = cJSON_GetArrayItem(root_modbus, i);
             PortConfig_modbus_t* modbus = GetPortConfig_modbus((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "port")));
+            if(modbus == NULL)
+                continue;
             modbus->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "baud"));
             modbus->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "date_bit"));
             modbus->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "stop_bit"));
@@ -634,6 +636,8 @@ void cJSON_To_PortConfig(char *message)
         {
             cJSON *root_CAN_array = cJSON_GetArrayItem(root_CAN, i);
             PortConfig_CAN_t* CAN = GetPortConfig_CAN((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "port")));
+            if(CAN == NULL)
+                continue;
             CAN->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "baud"));
             CAN->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "device_num"));
 
