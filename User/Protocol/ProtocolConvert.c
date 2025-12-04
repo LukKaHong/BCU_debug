@@ -507,29 +507,33 @@ void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                 modbus->device_attr[device_num].cyclecnt[area_num] = 0;
 
                 uint16_t tx_len = 0;
-                //encode
-                ModbusRTU_BuildReadHolding(
-                    modbus->device_attr[device_num].device_addr,//设备地址
-                    convert->area_attr[area_num].reg_addr,//寄存器地址
-                    convert->area_attr[area_num].reg_num,//寄存器数量
-                    tx_buff,
-                    &tx_len
-                );
-
-                uint16_t rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
-
                 const uint8_t* data;
                 uint16_t data_len;
+                int32_t result = MB_ERR_ARG;
 
-                //校验
-                int32_t result = ModbusRTU_ParseReadHoldingRsp(
-                        rx_buff,
-                        rx_len,//接收到的数据长度
+                if(convert->area_attr[area_num].fun_code == MB_FC_READ_HOLDING_REGS)
+                {
+                    //encode
+                    ModbusRTU_BuildReadHolding(
                         modbus->device_attr[device_num].device_addr,//设备地址
+                        convert->area_attr[area_num].reg_addr,//寄存器地址
                         convert->area_attr[area_num].reg_num,//寄存器数量
-                        &data,//存寄存器数据的指针
-                        &data_len//字节数
+                        tx_buff,
+                        &tx_len
                     );
+
+                    uint16_t rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
+
+                    //校验
+                    int32_t result = ModbusRTU_ParseReadHoldingRsp(
+                            rx_buff,
+                            rx_len,//接收到的数据长度
+                            modbus->device_attr[device_num].device_addr,//设备地址
+                            convert->area_attr[area_num].reg_num,//寄存器数量
+                            &data,//存寄存器数据的指针
+                            &data_len//字节数
+                        );
+                }
 
                 if(result == MB_OK)
                 {
@@ -539,7 +543,8 @@ void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                     {
                         for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
                         {
-                            if(convert->node_attr[node_num].reg_addr == reg_addr)//匹配点表
+                            if(convert->node_attr[node_num].reg_addr == reg_addr && 
+                                convert->node_attr[node_num].fun_code == convert->area_attr[area_num].fun_code)//匹配点表
                             {
                                 ConvertToNode_modbus(GetNode(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no), 
                                                 (uint8_t*)data,
@@ -711,6 +716,7 @@ void cJSON_To_ProtocolConvert(char *message)
         for(uint8_t i = 0; i < convert->area_num; i++)
         {
             cJSON *root_area_area_attr_array = cJSON_GetArrayItem(root_area_area_attr, i);
+            convert->area_attr[i].fun_code   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "fc"));
             convert->area_attr[i].reg_addr   = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "a"));
             convert->area_attr[i].reg_num    = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "n"));
             convert->area_attr[i].cycle      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_area_area_attr_array, "c"));
@@ -727,6 +733,7 @@ void cJSON_To_ProtocolConvert(char *message)
             convert->node_attr[node_index].model_id      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mi"));
             convert->node_attr[node_index].model_type    = (MODEL_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mt"));
             convert->node_attr[node_index].date_type     = (DATE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "dt"));
+            convert->node_attr[node_index].fun_code      = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fc"));
             convert->node_attr[node_index].reg_addr      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "a"));
             convert->node_attr[node_index].bit_field_msb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "m"));
             convert->node_attr[node_index].bit_field_lsb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "l"));
@@ -855,14 +862,14 @@ static void Printf_ProtocolConvert_modbus(void)
 
         for(uint8_t j = 0; j < convert->area_num; j++)
         {
-            printf("----- area %d : reg_addr: %d, reg_num: %d, cycle: %d\r\n",
-                j, convert->area_attr[j].reg_addr, convert->area_attr[j].reg_num, convert->area_attr[j].cycle);
+            printf("----- area %d : fun_code: %d, reg_addr: %d, reg_num: %d, cycle: %d\r\n",
+                j, convert->area_attr[j].fun_code, convert->area_attr[j].reg_addr, convert->area_attr[j].reg_num, convert->area_attr[j].cycle);
         }
 
         for(uint8_t j = 0; j < convert->node_num; j++)
         {
-            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, reg_addr: %d, bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
-                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].reg_addr, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
+            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, fun_code: %d, reg_addr: %d, bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
+                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].fun_code, convert->node_attr[j].reg_addr, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
         }
 
         printf("\r\n");

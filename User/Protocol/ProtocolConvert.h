@@ -82,6 +82,7 @@ typedef struct
     uint16_t model_id;//模型ID
     MODEL_TYPE_e model_type;//模型类型
     DATE_TYPE_e date_type;//数据类型
+    uint8_t fun_code;//功能码
     uint16_t reg_addr;//寄存器地址
     uint8_t bit_field_msb;//位字段最高位
     uint8_t bit_field_lsb;//位字段最低位
@@ -93,6 +94,7 @@ typedef struct
 
 typedef struct
 {
+    uint8_t fun_code;//功能码
     uint16_t reg_addr;//寄存器地址
     uint16_t reg_num;//寄存器数量
     uint16_t cycle;//周期
