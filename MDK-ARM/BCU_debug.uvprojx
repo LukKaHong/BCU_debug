@@ -1075,6 +1075,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Protocol\ModbusRTU.c</FilePath>
             </File>
+            <File>
+              <FileName>ModbusTCP.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Protocol\ModbusTCP.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

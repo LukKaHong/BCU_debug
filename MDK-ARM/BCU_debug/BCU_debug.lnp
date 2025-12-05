@@ -59,6 +59,7 @@
 "bcu_debug\cjson.o"
 "bcu_debug\protocolconvert.o"
 "bcu_debug\modbusrtu.o"
+"bcu_debug\modbustcp.o"
 --library_type=microlib --strict --scatter "BCU_debug\BCU_debug.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
