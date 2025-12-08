@@ -1011,21 +1011,6 @@
           <GroupName>User/App</GroupName>
           <Files>
             <File>
-              <FileName>CommCAN_1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\App\CommCAN_1.c</FilePath>
-            </File>
-            <File>
-              <FileName>CommCAN_2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\App\CommCAN_2.c</FilePath>
-            </File>
-            <File>
-              <FileName>CommCAN_3.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\App\CommCAN_3.c</FilePath>
-            </File>
-            <File>
               <FileName>CommLAN_1.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\App\CommLAN_1.c</FilePath>
@@ -1044,6 +1029,11 @@
               <FileName>Comm485.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\App\Comm485.c</FilePath>
+            </File>
+            <File>
+              <FileName>CommCAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\CommCAN.c</FilePath>
             </File>
           </Files>
         </Group>

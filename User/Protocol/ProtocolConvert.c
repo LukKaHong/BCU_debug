@@ -514,40 +514,6 @@ void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
 
 ----------------------------------------------------------------------------------------------
 */
-void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
-{
-    PortConfig_CAN_t* CAN = GetPortConfig_CAN(port);
-    if(CAN == NULL)
-        return;
-
-    for(uint8_t device_num = 0; device_num < CAN->device_num; device_num++)//扫描所有设备
-    {
-        //获取协议
-        ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN(CAN->device_attr[device_num].device_type);
-        if(convert == NULL)
-            continue;
-
-        for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
-        {
-            if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
-            {
-                ConvertToNode_CAN(GetNode(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no), 
-                                                msg->data,
-                                                &convert->node_attr[node_num]);
-
-                break;
-            }
-        }
-    }
-}
-
-
-
-/*
-----------------------------------------------------------------------------------------------
-
-----------------------------------------------------------------------------------------------
-*/
 void cJSON_To_PortConfig(char *message)
 {
     printf("message : \n%s\n", message);

@@ -26,9 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "usart.h"
-#include "CommCAN_1.h"
-#include "CommCAN_2.h"
-#include "CommCAN_3.h"
+#include "CommCAN.h"
 #include "CommLAN_1.h"
 #include "CommLAN_2.h"
 #include "Comm485.h"

@@ -328,10 +328,12 @@ extern PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no);
 extern PortConfig_DI_t* GetPortConfig_DI(uint8_t no);
 extern PortConfig_DO_t* GetPortConfig_DO(uint8_t no);
 
+
+extern void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert);
 extern void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* convert);
 extern uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no);
+extern uint32_t CAN_ID_offset_calc(uint32_t id, CAN_device_attr_t* device_attr);
 
-extern void Comm_CAN_Pro(uint8_t port, CanMsgType *msg);
 
 extern void cJSON_To_PortConfig(char *message);
 extern void cJSON_To_ProtocolConvert(char *message);
