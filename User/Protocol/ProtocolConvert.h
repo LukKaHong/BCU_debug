@@ -71,7 +71,7 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-#define enum_num_max (8)
+#define enum_num_max (16)
 #define modbus_area_num_max (10)
 #define modbus_node_attr_num_max (256)
 
@@ -108,8 +108,6 @@ typedef struct
     modbus_node_attr_t node_attr[modbus_node_attr_num_max];//点表属性
 }ProtocolConvert_modbus_t;
 
-
-
 typedef struct
 {
     uint16_t model_id;//模型ID
@@ -139,9 +137,6 @@ typedef struct
 #define PortConfig_modbus_Num (3)
 #define PortConfig_modbus_Device_Num (3)
 
-#define PortConfig_CAN_Num (3)
-#define PortConfig_CAN_Device_Num (3)
-
 typedef struct
 {
     DEVICE_TYPE_e device_type;//设备类型
@@ -163,6 +158,14 @@ typedef struct
 }PortConfig_modbus_t;
 
 
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+#define PortConfig_CAN_Num (3)
+#define PortConfig_CAN_Device_Num (3)
+
 typedef struct
 {
     DEVICE_TYPE_e device_type;//设备类型
@@ -179,6 +182,56 @@ typedef struct
     CAN_device_attr_t device_attr[PortConfig_CAN_Device_Num];//设备属性
 }PortConfig_CAN_t;
 
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+#define PortConfig_DI_Num (6)
+
+typedef enum
+{
+    DI_Signal_water_logging = 0,
+    DI_Signal_fire          = 1,
+    DI_Signal_E_stop        = 2,
+    DI_Signal_AC_break      = 3,
+    DI_Signal_door          = 4,
+    DI_Signal_cool_fan      = 5,
+    DI_Signal_Max,
+}DI_Signal_e;
+
+typedef struct
+{
+    uint8_t en;
+    uint8_t signal;
+    uint8_t valid;
+    uint16_t trigger_delay;
+    uint16_t recover_delay;
+}PortConfig_DI_t;
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+#define PortConfig_DO_Num (6)
+
+typedef enum
+{
+    DO_Signal_exhaust_fan = 0,
+    DO_Signal_cool_fan    = 1,
+    DO_Signal_heat        = 2,
+    DO_Signal_red_led     = 3,
+    DO_Signal_green_led   = 4,
+    DO_Signal_Max,
+}DO_Signal_e;
+
+typedef struct
+{
+    uint8_t en;
+    uint8_t signal;
+    uint8_t valid;
+}PortConfig_DO_t;
 
 /*
 ----------------------------------------------------------------------------------------------

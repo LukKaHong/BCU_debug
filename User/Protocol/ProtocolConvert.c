@@ -27,7 +27,8 @@ ProtocolConvert_CAN_t ProtocolConvert_CAN[DEVICE_TYPE_Max];
 
 PortConfig_modbus_t PortConfig_modbus[PortConfig_modbus_Num];
 PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
-
+PortConfig_DI_t PortConfig_DI[PortConfig_DI_Num];
+PortConfig_DO_t PortConfig_DO[PortConfig_DO_Num];
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -134,6 +135,31 @@ PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no)
 
     return &PortConfig_CAN[no - 1];
 }
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+PortConfig_DI_t* GetPortConfig_DI(uint8_t no)
+{
+    if(no == 0 || no > PortConfig_DI_Num)
+        return NULL;
+
+    return &PortConfig_DI[no - 1];
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+PortConfig_DO_t* GetPortConfig_DO(uint8_t no)
+{
+    if(no == 0 || no > PortConfig_DO_Num)
+        return NULL;
+
+    return &PortConfig_DO[no - 1];
+}
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -675,8 +701,52 @@ void cJSON_To_PortConfig(char *message)
         }
     }
 
+    cJSON *root_DI = cJSON_GetObjectItem(root, "DI"); 
+    if(root_DI != NULL)
+    {
+        for(uint8_t i = 0; i < cJSON_GetArraySize(root_DI); i++)
+        {
+            cJSON *root_DI_array = cJSON_GetArrayItem(root_DI, i);
+            PortConfig_DI_t* DI = GetPortConfig_DI((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "port")));
+            if(DI == NULL)
+                continue;
+
+            DI->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "en"));
+
+            if(DI->en == 0)
+                continue;
+
+            DI->signal        = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "signal"));
+            DI->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "valid"));
+            DI->trigger_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "trigger_delay"));
+            DI->recover_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "recover_delay"));
+        }
+    }
+
+    cJSON *root_DO = cJSON_GetObjectItem(root, "DO"); 
+    if(root_DO != NULL)
+    {
+        for(uint8_t i = 0; i < cJSON_GetArraySize(root_DO); i++)
+        {
+            cJSON *root_DO_array = cJSON_GetArrayItem(root_DO, i);
+            PortConfig_DO_t* DO = GetPortConfig_DO((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "port")));
+            if(DO == NULL)
+                continue;
+
+            DO->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "en"));
+
+            if(DO->en == 0)
+                continue;
+
+            DO->signal        = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "signal"));
+            DO->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "valid"));
+        }
+    }
+
     Printf_PortConfig();
 }
+
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -805,6 +875,7 @@ void cJSON_To_ProtocolConvert(char *message)
         Printf_ProtocolConvert_CAN();
     }
 }
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -843,6 +914,18 @@ static void Printf_PortConfig(void)
             printf("----- %d : CAN device_type: %d, device_no: %d, master_addr: %d, slave_addr: %d, addr_format: %d\r\n",
                 j, can->device_attr[j].device_type, can->device_attr[j].device_no, can->device_attr[j].master_addr, can->device_attr[j].slave_addr, can->device_attr[j].addr_format);
         }
+        printf("\r\n");
+    }
+
+    for(uint8_t i = 1; i <= PortConfig_DI_Num; i++)
+    {
+        PortConfig_DI_t* di = GetPortConfig_DI(i);
+        if(di == NULL)
+            return;
+
+        printf("DI port: %d, signal: %d, valid: %d, trigger_delay: %d, recover_delay: %d\r\n",
+            i, di->signal, di->valid, di->trigger_delay, di->recover_delay);
+
         printf("\r\n");
     }
 }
