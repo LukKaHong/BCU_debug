@@ -3,6 +3,7 @@
 #include "usart.h"
 #include "cJSON.h"
 #include <stdlib.h>
+#include "Comm485_1.h"
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -528,7 +529,7 @@ void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
         
         for(uint8_t area_num = 0; area_num < convert->area_num; area_num++)//扫描所有区域
         {
-            if(++modbus->device_attr[device_num].cyclecnt[area_num] >= convert->area_attr[area_num].cycle)//定时查询
+            if(++modbus->device_attr[device_num].cyclecnt[area_num] >= convert->area_attr[area_num].cycle / Comm485_Task_Cycle)//定时查询
             {
                 modbus->device_attr[device_num].cyclecnt[area_num] = 0;
 
@@ -618,6 +619,9 @@ void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
         }
     }
 }
+
+
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -716,7 +720,7 @@ void cJSON_To_PortConfig(char *message)
             if(DI->en == 0)
                 continue;
 
-            DI->signal        = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "signal"));
+            DI->signal        = (DI_Signal_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "signal"));
             DI->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "valid"));
             DI->trigger_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "trigger_delay"));
             DI->recover_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "recover_delay"));

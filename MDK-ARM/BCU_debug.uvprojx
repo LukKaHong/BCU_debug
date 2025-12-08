@@ -1050,6 +1050,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\App\CommLAN_2.c</FilePath>
             </File>
+            <File>
+              <FileName>DI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\DI.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

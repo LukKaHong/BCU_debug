@@ -201,6 +201,9 @@ extern osEventFlagsId_t CommLAN_1_EventHandle;
 #define CommLAN_2_Event_Tick      (1 << 0)
 extern osEventFlagsId_t CommLAN_2_EventHandle;
 
+#define DI_Event_Tick      (1 << 0)
+extern osEventFlagsId_t DI_EventHandle;
+
 extern void Task_Cycle_Count(void);
 /* USER CODE END Defines */
 

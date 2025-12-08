@@ -34,6 +34,8 @@
 #include "Comm485_1.h"
 #include "Comm485_2.h"
 #include "Comm485_3.h"
+#include "DI.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -166,6 +168,18 @@ const osThreadAttr_t CommLAN_2_Task_attributes = {
   .stack_size = sizeof(CommLAN_2_TaskBuffer),
   .priority = (osPriority_t) osPriorityAboveNormal,
 };
+/* Definitions for DI_Task */
+osThreadId_t DI_TaskHandle;
+uint32_t DI_TaskBuffer[ 2048 ];
+osStaticThreadDef_t DI_TaskControlBlock;
+const osThreadAttr_t DI_Task_attributes = {
+  .name = "DI_Task",
+  .cb_mem = &DI_TaskControlBlock,
+  .cb_size = sizeof(DI_TaskControlBlock),
+  .stack_mem = &DI_TaskBuffer[0],
+  .stack_size = sizeof(DI_TaskBuffer),
+  .priority = (osPriority_t) osPriorityBelowNormal7,
+};
 /* Definitions for BinarySem_485_1_Tx */
 osSemaphoreId_t BinarySem_485_1_TxHandle;
 osStaticSemaphoreDef_t BinarySem_485_1_TxControlBlock;
@@ -278,6 +292,14 @@ const osEventFlagsAttr_t CommLAN_2_Event_attributes = {
   .cb_mem = &CommLAN_2_EventControlBlock,
   .cb_size = sizeof(CommLAN_2_EventControlBlock),
 };
+/* Definitions for DI_Event */
+osEventFlagsId_t DI_EventHandle;
+osStaticEventGroupDef_t DI_EventControlBlock;
+const osEventFlagsAttr_t DI_Event_attributes = {
+  .name = "DI_Event",
+  .cb_mem = &DI_EventControlBlock,
+  .cb_size = sizeof(DI_EventControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -293,6 +315,7 @@ void StartCommCAN_2_Task(void *argument);
 void StartCommCAN_3_Task(void *argument);
 void StartCommLAN_1_Task(void *argument);
 void StartCommLAN_2_Task(void *argument);
+void StartDI_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -369,6 +392,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of CommLAN_2_Task */
   CommLAN_2_TaskHandle = osThreadNew(StartCommLAN_2_Task, NULL, &CommLAN_2_Task_attributes);
 
+  /* creation of DI_Task */
+  DI_TaskHandle = osThreadNew(StartDI_Task, NULL, &DI_Task_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -397,6 +423,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of CommLAN_2_Event */
   CommLAN_2_EventHandle = osEventFlagsNew(&CommLAN_2_Event_attributes);
+
+  /* creation of DI_Event */
+  DI_EventHandle = osEventFlagsNew(&DI_Event_attributes);
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
@@ -546,6 +575,21 @@ void StartCommLAN_2_Task(void *argument)
   /* USER CODE END StartCommLAN_2_Task */
 }
 
+/* USER CODE BEGIN Header_StartDI_Task */
+/**
+* @brief Function implementing the DI_Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartDI_Task */
+void StartDI_Task(void *argument)
+{
+  /* USER CODE BEGIN StartDI_Task */
+  /* Infinite loop */
+  DI_Task();
+  /* USER CODE END StartDI_Task */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 void Task_Cycle_Count(void)
@@ -558,38 +602,39 @@ void Task_Cycle_Count(void)
   static uint16_t CommCAN_3_tick = 0;
   static uint16_t CommLAN_1_tick = 0;
   static uint16_t CommLAN_2_tick = 0;
+  static uint16_t DI_tick = 0;
 
-  if(++Comm485_1_tick >= Comm485_1_Task_Cycle)
+  if(++Comm485_1_tick >= Comm485_Task_Cycle)
   {
     Comm485_1_tick = 0;
     osEventFlagsSet(Comm485_1_EventHandle, Comm485_1_Event_Tick);
   }
 
-  if(++Comm485_2_tick >= Comm485_2_Task_Cycle)
+  if(++Comm485_2_tick >= Comm485_Task_Cycle)
   {
     Comm485_2_tick = 0;
     osEventFlagsSet(Comm485_2_EventHandle, Comm485_2_Event_Tick);
   }
 
-  if(++Comm485_3_tick >= Comm485_3_Task_Cycle)
+  if(++Comm485_3_tick >= Comm485_Task_Cycle)
   {
     Comm485_3_tick = 0;
     osEventFlagsSet(Comm485_3_EventHandle, Comm485_3_Event_Tick);
   }
 
-  if(++CommCAN_1_tick >= CommCAN_1_Task_Cycle)
+  if(++CommCAN_1_tick >= CommCAN_Task_Cycle)
   {
     CommCAN_1_tick = 0;
     osEventFlagsSet(CommCAN_1_EventHandle, CommCAN_1_Event_Tick);
   }
 
-  if(++CommCAN_2_tick >= CommCAN_2_Task_Cycle)
+  if(++CommCAN_2_tick >= CommCAN_Task_Cycle)
   {
     CommCAN_2_tick = 0;
     osEventFlagsSet(CommCAN_2_EventHandle, CommCAN_2_Event_Tick);
   }
 
-  if(++CommCAN_3_tick >= CommCAN_3_Task_Cycle)
+  if(++CommCAN_3_tick >= CommCAN_Task_Cycle)
   {
     CommCAN_3_tick = 0;
     osEventFlagsSet(CommCAN_3_EventHandle, CommCAN_3_Event_Tick);
@@ -606,6 +651,13 @@ void Task_Cycle_Count(void)
     CommLAN_2_tick = 0;
     osEventFlagsSet(CommLAN_2_EventHandle, CommLAN_2_Event_Tick);
   }
+
+  if(++DI_tick >= DI_Task_Cycle)
+  {
+    DI_tick = 0;
+    osEventFlagsSet(DI_EventHandle, DI_Event_Tick);
+  }
+
 }
 
 

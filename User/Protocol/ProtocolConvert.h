@@ -204,7 +204,7 @@ typedef enum
 typedef struct
 {
     uint8_t en;
-    uint8_t signal;
+    DI_Signal_e signal;
     uint8_t valid;
     uint16_t trigger_delay;
     uint16_t recover_delay;
@@ -321,6 +321,9 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
+extern PortConfig_DI_t* GetPortConfig_DI(uint8_t no);
+
+
 extern void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff);
 extern void Comm_CAN_Pro(uint8_t port, CanMsgType *msg);
 
