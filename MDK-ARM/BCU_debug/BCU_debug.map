@@ -2272,6 +2272,7 @@ Section Cross References
     protocolconvert.o(i.Printf_PortConfig) refers to printfa.o(i.__0printf) for __2printf
     protocolconvert.o(i.Printf_PortConfig) refers to protocolconvert.o(i.GetPortConfig_CAN) for GetPortConfig_CAN
     protocolconvert.o(i.Printf_PortConfig) refers to protocolconvert.o(i.GetPortConfig_DI) for GetPortConfig_DI
+    protocolconvert.o(i.Printf_PortConfig) refers to protocolconvert.o(i.GetPortConfig_DO) for GetPortConfig_DO
     protocolconvert.o(i.Printf_PortConfig) refers to protocolconvert.o(.conststring) for .conststring
     protocolconvert.o(i.Printf_ProtocolConvert_CAN) refers to protocolconvert.o(i.GetProtocolConvert_CAN) for GetProtocolConvert_CAN
     protocolconvert.o(i.Printf_ProtocolConvert_CAN) refers to printfa.o(i.__0printf) for __2printf
@@ -3894,7 +3895,7 @@ Removing Unused input sections from the image.
     Removing protocolconvert.o(i.GetPortConfig_DO), (28 bytes).
     Removing protocolconvert.o(i.GetPortConfig_modbus), (32 bytes).
     Removing protocolconvert.o(i.GetProtocolConvert_modbus), (28 bytes).
-    Removing protocolconvert.o(i.Printf_PortConfig), (356 bytes).
+    Removing protocolconvert.o(i.Printf_PortConfig), (440 bytes).
     Removing protocolconvert.o(i.Printf_ProtocolConvert_CAN), (300 bytes).
     Removing protocolconvert.o(i.Printf_ProtocolConvert_modbus), (408 bytes).
     Removing protocolconvert.o(i.cJSON_To_PortConfig), (1438 bytes).
@@ -3923,7 +3924,7 @@ Removing Unused input sections from the image.
     Removing d2f.o(.text), (56 bytes).
     Removing fepilogue.o(.text), (110 bytes).
 
-1236 unused section(s) (total 171087 bytes) removed from the image.
+1236 unused section(s) (total 171171 bytes) removed from the image.
 
 ==============================================================================
 

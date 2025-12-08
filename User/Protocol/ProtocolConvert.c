@@ -928,6 +928,18 @@ static void Printf_PortConfig(void)
 
         printf("\r\n");
     }
+
+    for(uint8_t i = 1; i <= PortConfig_DO_Num; i++)
+    {
+        PortConfig_DO_t* _do = GetPortConfig_DO(i);
+        if(_do == NULL)
+            return;
+
+        printf("DO port: %d, signal: %d, valid: %d\r\n",
+            i, _do->signal, _do->valid);
+
+        printf("\r\n");
+    }
 }
 /*
 ----------------------------------------------------------------------------------------------
