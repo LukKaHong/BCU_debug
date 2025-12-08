@@ -1,5 +1,5 @@
-#ifndef __COMM485_1_H__
-#define __COMM485_1_H__
+#ifndef __COMM485_H__
+#define __COMM485_H__
 
 #include "usart.h"
 #include "main.h"
@@ -12,17 +12,17 @@
 
 ----------------------------------------------------------------------------------------------
 */
-// #define Comm485_1_Task_Cycle (100)
+
 #define Comm485_Task_Cycle (100)
 /*
 ----------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
 */
-extern uint8_t Comm485_1_Tx_Buff[Uart_Tx_Buff_Size];
-extern uint8_t Comm485_1_Rx_Buff[Uart_Rx_Buff_Size];
 
 extern void Comm485_1_Task(void);
+extern void Comm485_2_Task(void);
+extern void Comm485_3_Task(void);
 /*
 ----------------------------------------------------------------------------------------------
 

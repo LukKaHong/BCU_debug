@@ -321,10 +321,16 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
+extern ProtocolConvert_modbus_t* GetProtocolConvert_modbus(DEVICE_TYPE_e device_type);
+extern ProtocolConvert_CAN_t* GetProtocolConvert_CAN(DEVICE_TYPE_e device_type);
+extern PortConfig_modbus_t* GetPortConfig_modbus(uint8_t no);
+extern PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no);
 extern PortConfig_DI_t* GetPortConfig_DI(uint8_t no);
+extern PortConfig_DO_t* GetPortConfig_DO(uint8_t no);
 
+extern void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* convert);
+extern uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no);
 
-extern void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff);
 extern void Comm_CAN_Pro(uint8_t port, CanMsgType *msg);
 
 extern void cJSON_To_PortConfig(char *message);

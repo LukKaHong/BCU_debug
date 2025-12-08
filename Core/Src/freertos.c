@@ -31,9 +31,7 @@
 #include "CommCAN_3.h"
 #include "CommLAN_1.h"
 #include "CommLAN_2.h"
-#include "Comm485_1.h"
-#include "Comm485_2.h"
-#include "Comm485_3.h"
+#include "Comm485.h"
 #include "DI.h"
 
 /* USER CODE END Includes */

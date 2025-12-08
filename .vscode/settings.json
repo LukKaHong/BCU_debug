@@ -20,6 +20,8 @@
         "commcan_3.h": "c",
         "stdlib.h": "c",
         "protocolconvert.h": "c",
-        "di.h": "c"
+        "di.h": "c",
+        "comm485.h": "c",
+        "modbusrtu.h": "c"
     }
 }
