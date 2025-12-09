@@ -533,16 +533,16 @@ void cJSON_To_PortConfig(char *message)
         for(uint8_t i = 0; i < cJSON_GetArraySize(root_modbus); i++)
         {
             cJSON *root_modbus_array = cJSON_GetArrayItem(root_modbus, i);
-            PortConfig_modbus_t* modbus = GetPortConfig_modbus((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "port")));
+            PortConfig_modbus_t* modbus = GetPortConfig_modbus((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "p")));
             if(modbus == NULL)
                 continue;
-            modbus->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "baud"));
-            modbus->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "date_bit"));
-            modbus->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "stop_bit"));
-            modbus->parity     = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "parity"));
-            modbus->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "device_num"));
+            modbus->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "b"));
+            modbus->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "db"));
+            modbus->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "sb"));
+            modbus->parity     = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "pa"));
+            modbus->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "dn"));
 
-            cJSON *root_modbus_array_device_attr = cJSON_GetObjectItem(root_modbus_array, "device_attr"); 
+            cJSON *root_modbus_array_device_attr = cJSON_GetObjectItem(root_modbus_array, "da"); 
             if(modbus->device_num != cJSON_GetArraySize(root_modbus_array_device_attr))
             {
                 modbus->device_num = 0;
@@ -552,9 +552,9 @@ void cJSON_To_PortConfig(char *message)
             for(uint8_t j = 0; j < modbus->device_num; j++)
             {
                 cJSON *root_modbus_array_device_attr_array = cJSON_GetArrayItem(root_modbus_array_device_attr, j);
-                modbus->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_type"));
-                modbus->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_no"));
-                modbus->device_attr[j].device_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "device_addr"));
+                modbus->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dt"));
+                modbus->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dn"));
+                modbus->device_attr[j].device_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "da"));
             }
         }
     }
@@ -565,13 +565,13 @@ void cJSON_To_PortConfig(char *message)
         for(uint8_t i = 0; i < cJSON_GetArraySize(root_CAN); i++)
         {
             cJSON *root_CAN_array = cJSON_GetArrayItem(root_CAN, i);
-            PortConfig_CAN_t* CAN = GetPortConfig_CAN((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "port")));
+            PortConfig_CAN_t* CAN = GetPortConfig_CAN((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "p")));
             if(CAN == NULL)
                 continue;
-            CAN->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "baud"));
-            CAN->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "device_num"));
+            CAN->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "b"));
+            CAN->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "dn"));
 
-            cJSON *root_CAN_array_device_attr = cJSON_GetObjectItem(root_CAN_array, "device_attr"); 
+            cJSON *root_CAN_array_device_attr = cJSON_GetObjectItem(root_CAN_array, "da"); 
             if(CAN->device_num != cJSON_GetArraySize(root_CAN_array_device_attr))
             {
                 CAN->device_num = 0;
@@ -581,11 +581,11 @@ void cJSON_To_PortConfig(char *message)
             for(uint8_t j = 0; j < CAN->device_num; j++)
             {
                 cJSON *root_CAN_array_device_attr_array = cJSON_GetArrayItem(root_CAN_array_device_attr, j);
-                CAN->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_type"));
-                CAN->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "device_no"));
-                CAN->device_attr[j].master_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "master_addr"));
-                CAN->device_attr[j].slave_addr          = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "slave_addr"));
-                CAN->device_attr[j].addr_format         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "addr_format"));
+                CAN->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "dt"));
+                CAN->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "dn"));
+                CAN->device_attr[j].master_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "ma"));
+                CAN->device_attr[j].slave_addr          = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "sa"));
+                CAN->device_attr[j].addr_format         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "af"));
             }
         }
     }
