@@ -218,18 +218,18 @@ typedef struct
 
 typedef enum
 {
-    DO_Signal_exhaust_fan = 0,
-    DO_Signal_cool_fan    = 1,
-    DO_Signal_heat        = 2,
-    DO_Signal_red_led     = 3,
-    DO_Signal_green_led   = 4,
-    DO_Signal_Max,
-}DO_Signal_e;
+    DO_Ctrl_exhaust_fan = 0,
+    DO_Ctrl_cool_fan    = 1,
+    DO_Ctrl_heat        = 2,
+    DO_Ctrl_red_led     = 3,
+    DO_Ctrl_green_led   = 4,
+    DO_Ctrl_Max,
+}DO_Ctrl_e;
 
 typedef struct
 {
     uint8_t en;
-    uint8_t signal;
+    DO_Ctrl_e ctrl;
     uint8_t valid;
 }PortConfig_DO_t;
 

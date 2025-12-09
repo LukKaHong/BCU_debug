@@ -1035,6 +1035,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\App\CommCAN.c</FilePath>
             </File>
+            <File>
+              <FileName>DO.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\DO.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

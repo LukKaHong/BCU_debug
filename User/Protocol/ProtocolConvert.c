@@ -21,7 +21,6 @@ Node_Dehum_t Node_Dehum[Dehum_Num_Max];
 // Node_BMS_t Node_BMS[BMS_Num_Max];
 // Node_BMU_t Node_BMU[BMU_Num_Max];
 
-
 ProtocolConvert_modbus_t ProtocolConvert_modbus[DEVICE_TYPE_Max];
 ProtocolConvert_CAN_t ProtocolConvert_CAN[DEVICE_TYPE_Max];
 
@@ -29,7 +28,6 @@ PortConfig_modbus_t PortConfig_modbus[PortConfig_modbus_Num];
 PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 PortConfig_DI_t PortConfig_DI[PortConfig_DI_Num];
 PortConfig_DO_t PortConfig_DO[PortConfig_DO_Num];
-
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -598,19 +596,19 @@ void cJSON_To_PortConfig(char *message)
         for(uint8_t i = 0; i < cJSON_GetArraySize(root_DI); i++)
         {
             cJSON *root_DI_array = cJSON_GetArrayItem(root_DI, i);
-            PortConfig_DI_t* DI = GetPortConfig_DI((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "port")));
+            PortConfig_DI_t* DI = GetPortConfig_DI((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "p")));
             if(DI == NULL)
                 continue;
 
-            DI->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "en"));
+            DI->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "e"));
 
             if(DI->en == 0)
                 continue;
 
-            DI->signal        = (DI_Signal_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "signal"));
-            DI->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "valid"));
-            DI->trigger_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "trigger_delay"));
-            DI->recover_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "recover_delay"));
+            DI->signal        = (DI_Signal_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "s"));
+            DI->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "v"));
+            DI->trigger_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "td"));
+            DI->recover_delay = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DI_array, "rd"));
         }
     }
 
@@ -620,17 +618,17 @@ void cJSON_To_PortConfig(char *message)
         for(uint8_t i = 0; i < cJSON_GetArraySize(root_DO); i++)
         {
             cJSON *root_DO_array = cJSON_GetArrayItem(root_DO, i);
-            PortConfig_DO_t* DO = GetPortConfig_DO((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "port")));
+            PortConfig_DO_t* DO = GetPortConfig_DO((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "p")));
             if(DO == NULL)
                 continue;
 
-            DO->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "en"));
+            DO->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "e"));
 
             if(DO->en == 0)
                 continue;
 
-            DO->signal        = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "signal"));
-            DO->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "valid"));
+            DO->ctrl        = (DO_Ctrl_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "c"));
+            DO->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "v"));
         }
     }
 
@@ -826,8 +824,8 @@ static void Printf_PortConfig(void)
         if(_do == NULL)
             return;
 
-        printf("DO port: %d, signal: %d, valid: %d\r\n",
-            i, _do->signal, _do->valid);
+        printf("DO port: %d, ctrl: %d, valid: %d\r\n",
+            i, _do->ctrl, _do->valid);
 
         printf("\r\n");
     }

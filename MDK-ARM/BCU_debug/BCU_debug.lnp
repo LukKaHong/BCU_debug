@@ -53,6 +53,7 @@
 "bcu_debug\di.o"
 "bcu_debug\comm485.o"
 "bcu_debug\commcan.o"
+"bcu_debug\do.o"
 "bcu_debug\cjson.o"
 "bcu_debug\protocolconvert.o"
 "bcu_debug\modbusrtu.o"
