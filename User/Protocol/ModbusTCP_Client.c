@@ -1,4 +1,5 @@
 #include "ModbusTCP.h"
+#include "ModbusTCP_Client.h"
 
 static inline void put16_be(uint8_t* dst, uint16_t val)
 {

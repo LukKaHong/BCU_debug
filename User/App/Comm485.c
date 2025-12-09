@@ -85,7 +85,7 @@ void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                             if(convert->node_attr[node_num].reg_addr == reg_addr && 
                                 convert->node_attr[node_num].fun_code == convert->area_attr[area_num].fun_code)//匹配点表
                             {
-                                ConvertToNode_modbus(GetNode(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no), 
+                                ConvertToNode_modbus(GetNode(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, convert->node_attr[node_num].model_id), 
                                                 (uint8_t*)data,
                                                 &convert->node_attr[node_num]);
 

@@ -993,8 +993,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\Protocol\ModbusTCP.c</PathWithFileName>
-      <FilenameWithoutPath>ModbusTCP.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\Protocol\ProtocolNode.c</PathWithFileName>
+      <FilenameWithoutPath>ProtocolNode.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1005,8 +1005,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\Protocol\ProtocolNode.c</PathWithFileName>
-      <FilenameWithoutPath>ProtocolNode.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\Protocol\ModbusTCP_Client.c</PathWithFileName>
+      <FilenameWithoutPath>ModbusTCP_Client.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>8</GroupNumber>
+      <FileNumber>61</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\User\Protocol\ModbusTCP_Slave.c</PathWithFileName>
+      <FilenameWithoutPath>ModbusTCP_Slave.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

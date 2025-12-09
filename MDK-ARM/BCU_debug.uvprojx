@@ -1066,14 +1066,19 @@
               <FilePath>..\User\Protocol\ModbusRTU.c</FilePath>
             </File>
             <File>
-              <FileName>ModbusTCP.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Protocol\ModbusTCP.c</FilePath>
-            </File>
-            <File>
               <FileName>ProtocolNode.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Protocol\ProtocolNode.c</FilePath>
+            </File>
+            <File>
+              <FileName>ModbusTCP_Client.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Protocol\ModbusTCP_Client.c</FilePath>
+            </File>
+            <File>
+              <FileName>ModbusTCP_Slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Protocol\ModbusTCP_Slave.c</FilePath>
             </File>
           </Files>
         </Group>

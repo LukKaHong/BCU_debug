@@ -300,7 +300,7 @@ void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* con
         break;
     }
 
-    DataToNode(&node[convert->model_id], temp, convert->model_type);
+    DataToNode(node, temp, convert->model_type);
 }
 
 
@@ -443,7 +443,7 @@ void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert)
         break;
     }
 
-    DataToNode(&node[convert->model_id], temp, convert->model_type);
+    DataToNode(node, temp, convert->model_type);
 }
 
 

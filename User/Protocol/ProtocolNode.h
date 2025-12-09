@@ -13,104 +13,50 @@
 
 ----------------------------------------------------------------------------------------------
 */
+#define Node_Addr_Max (38500)
+
+#define Node_Addr_ECU (0)
+#define Node_Addr_Air (500)
+#define Node_Addr_Fire (1500)
+#define Node_Addr_Meter (3500)
+#define Node_Addr_Pv (5500)
+#define Node_Addr_Doil (7500)
+#define Node_Addr_Coolwater (8500)
+#define Node_Addr_Dehum (9500)
+#define Node_Addr_BMS (10500)
+#define Node_Addr_PCS (14500)
+#define Node_Addr_BMU (18500)
+
+#define Node_Num_ECU (500)
+#define Node_Num_Air (1000)
+#define Node_Num_Fire (1000)
+#define Node_Num_Meter (1000)
+#define Node_Num_Pv (1000)
+#define Node_Num_Doil (1000)
+#define Node_Num_Coolwater (1000)
+#define Node_Num_Dehum (1000)
+#define Node_Num_BMS (4000)
+#define Node_Num_PCS (2000)
+#define Node_Num_BMU (1000)
+
 #define ECU_Num_Max (1)
-#define ECU_Node_Max (500)
-
 #define Air_Num_Max (1)
-#define Air_Node_Max (1000)
-
 #define Fire_Num_Max (2)
-#define Fire_Node_Max (1000)
-
 #define Meter_Num_Max (2)
-#define Meter_Node_Max (1000)
-
 #define Pv_Num_Max (2)
-#define Pv_Node_Max (1000)
-
 #define Doil_Num_Max (1)
-#define Doil_Node_Max (1000)
-
 #define Coolwater_Num_Max (1)
-#define Coolwater_Node_Max (1000)
-
 #define Dehum_Num_Max (1)
-#define Dehum_Node_Max (1000)
-
 #define BMS_Num_Max (1)
-#define BMS_Node_Max (4000)
-
 #define PCS_Num_Max (2)
-#define PCS_Node_Max (2000)
-
 #define BMU_Num_Max (20)
-#define BMU_Node_Max (1000)
-
-
-typedef struct
-{
-    uint16_t Node[PCS_Node_Max];
-}Node_PCS_t;
-
-typedef struct
-{
-    uint16_t Node[Air_Node_Max];
-}Node_Air_t;
-
-typedef struct
-{
-    uint16_t Node[Meter_Node_Max];
-}Node_Meter_t;
-
-typedef struct
-{
-    uint16_t Node[Fire_Node_Max];
-}Node_Fire_t;
-
-typedef struct
-{
-    uint16_t Node[Doil_Node_Max];
-}Node_Doil_t;
-
-typedef struct
-{
-    uint16_t Node[Pv_Node_Max];
-}Node_Pv_t;
-
-typedef struct
-{
-    uint16_t Node[Coolwater_Node_Max];
-}Node_Coolwater_t;
-
-typedef struct
-{
-    uint16_t Node[Dehum_Node_Max];
-}Node_Dehum_t;
-
-typedef struct
-{
-    uint16_t Node[ECU_Node_Max];
-}Node_ECU_t;
-
-typedef struct
-{
-    uint16_t Node[BMS_Node_Max];
-}Node_BMS_t;
-
-typedef struct
-{
-    uint16_t Node[BMU_Node_Max];
-}Node_BMU_t;
-
-
-
 
 /*
 ----------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
 */
-extern uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no);
+extern uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no, uint16_t model_id);
 
 /*
 ----------------------------------------------------------------------------------------------
