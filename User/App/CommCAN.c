@@ -2,7 +2,7 @@
 #include "cmsis_os.h"
 #include "fdcan.h"
 #include "ProtocolConvert.h"
-
+#include "ProtocolNode.h"
 /*
 ----------------------------------------------------------------------------------------------
 

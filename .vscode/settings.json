@@ -23,6 +23,7 @@
         "di.h": "c",
         "comm485.h": "c",
         "modbusrtu.h": "c",
-        "commcan.h": "c"
+        "commcan.h": "c",
+        "protocolnode.h": "c"
     }
 }

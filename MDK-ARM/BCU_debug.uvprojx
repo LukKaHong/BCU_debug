@@ -1070,6 +1070,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Protocol\ModbusTCP.c</FilePath>
             </File>
+            <File>
+              <FileName>ProtocolNode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Protocol\ProtocolNode.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

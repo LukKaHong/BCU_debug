@@ -2,6 +2,7 @@
 #include "cmsis_os.h"
 #include "ProtocolConvert.h"
 #include "ModbusRTU.h"
+#include "ProtocolNode.h"
 /*
 ----------------------------------------------------------------------------------------------
 

@@ -238,84 +238,9 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-#define PCS_Node_Max (1024)
-#define PCS_Num_Max (2)
-typedef struct
-{
-    uint16_t Node[PCS_Node_Max];
-}Node_PCS_t;
-
-#define Air_Node_Max (1024)
-#define Air_Num_Max (1)
-typedef struct
-{
-    uint16_t Node[Air_Node_Max];
-}Node_Air_t;
-
-#define Meter_Node_Max (1024)
-#define Meter_Num_Max (2)
-typedef struct
-{
-    uint16_t Node[Meter_Node_Max];
-}Node_Meter_t;
-
-#define Fire_Node_Max (1024)
-#define Fire_Num_Max (2)
-typedef struct
-{
-    uint16_t Node[Fire_Node_Max];
-}Node_Fire_t;
-
-#define Doil_Node_Max (1024)
-#define Doil_Num_Max (1)
-typedef struct
-{
-    uint16_t Node[Doil_Node_Max];
-}Node_Doil_t;
-
-#define Pv_Node_Max (1024)
-#define Pv_Num_Max (2)
-typedef struct
-{
-    uint16_t Node[Pv_Node_Max];
-}Node_Pv_t;
-
-#define Coolwater_Node_Max (1024)
-#define Coolwater_Num_Max (1)
-typedef struct
-{
-    uint16_t Node[Coolwater_Node_Max];
-}Node_Coolwater_t;
-
-#define Dehum_Node_Max (1024)
-#define Dehum_Num_Max (1)
-typedef struct
-{
-    uint16_t Node[Dehum_Node_Max];
-}Node_Dehum_t;
 
 
 
-// #define ECU_Node_Max (1024)
-// #define ECU_Num_Max (1)
-// typedef struct
-// {
-//     uint16_t Node[ECU_Node_Max];
-// }Node_ECU_t;
-
-// #define BMS_Node_Max (1024)
-// #define BMS_Num_Max (1)
-// typedef struct
-// {
-//     uint16_t Node[BMS_Node_Max];
-// }Node_BMS_t;
-
-// #define BMU_Node_Max (1024)
-// #define BMU_Num_Max (20)
-// typedef struct
-// {
-//     uint16_t Node[BMU_Node_Max];
-// }Node_BMU_t;
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -331,7 +256,6 @@ extern PortConfig_DO_t* GetPortConfig_DO(uint8_t no);
 
 extern void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert);
 extern void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* convert);
-extern uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no);
 extern uint32_t CAN_ID_offset_calc(uint32_t id, CAN_device_attr_t* device_attr);
 
 
