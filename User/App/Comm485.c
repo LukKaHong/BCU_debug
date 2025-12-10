@@ -123,6 +123,7 @@ void Comm485_1_Task(void)
         {
             printf("%s\r\n", __func__);
             // Comm_485_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
+            // _485_1_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
         }
     }
 }
@@ -141,6 +142,9 @@ void Comm485_2_Task(void)
         {
             printf("%s\r\n", __func__);
             // Comm_485_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
+
+
+            // _485_2_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
         }
     }
 }
@@ -159,6 +163,7 @@ void Comm485_3_Task(void)
         {
             printf("%s\r\n", __func__);
             // Comm_485_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
+            _485_3_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
         }
     }
 }

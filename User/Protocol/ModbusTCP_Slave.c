@@ -42,6 +42,20 @@ static inline int32_t build_exception(uint16_t tid, uint8_t uid, uint8_t func, u
     return MBTCP_OK;
 }
 
+/*
+ * 从机请求处理函数（保持寄存器）
+ * 参数说明：
+ *  req            : 接收到的完整请求帧（包含 MBAP 头 + PDU）
+ *  req_len        : 请求帧总长度，必须等于 7 + MBAP.Length 字节
+ *  unit_id_expected : 期望的 UnitID（为 0 表示接受任意 UnitID）
+ *  holding_regs   : 保持寄存器数组（uint16_t，作为寄存器映射的后端存储）
+ *  holding_count  : 保持寄存器数组的元素个数（寄存器数量）
+ *  rsp            : 输出响应缓冲区（函数成功时填充正常或异常响应）
+ *  rsp_len        : 输出响应长度（字节数，函数成功时写入）
+ * 返回值：
+ *  MBTCP_OK       : 已生成响应（正常或异常），应将 rsp 的前 rsp_len 字节回发
+ *  其他 MBTCP_ERR_*：校验或参数错误，通常不需要回发响应
+ */
 int32_t ModbusTCP_Slave_Handle(const uint8_t* req, uint16_t req_len,
                                uint8_t unit_id_expected,
                                uint16_t* holding_regs, uint16_t holding_count,
@@ -118,4 +132,3 @@ int32_t ModbusTCP_Slave_Handle(const uint8_t* req, uint16_t req_len,
         return build_exception(tid, uid, func, MBTCP_EX_ILLEGAL_FUNCTION, rsp, rsp_len);
     }
 }
-

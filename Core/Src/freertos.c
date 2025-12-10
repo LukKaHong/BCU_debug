@@ -224,6 +224,22 @@ const osSemaphoreAttr_t BinarySem_485_3_Rx_attributes = {
   .cb_mem = &BinarySem_485_3_RxControlBlock,
   .cb_size = sizeof(BinarySem_485_3_RxControlBlock),
 };
+/* Definitions for BinarySem_LAN_2_Tx */
+osSemaphoreId_t BinarySem_LAN_2_TxHandle;
+osStaticSemaphoreDef_t BinarySem_LAN_2_TxControlBlock;
+const osSemaphoreAttr_t BinarySem_LAN_2_Tx_attributes = {
+  .name = "BinarySem_LAN_2_Tx",
+  .cb_mem = &BinarySem_LAN_2_TxControlBlock,
+  .cb_size = sizeof(BinarySem_LAN_2_TxControlBlock),
+};
+/* Definitions for BinarySem_LAN_2_Rx */
+osSemaphoreId_t BinarySem_LAN_2_RxHandle;
+osStaticSemaphoreDef_t BinarySem_LAN_2_RxControlBlock;
+const osSemaphoreAttr_t BinarySem_LAN_2_Rx_attributes = {
+  .name = "BinarySem_LAN_2_Rx",
+  .cb_mem = &BinarySem_LAN_2_RxControlBlock,
+  .cb_size = sizeof(BinarySem_LAN_2_RxControlBlock),
+};
 /* Definitions for Comm485_1_Event */
 osEventFlagsId_t Comm485_1_EventHandle;
 osStaticEventGroupDef_t Comm485_1_EventControlBlock;
@@ -347,6 +363,12 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of BinarySem_485_3_Rx */
   BinarySem_485_3_RxHandle = osSemaphoreNew(1, 0, &BinarySem_485_3_Rx_attributes);
+
+  /* creation of BinarySem_LAN_2_Tx */
+  BinarySem_LAN_2_TxHandle = osSemaphoreNew(1, 0, &BinarySem_LAN_2_Tx_attributes);
+
+  /* creation of BinarySem_LAN_2_Rx */
+  BinarySem_LAN_2_RxHandle = osSemaphoreNew(1, 0, &BinarySem_LAN_2_Rx_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */

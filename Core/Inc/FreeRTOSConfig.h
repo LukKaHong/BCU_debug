@@ -172,7 +172,8 @@ extern osSemaphoreId_t BinarySem_485_2_TxHandle;
 extern osSemaphoreId_t BinarySem_485_2_RxHandle;
 extern osSemaphoreId_t BinarySem_485_3_TxHandle;
 extern osSemaphoreId_t BinarySem_485_3_RxHandle;
-
+extern osSemaphoreId_t BinarySem_LAN_2_TxHandle;
+extern osSemaphoreId_t BinarySem_LAN_2_RxHandle;
 
 #define Comm485_1_Event_Tick      (1 << 0)
 extern osEventFlagsId_t Comm485_1_EventHandle;

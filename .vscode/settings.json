@@ -24,6 +24,8 @@
         "comm485.h": "c",
         "modbusrtu.h": "c",
         "commcan.h": "c",
-        "protocolnode.h": "c"
+        "protocolnode.h": "c",
+        "modbustcp.h": "c",
+        "modbustcp_slave.h": "c"
     }
 }

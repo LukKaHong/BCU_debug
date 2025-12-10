@@ -1,5 +1,9 @@
 #include "CommLAN_1.h"
 #include "cmsis_os.h"
+#include "ModbusTCP.h"
+#include "ModbusTCP_Slave.h"
+#include "ProtocolNode.h"
+
 
 
 /*
@@ -7,11 +11,13 @@
 
 ----------------------------------------------------------------------------------------------
 */
-void Receiv_LAN_1(uint8_t* data, uint32_t len)
+void Receiv_LAN_EMS(uint8_t* rx, uint16_t rxlen, uint8_t* tx, uint16_t* txlen)
 {
-
-
-
+    int32_t ret = ModbusTCP_Slave_Handle(rx, rxlen, 1, GetNodePointer(), Node_Addr_Max, tx, txlen);
+    if(ret == MBTCP_OK)
+    {
+        // 发送响应
+    }
 }
 
 /*
