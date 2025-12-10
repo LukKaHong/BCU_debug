@@ -17,10 +17,6 @@ uint8_t Comm485_2_Rx_Buff[Uart_Rx_Buff_Size];
 uint8_t Comm485_3_Tx_Buff[Uart_Tx_Buff_Size];
 uint8_t Comm485_3_Rx_Buff[Uart_Rx_Buff_Size];
 
-
-
-
-
 /*
 ----------------------------------------------------------------------------------------------
 

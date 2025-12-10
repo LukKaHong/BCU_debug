@@ -13,7 +13,7 @@
 
 ----------------------------------------------------------------------------------------------
 */
-#define Node_Addr_Max (38500)
+#define Node_Num_Max (38500)
 
 #define Node_Addr_ECU (0)
 #define Node_Addr_Air (500)
