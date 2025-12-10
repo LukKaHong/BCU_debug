@@ -52,7 +52,6 @@
 #define BMU_Num_Max (20)
 
 
-
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -60,14 +59,9 @@
 */
 typedef struct
 {
-    uint16_t Node[Node_Num_Max];
+    uint16_t value[Node_Num_Max];
     uint8_t writeflag[Node_Num_Max];
 }Write_Node_t;
-
-
-
-
-
 
 
 /*
@@ -75,9 +69,19 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-extern uint16_t* GetNode(DEVICE_TYPE_e device_type, uint8_t no, uint16_t model_id);
 extern uint16_t* GetNodePointer(void);
 extern Write_Node_t* GetWriteNodePointer(void);
+extern bool GetNodeRange(DEVICE_TYPE_e device_type, uint8_t no,uint16_t* start, uint16_t* end);
+
+extern bool NodeIndexToModelId(DEVICE_TYPE_e device_type, uint8_t no, uint16_t index, uint16_t* model_id);
+extern bool ModelIdToRegAddr_modbus(DEVICE_TYPE_e device_type, uint16_t model_id, uint16_t* reg_addr);
+
+extern bool ModelIdToNodeIndex(DEVICE_TYPE_e device_type, uint8_t no, uint16_t model_id, uint16_t* index);
+
+
+
+
+
 
 /*
 ----------------------------------------------------------------------------------------------

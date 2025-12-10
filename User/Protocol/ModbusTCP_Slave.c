@@ -1,6 +1,8 @@
 #include "ModbusTCP.h"
 #include "ModbusTCP_Slave.h"
 
+
+
 static inline void put16_be(uint8_t* dst, uint16_t val)
 {
     dst[0] = (uint8_t)(val >> 8);
@@ -59,7 +61,9 @@ static inline int32_t build_exception(uint16_t tid, uint8_t uid, uint8_t func, u
 int32_t ModbusTCP_Slave_Handle(const uint8_t* req, uint16_t req_len,
                                uint8_t unit_id_expected,
                                uint16_t* holding_regs, uint16_t holding_count,
-                               uint8_t* rsp, uint16_t* rsp_len)
+                               uint8_t* rsp, uint16_t* rsp_len,
+                               Write_Node_t* write_node
+                            )
 {
     uint16_t tid=0,pid=0,ml=0; uint8_t uid=0;
     if (holding_regs == NULL || rsp == NULL || rsp_len == NULL) return MBTCP_ERR_ARG;
@@ -92,7 +96,10 @@ int32_t ModbusTCP_Slave_Handle(const uint8_t* req, uint16_t req_len,
         uint16_t reg = get16_be(&req[8]);
         uint16_t val = get16_be(&req[10]);
         if (reg >= holding_count) return build_exception(tid, uid, func, MBTCP_EX_ILLEGAL_DATA_ADDR, rsp, rsp_len);
-        holding_regs[reg] = val;
+        // holding_regs[reg] = val;
+        write_node->value[reg] = val;
+        write_node->writeflag[reg] = 1;
+
         put16_be(&rsp[0], tid);
         put16_be(&rsp[2], 0);
         put16_be(&rsp[4], 6);
@@ -115,7 +122,9 @@ int32_t ModbusTCP_Slave_Handle(const uint8_t* req, uint16_t req_len,
         if (req_len != (uint16_t)(13 + bc)) return build_exception(tid, uid, func, MBTCP_EX_ILLEGAL_DATA_VAL, rsp, rsp_len);
         for (uint16_t i = 0; i < qty; i++)
         {
-            holding_regs[start + i] = get16_be(&req[13 + i*2]);
+            // holding_regs[start + i] = get16_be(&req[13 + i*2]);
+            write_node->value[start + i] = get16_be(&req[13 + i*2]);
+            write_node->writeflag[start + i] = 1;
         }
         put16_be(&rsp[0], tid);
         put16_be(&rsp[2], 0);

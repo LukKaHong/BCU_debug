@@ -22,7 +22,7 @@ uint8_t Comm485_3_Rx_Buff[Uart_Rx_Buff_Size];
 
 ----------------------------------------------------------------------------------------------
 */
-void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
+static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 {
     PortConfig_modbus_t* modbus = GetPortConfig_modbus(port);
     if(modbus == NULL)
@@ -81,9 +81,12 @@ void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                             if(convert->node_attr[node_num].reg_addr == reg_addr && 
                                 convert->node_attr[node_num].fun_code == convert->area_attr[area_num].fun_code)//匹配点表
                             {
-                                ConvertToNode_modbus(GetNode(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, convert->node_attr[node_num].model_id), 
-                                                (uint8_t*)data,
-                                                &convert->node_attr[node_num]);
+                                uint16_t index = 0;
+
+                                if(ModelIdToNodeIndex(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == true)
+                                {
+                                    ConvertToNode_modbus(GetNodePointer() + index, (uint8_t*)data, &convert->node_attr[node_num]);
+                                }
 
                                 break;
                             }
@@ -96,7 +99,50 @@ void Comm_485_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
         }
     }
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
+{
+    PortConfig_modbus_t* modbus = GetPortConfig_modbus(port);
+    if(modbus == NULL)
+        return;
+
+    for(uint8_t device_num = 0; device_num < modbus->device_num; device_num++)//扫描所有设备
+    {
+        uint16_t start = 0, end = 0;
+        if(GetNodeRange(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, &start, &end) == false)
+            continue;
+
+        Write_Node_t* write_node = GetWriteNodePointer();
+
+        for(uint16_t index = start; index <= end; index++)//扫描所有点表
+        {
+            if(write_node->writeflag[index] == 1)//判断是否需要写入
+            {
+                write_node->writeflag[index] = 0;
+
+                uint16_t model_id = 0;
+                if(NodeIndexToModelId(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, index, &model_id) == false)
+                    continue;
+
+                uint16_t reg_addr = 0;
+                if(ModelIdToRegAddr_modbus(modbus->device_attr[device_num].device_type, model_id, &reg_addr) == false)
+                    continue;
+
+                uint16_t tx_len = 0;
+                uint16_t rx_len = 0;
+                uint16_t value = 0;
+
+                ModbusRTU_BuildWriteSingle(modbus->device_attr[device_num].device_addr, reg_addr, write_node->value[index], tx_buff, &tx_len);
+                rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
+                ModbusRTU_ParseWriteSingleRsp(rx_buff, rx_len, modbus->device_attr[device_num].device_addr, reg_addr, &value); 
+            }
+        }
+    }
+}
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -113,13 +159,17 @@ void Comm485_1_Task(void)
 
     while(1)
     {
-        uint32_t r_event = osEventFlagsWait(Comm485_1_EventHandle, Comm485_1_Event_Tick, osFlagsWaitAny, osWaitForever);
+        uint32_t r_event = osEventFlagsWait(Comm485_1_EventHandle, Comm485_1_Event_Tick | Comm485_1_Event_Write, osFlagsWaitAny, osWaitForever);
 
         if(r_event & Comm485_1_Event_Tick)
         {
             printf("%s\r\n", __func__);
-            // Comm_485_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
-            // _485_1_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
+            // Comm_485_Read_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
+        }
+
+        if(r_event & Comm485_1_Event_Write)
+        {
+            // Comm_485_Write_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
         }
     }
 }
@@ -132,15 +182,17 @@ void Comm485_2_Task(void)
 {
     while(1)
     {
-        uint32_t r_event = osEventFlagsWait(Comm485_2_EventHandle, Comm485_2_Event_Tick, osFlagsWaitAny, osWaitForever);
+        uint32_t r_event = osEventFlagsWait(Comm485_2_EventHandle, Comm485_2_Event_Tick | Comm485_2_Event_Write, osFlagsWaitAny, osWaitForever);
 
         if(r_event & Comm485_2_Event_Tick)
         {
             printf("%s\r\n", __func__);
-            // Comm_485_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
+            // Comm_485_Read_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
+        }
 
-
-            // _485_2_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
+        if(r_event & Comm485_2_Event_Write)
+        {
+            // Comm_485_Write_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
         }
     }
 }
@@ -153,13 +205,17 @@ void Comm485_3_Task(void)
 {
     while(1)
     {
-        uint32_t r_event = osEventFlagsWait(Comm485_3_EventHandle, Comm485_3_Event_Tick, osFlagsWaitAny, osWaitForever);
+        uint32_t r_event = osEventFlagsWait(Comm485_3_EventHandle, Comm485_3_Event_Tick | Comm485_3_Event_Write, osFlagsWaitAny, osWaitForever);
 
         if(r_event & Comm485_3_Event_Tick)
         {
             printf("%s\r\n", __func__);
-            // Comm_485_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
-            // _485_3_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
+            // Comm_485_Read_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
+        }
+
+        if(r_event & Comm485_3_Event_Write)
+        {
+            // Comm_485_Write_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
         }
     }
 }

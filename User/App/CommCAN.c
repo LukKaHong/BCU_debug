@@ -31,10 +31,13 @@ void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
         {
             if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
             {
-                ConvertToNode_CAN(GetNode(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id), 
-                                                msg->data,
-                                                &convert->node_attr[node_num]);
+                uint16_t index = 0;
 
+                if(ModelIdToNodeIndex(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == false)
+                {
+                    ConvertToNode_CAN(GetNodePointer() + index, msg->data, &convert->node_attr[node_num]);
+                }
+                
                 break;
             }
         }
