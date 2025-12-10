@@ -656,6 +656,7 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
     HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Uart_Rx_Buff_Size);
   }
 }
+#if 0
 
 uint16_t _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
@@ -753,6 +754,107 @@ uint16_t _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, u
 
   return huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len;
 }
+
+#else
+uint16_t _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+{
+#ifdef _485_1_Printf_Debug
+  Printf_Array("485_1_Tx_Buff", Tx_Buff, Tx_Len);
+#endif
+
+  memcpy(huart4_Tx_DMA_Buff, Tx_Buff, Tx_Len);
+
+  osSemaphoreAcquire(BinarySem_485_1_TxHandle, 0);
+  osSemaphoreAcquire(BinarySem_485_1_RxHandle, 0);
+
+  huart4_Rx_Len = 0;
+  memset(huart4_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Uart_Rx_Buff_Size);
+
+  HAL_UART_Transmit_DMA(&huart4, huart4_Tx_DMA_Buff, Tx_Len);
+  osSemaphoreAcquire(BinarySem_485_1_TxHandle, pdMS_TO_TICKS(1000));
+
+  osSemaphoreAcquire(BinarySem_485_1_RxHandle, pdMS_TO_TICKS(3000));
+  HAL_UART_AbortReceive(&huart4);
+
+  memcpy(Rx_Buff, huart4_Rx_DMA_Buff, huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len);
+
+#ifdef _485_1_Printf_Debug
+  printf("485_1_Rx_Len = %d\n", huart4_Rx_Len);
+  Printf_Array("485_1_Rx_Buff", Rx_Buff, huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len);
+#endif
+
+  return huart4_Rx_Len > Rx_Len ? Rx_Len : huart4_Rx_Len;
+}
+
+
+uint16_t _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+{
+#ifdef _485_2_Printf_Debug
+  Printf_Array("485_2_Tx_Buff", Tx_Buff, Tx_Len);
+#endif
+
+  memcpy(huart1_Tx_DMA_Buff, Tx_Buff, Tx_Len);
+
+  osSemaphoreAcquire(BinarySem_485_2_TxHandle, 0);
+  osSemaphoreAcquire(BinarySem_485_2_RxHandle, 0);
+
+  huart1_Rx_Len = 0;
+  memset(huart1_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1,huart1_Rx_DMA_Buff,Uart_Rx_Buff_Size);
+
+  HAL_UART_Transmit_DMA(&huart1, huart1_Tx_DMA_Buff, Tx_Len);
+  osSemaphoreAcquire(BinarySem_485_2_TxHandle, pdMS_TO_TICKS(1000));
+
+  osSemaphoreAcquire(BinarySem_485_2_RxHandle, pdMS_TO_TICKS(3000));
+  HAL_UART_AbortReceive(&huart1);
+
+  memcpy(Rx_Buff, huart1_Rx_DMA_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+
+#ifdef _485_2_Printf_Debug
+  printf("485_2_Rx_Len = %d\n", huart1_Rx_Len);
+  Printf_Array("485_2_Rx_Buff", Rx_Buff, huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len);
+#endif
+
+  return huart1_Rx_Len > Rx_Len ? Rx_Len : huart1_Rx_Len;
+}
+
+uint16_t _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
+{
+
+#ifdef _485_3_Printf_Debug
+  Printf_Array("485_3_Tx_Buff", Tx_Buff, Tx_Len);
+#endif
+  
+  memcpy(huart3_Tx_DMA_Buff, Tx_Buff, Tx_Len);
+
+  osSemaphoreAcquire(BinarySem_485_3_TxHandle, 0);
+  osSemaphoreAcquire(BinarySem_485_3_RxHandle, 0);
+
+  huart3_Rx_Len = 0;
+  memset(huart3_Rx_DMA_Buff, 0, Uart_Rx_Buff_Size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart3,huart3_Rx_DMA_Buff,Uart_Rx_Buff_Size);
+
+  HAL_UART_Transmit_DMA(&huart3, huart3_Tx_DMA_Buff, Tx_Len);
+  osSemaphoreAcquire(BinarySem_485_3_TxHandle, pdMS_TO_TICKS(1000));
+
+  osSemaphoreAcquire(BinarySem_485_3_RxHandle, pdMS_TO_TICKS(3000));
+  HAL_UART_AbortReceive(&huart3);
+
+  memcpy(Rx_Buff, huart3_Rx_DMA_Buff, huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len);
+
+#ifdef _485_3_Printf_Debug
+  printf("485_3_Rx_Len = %d\n", huart3_Rx_Len);
+  Printf_Array("485_3_Rx_Buff", Rx_Buff, huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len);
+#endif
+
+  return huart3_Rx_Len > Rx_Len ? Rx_Len : huart3_Rx_Len;
+}
+
+
+#endif
+
+
 
 
 uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)

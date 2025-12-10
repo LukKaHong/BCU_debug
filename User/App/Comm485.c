@@ -163,7 +163,7 @@ void Comm485_3_Task(void)
         {
             printf("%s\r\n", __func__);
             // Comm_485_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
-            _485_3_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
+            // _485_3_Tx_And_Rx("123456",6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
         }
     }
 }
