@@ -13,7 +13,10 @@
 */
 void Receiv_LAN_EMS(uint8_t* rx, uint16_t rxlen, uint8_t* tx, uint16_t* txlen)
 {
-    int32_t ret = ModbusTCP_Slave_Handle(rx, rxlen, 1, GetNodePointer(), Node_Num_Max, tx, txlen);
+    int32_t ret = ModbusTCP_Slave_Handle(rx, rxlen, 1, 
+        GetNodePointer(), Node_Num_Max, 
+        tx, txlen);
+        
     if(ret == MBTCP_OK)
     {
         // 发送响应
