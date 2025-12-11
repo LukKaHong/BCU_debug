@@ -47,11 +47,7 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
         }
         else if(CAN->device_attr[device_num].protocol == PROTOCOL_HongHaiSheng_Fire_CAN)
         {
-
             CAN_Fire_HongHaiSheng_Recv(CAN->device_attr[device_num].device_no, msg);
-
-
-
         }
     }
 }
