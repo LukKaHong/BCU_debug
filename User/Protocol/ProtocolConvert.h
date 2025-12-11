@@ -8,6 +8,44 @@
 
 ----------------------------------------------------------------------------------------------
 */
+
+/*
+----------------------------------------------------------------------------------------------
+大小端组合宏定义
+----------------------------------------------------------------------------------------------
+*/
+/* 16位数据组合 */
+#define BUILD_U16_AB(b0, b1)           ((uint16_t)(((uint8_t)(b0)<<8) | (uint8_t)(b1)))
+#define BUILD_U16_BA(b0, b1)           ((uint16_t)(((uint8_t)(b1)<<8) | (uint8_t)(b0)))
+
+#define BUILD_S16_AB(b0, b1)           ((int16_t)(((uint8_t)(b0)<<8) | (uint8_t)(b1)))
+#define BUILD_S16_BA(b0, b1)           ((int16_t)(((uint8_t)(b1)<<8) | (uint8_t)(b0)))
+
+/* 32位数据组合 (输入为字节) */
+#define BUILD_U32_ABCD(b0, b1, b2, b3) ((uint32_t)(((uint32_t)(b0)<<24) | ((uint32_t)(b1)<<16) | ((uint32_t)(b2)<<8) | (uint32_t)(b3)))
+#define BUILD_U32_BADC(b0, b1, b2, b3) ((uint32_t)(((uint32_t)(b1)<<24) | ((uint32_t)(b0)<<16) | ((uint32_t)(b3)<<8) | (uint32_t)(b2)))
+#define BUILD_U32_CDAB(b0, b1, b2, b3) ((uint32_t)(((uint32_t)(b2)<<24) | ((uint32_t)(b3)<<16) | ((uint32_t)(b0)<<8) | (uint32_t)(b1)))
+#define BUILD_U32_DCBA(b0, b1, b2, b3) ((uint32_t)(((uint32_t)(b3)<<24) | ((uint32_t)(b2)<<16) | ((uint32_t)(b1)<<8) | (uint32_t)(b0)))
+
+#define BUILD_S32_ABCD(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b0)<<24) | ((uint32_t)(b1)<<16) | ((uint32_t)(b2)<<8) | (uint32_t)(b3)))
+#define BUILD_S32_BADC(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b1)<<24) | ((uint32_t)(b0)<<16) | ((uint32_t)(b3)<<8) | (uint32_t)(b2)))
+#define BUILD_S32_CDAB(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b2)<<24) | ((uint32_t)(b3)<<16) | ((uint32_t)(b0)<<8) | (uint32_t)(b1)))
+#define BUILD_S32_DCBA(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b3)<<24) | ((uint32_t)(b2)<<16) | ((uint32_t)(b1)<<8) | (uint32_t)(b0)))
+
+// /* 变量值传递（保持二进制位不变） */
+// #define TRANS_VAL_16(dst, src)         (*(uint16_t*)&(dst) = *(uint16_t*)&(src))
+// #define TRANS_VAL_32(dst, src)         (*(uint32_t*)&(dst) = *(uint32_t*)&(src))
+
+// typedef enum
+
+
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+
 typedef enum
 {
     PROTOCOL_MODBUS = 0,
@@ -178,8 +216,8 @@ typedef struct
     DEVICE_TYPE_e device_type;//设备类型
     PROTOCOL_e protocol;//协议
     uint8_t device_no;//设备号
-    uint8_t master_addr;//主地址
-    uint8_t slave_addr;//从地址
+    uint8_t master_addr;//主地址(ECU)
+    uint8_t slave_addr;//从地址(设备)
     uint8_t addr_format;//地址格式
 }CAN_device_attr_t;
 
@@ -261,11 +299,11 @@ extern PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no);
 extern PortConfig_DI_t* GetPortConfig_DI(uint8_t no);
 extern PortConfig_DO_t* GetPortConfig_DO(uint8_t no);
 
-
 extern void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert);
 extern void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* convert);
-extern uint32_t CAN_ID_offset_calc(uint32_t id, CAN_device_attr_t* device_attr);
 
+extern uint32_t CAN_ID_offset_calc(uint32_t id, CAN_device_attr_t* device_attr);
+extern uint32_t CAN_ID_Deoffset_calc(uint32_t id, CAN_device_attr_t* device_attr);
 
 extern void cJSON_To_PortConfig(char *message);
 extern void cJSON_To_ProtocolConvert(char *message);

@@ -32,7 +32,8 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
 
             for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
             {
-                if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
+                if(convert->node_attr[node_num].frame_ID == CAN_ID_Deoffset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
+                // if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
                 {
                     uint16_t index = 0;
 
@@ -47,7 +48,7 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
         }
         else if(CAN->device_attr[device_num].protocol == PROTOCOL_HongHaiSheng_Fire_CAN)
         {
-            CAN_Fire_HongHaiSheng_Recv(CAN->device_attr[device_num].device_no, msg);
+            CAN_Fire_HongHaiSheng_Recv(&CAN->device_attr[device_num], msg);
         }
     }
 }

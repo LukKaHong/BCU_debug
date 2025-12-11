@@ -1085,6 +1085,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\Protocol\Protocol_HongHaiSheng_Fire.c</FilePath>
             </File>
+            <File>
+              <FileName>Protocol_n9_PCS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Protocol\Protocol_n9_PCS.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

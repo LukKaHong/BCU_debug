@@ -130,39 +130,27 @@ void DataToNode(uint16_t* node, double temp, MODEL_TYPE_e model_type)
     case MODEL_TYPE_U16:
         {
             uint16_t data = (uint16_t)temp;
-
-            node[0] &= 0;
-            node[0] |= data;
+            node[0] = data;
         }
         break;
     case MODEL_TYPE_S16:
         {
             int16_t data = (int16_t)temp;
-
-            node[0] &= 0;
-            node[0] |= data;
+            node[0] = data;
         }
         break;
     case MODEL_TYPE_U32:
         {
             uint32_t data = (uint32_t)temp;
-
-            node[0] &= 0;
-            node[0] |= (data >> 16) & 0xffff;
-
-            node[1] &= 0;
-            node[1] |= data & 0xffff;
+            node[0] = (data >> 16) & 0xffff;
+            node[1] = data & 0xffff;
         }
         break;
     case MODEL_TYPE_S32:
         {
             int32_t data = (int32_t)temp;
-
-            node[0] &= 0;
-            node[0] |= (data >> 16) & 0xffff;
-
-            node[1] &= 0;
-            node[1] |= data & 0xffff;
+            node[0] = (data >> 16) & 0xffff;
+            node[1] = data & 0xffff;
         }
         break;
     default:
@@ -191,73 +179,73 @@ void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* con
         break;
     case DATE_TYPE_U16_AB:
         {
-            uint16_t data = (uint16_t)((byte[0] << 8) | byte[1]);
+            uint16_t data = BUILD_U16_AB(byte[0], byte[1]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_S16_AB:
         {
-            int16_t data = (int16_t)((byte[0] << 8) | byte[1]);
+            int16_t data = BUILD_S16_AB(byte[0], byte[1]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_U16_BA:
         {
-            uint16_t data = (uint16_t)((byte[1] << 8) | byte[0]);
+            uint16_t data = BUILD_U16_BA(byte[0], byte[1]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_S16_BA:
         {
-            int16_t data = (int16_t)((byte[1] << 8) | byte[0]);
+            int16_t data = BUILD_S16_BA(byte[0], byte[1]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_U32_ABCD:
         {
-            uint32_t data = (uint32_t)((byte[0] << 24) | (byte[1] << 16) | (byte[2] << 8) | byte[3]);
+            uint32_t data = BUILD_U32_ABCD(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_S32_ABCD:
         {
-            int32_t data = (int32_t)((byte[0] << 24) | (byte[1] << 16) | (byte[2] << 8) | byte[3]);
+            int32_t data = BUILD_S32_ABCD(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_U32_BADC:
         {
-            uint32_t data = (uint32_t)((byte[1] << 24) | (byte[0] << 16) | (byte[3] << 8) | byte[2]);
+            uint32_t data = BUILD_U32_BADC(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_S32_BADC:
         {
-            int32_t data = (int32_t)((byte[1] << 24) | (byte[0] << 16) | (byte[3] << 8) | byte[2]);
+            int32_t data = BUILD_S32_BADC(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_U32_CDAB:
         {
-            uint32_t data = (uint32_t)((byte[2] << 24) | (byte[3] << 16) | (byte[0] << 8) | byte[1]);
+            uint32_t data = BUILD_U32_CDAB(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_S32_CDAB:
         {
-            int32_t data = (int32_t)((byte[2] << 24) | (byte[3] << 16) | (byte[0] << 8) | byte[1]);
+            int32_t data = BUILD_S32_CDAB(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_U32_DCBA:
         {
-            uint32_t data = (uint32_t)((byte[3] << 24) | (byte[2] << 16) | (byte[1] << 8) | byte[0]);
+            uint32_t data = BUILD_U32_DCBA(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
     case DATE_TYPE_S32_DCBA:
         {
-            int32_t data = (int32_t)((byte[3] << 24) | (byte[2] << 16) | (byte[1] << 8) | byte[0]);
+            int32_t data = BUILD_S32_DCBA(byte[0], byte[1], byte[2], byte[3]);
             temp = (double)data * convert->factor + convert->offset;
         }
         break;
@@ -271,7 +259,7 @@ void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* con
         break;
     case DATE_TYPE_Enum:
         {
-            uint16_t data = (uint16_t)((byte[0] << 8) | byte[1]);
+            uint16_t data = BUILD_U16_AB(byte[0], byte[1]);
             for (uint16_t i = 0; i < convert->enum_num; i++)
             {
                 if (data == convert->enum_convert[i].value_src)
@@ -285,7 +273,7 @@ void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* con
         break;
     case DATE_TYPE_BITS_Enum:
         {
-            uint16_t data = GetBits_16((uint16_t)((byte[0] << 8) | byte[1]), convert->bit_field_msb, convert->bit_field_lsb);
+            uint16_t data = GetBits_16(BUILD_U16_AB(byte[0], byte[1]), convert->bit_field_msb, convert->bit_field_lsb);
             for (uint16_t i = 0; i < convert->enum_num; i++)
             {
                 if (data == convert->enum_convert[i].value_src)
@@ -315,6 +303,21 @@ uint32_t CAN_ID_offset_calc(uint32_t id, CAN_device_attr_t* device_attr)
     {
     case 0:
         return id;
+    case 1:
+        return id + (device_attr->master_addr * 256 + device_attr->slave_addr);
+    default:
+        return id;
+    }
+}
+
+uint32_t CAN_ID_Deoffset_calc(uint32_t id, CAN_device_attr_t* device_attr)
+{
+    switch (device_attr->addr_format)
+    {
+    case 0:
+        return id;
+    case 1:
+        return id - (device_attr->master_addr * 256 + device_attr->slave_addr);
     default:
         return id;
     }

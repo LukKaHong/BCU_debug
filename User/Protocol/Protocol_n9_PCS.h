@@ -1,5 +1,6 @@
-#ifndef __PROTOCOL_HONGHAISHENG_FIRE_H__
-#define __PROTOCOL_HONGHAISHENG_FIRE_H__
+#ifndef __PROTOCOL_N9_PCS_H__
+#define __PROTOCOL_N9_PCS_H__
+
 
 #include "main.h"
 #include "fdcan.h"
@@ -9,7 +10,7 @@
 
 ----------------------------------------------------------------------------------------------
 */
-extern void CAN_Fire_HongHaiSheng_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg);
+
 
 
 /*
@@ -30,5 +31,3 @@ extern void CAN_Fire_HongHaiSheng_Recv(CAN_device_attr_t* device_attr, CanMsgTyp
 ----------------------------------------------------------------------------------------------
 */
 #endif
-
-
