@@ -3809,8 +3809,8 @@ Removing Unused input sections from the image.
     Removing comm485.o(.rev16_text), (4 bytes).
     Removing comm485.o(.revsh_text), (4 bytes).
     Removing comm485.o(.rrx_text), (6 bytes).
-    Removing comm485.o(i.Comm_485_Read_Pro), (650 bytes).
-    Removing comm485.o(i.Comm_485_Write_Pro), (320 bytes).
+    Removing comm485.o(i.Comm_485_Read_Pro), (654 bytes).
+    Removing comm485.o(i.Comm_485_Write_Pro), (344 bytes).
     Removing comm485.o(.bss), (6144 bytes).
     Removing commcan.o(.rev16_text), (4 bytes).
     Removing commcan.o(.revsh_text), (4 bytes).
@@ -3997,7 +3997,7 @@ Removing Unused input sections from the image.
     Removing d2f.o(.text), (56 bytes).
     Removing fepilogue.o(.text), (110 bytes).
 
-1257 unused section(s) (total 176270 bytes) removed from the image.
+1257 unused section(s) (total 176298 bytes) removed from the image.
 
 ==============================================================================
 
