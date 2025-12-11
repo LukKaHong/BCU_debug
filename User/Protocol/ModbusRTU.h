@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#define MB_FC_READ_COILS          0x01
 #define MB_FC_READ_HOLDING_REGS   0x03
 #define MB_FC_WRITE_SINGLE_REG    0x06
 #define MB_FC_WRITE_MULTIPLE_REGS 0x10
@@ -20,6 +21,9 @@
 uint16_t ModbusRTU_CRC16(const uint8_t* data, uint16_t len);
 int32_t  ModbusRTU_Validate(const uint8_t* frame, uint16_t len);
 
+int32_t  ModbusRTU_BuildReadCoils(uint8_t addr, uint16_t start, uint16_t quantity,
+                                  uint8_t* frame, uint16_t* frame_len);
+
 int32_t  ModbusRTU_BuildReadHolding(uint8_t addr, uint16_t start, uint16_t quantity,
                                     uint8_t* frame, uint16_t* frame_len);
 
@@ -29,6 +33,10 @@ int32_t  ModbusRTU_BuildWriteSingle(uint8_t addr, uint16_t reg, uint16_t value,
 int32_t  ModbusRTU_BuildWriteMultiple(uint8_t addr, uint16_t start,
                                       const uint16_t* values, uint16_t quantity,
                                       uint8_t* frame, uint16_t* frame_len);
+
+int32_t  ModbusRTU_ParseReadCoilsRsp(const uint8_t* frame, uint16_t len,
+                                     uint8_t expected_addr, uint16_t expected_quantity,
+                                     const uint8_t** data, uint16_t* data_len);
 
 int32_t  ModbusRTU_ParseReadHoldingRsp(const uint8_t* frame, uint16_t len,
                                        uint8_t expected_addr, uint16_t expected_quantity,

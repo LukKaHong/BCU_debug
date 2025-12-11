@@ -50,9 +50,28 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                 uint16_t data_len;
                 int32_t result = MB_ERR_ARG;
 
-                if(convert->area_attr[area_num].fun_code == MB_FC_READ_HOLDING_REGS)
+                if(convert->area_attr[area_num].fun_code == MB_FC_READ_COILS)
                 {
-                    //encode
+                    ModbusRTU_BuildReadCoils(
+                        modbus->device_attr[device_num].device_addr,//设备地址
+                        convert->area_attr[area_num].reg_addr,//寄存器地址
+                        convert->area_attr[area_num].reg_num,//寄存器数量
+                        tx_buff,
+                        &tx_len
+                    );
+                    
+                    result = ModbusRTU_ParseReadCoilsRsp(
+                            rx_buff,
+                            _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size),
+                            modbus->device_attr[device_num].device_addr,//设备地址
+                            convert->area_attr[area_num].reg_num,//寄存器数量
+                            &data,//存寄存器数据的指针
+                            &data_len//字节数
+                        );
+
+                }
+                else if(convert->area_attr[area_num].fun_code == MB_FC_READ_HOLDING_REGS)
+                {
                     ModbusRTU_BuildReadHolding(
                         modbus->device_attr[device_num].device_addr,//设备地址
                         convert->area_attr[area_num].reg_addr,//寄存器地址
@@ -61,12 +80,9 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                         &tx_len
                     );
 
-                    uint16_t rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
-
-                    //校验
-                    int32_t result = ModbusRTU_ParseReadHoldingRsp(
+                    result = ModbusRTU_ParseReadHoldingRsp(
                             rx_buff,
-                            rx_len,//接收到的数据长度
+                            _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size),
                             modbus->device_attr[device_num].device_addr,//设备地址
                             convert->area_attr[area_num].reg_num,//寄存器数量
                             &data,//存寄存器数据的指针

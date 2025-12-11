@@ -2009,8 +2009,10 @@ Section Cross References
     comm485.o(i.Comm485_3_Task) refers to comm485.o(.constdata) for __func__
     comm485.o(i.Comm_485_Read_Pro) refers to protocolconvert.o(i.GetPortConfig_modbus) for GetPortConfig_modbus
     comm485.o(i.Comm_485_Read_Pro) refers to protocolconvert.o(i.GetProtocolConvert_modbus) for GetProtocolConvert_modbus
-    comm485.o(i.Comm_485_Read_Pro) refers to modbusrtu.o(i.ModbusRTU_BuildReadHolding) for ModbusRTU_BuildReadHolding
+    comm485.o(i.Comm_485_Read_Pro) refers to modbusrtu.o(i.ModbusRTU_BuildReadCoils) for ModbusRTU_BuildReadCoils
     comm485.o(i.Comm_485_Read_Pro) refers to usart.o(i._485_Tx_And_Rx) for _485_Tx_And_Rx
+    comm485.o(i.Comm_485_Read_Pro) refers to modbusrtu.o(i.ModbusRTU_ParseReadCoilsRsp) for ModbusRTU_ParseReadCoilsRsp
+    comm485.o(i.Comm_485_Read_Pro) refers to modbusrtu.o(i.ModbusRTU_BuildReadHolding) for ModbusRTU_BuildReadHolding
     comm485.o(i.Comm_485_Read_Pro) refers to modbusrtu.o(i.ModbusRTU_ParseReadHoldingRsp) for ModbusRTU_ParseReadHoldingRsp
     comm485.o(i.Comm_485_Read_Pro) refers to protocolnode.o(i.ModelIdToNodeIndex) for ModelIdToNodeIndex
     comm485.o(i.Comm_485_Read_Pro) refers to protocolnode.o(i.GetNodePointer) for GetNodePointer
@@ -2341,12 +2343,15 @@ Section Cross References
     protocolconvert.o(i.cJSON_To_ProtocolConvert) refers to protocolconvert.o(i.Printf_ProtocolConvert_modbus) for Printf_ProtocolConvert_modbus
     protocolconvert.o(i.cJSON_To_ProtocolConvert) refers to protocolconvert.o(i.GetProtocolConvert_CAN) for GetProtocolConvert_CAN
     protocolconvert.o(i.cJSON_To_ProtocolConvert) refers to protocolconvert.o(i.Printf_ProtocolConvert_CAN) for Printf_ProtocolConvert_CAN
+    modbusrtu.o(i.ModbusRTU_BuildReadCoils) refers to modbusrtu.o(i.put16_be) for put16_be
+    modbusrtu.o(i.ModbusRTU_BuildReadCoils) refers to modbusrtu.o(i.ModbusRTU_CRC16) for ModbusRTU_CRC16
     modbusrtu.o(i.ModbusRTU_BuildReadHolding) refers to modbusrtu.o(i.put16_be) for put16_be
     modbusrtu.o(i.ModbusRTU_BuildReadHolding) refers to modbusrtu.o(i.ModbusRTU_CRC16) for ModbusRTU_CRC16
     modbusrtu.o(i.ModbusRTU_BuildWriteMultiple) refers to modbusrtu.o(i.put16_be) for put16_be
     modbusrtu.o(i.ModbusRTU_BuildWriteMultiple) refers to modbusrtu.o(i.ModbusRTU_CRC16) for ModbusRTU_CRC16
     modbusrtu.o(i.ModbusRTU_BuildWriteSingle) refers to modbusrtu.o(i.put16_be) for put16_be
     modbusrtu.o(i.ModbusRTU_BuildWriteSingle) refers to modbusrtu.o(i.ModbusRTU_CRC16) for ModbusRTU_CRC16
+    modbusrtu.o(i.ModbusRTU_ParseReadCoilsRsp) refers to modbusrtu.o(i.ModbusRTU_Validate) for ModbusRTU_Validate
     modbusrtu.o(i.ModbusRTU_ParseReadHoldingRsp) refers to modbusrtu.o(i.ModbusRTU_Validate) for ModbusRTU_Validate
     modbusrtu.o(i.ModbusRTU_ParseWriteMultipleRsp) refers to modbusrtu.o(i.ModbusRTU_Validate) for ModbusRTU_Validate
     modbusrtu.o(i.ModbusRTU_ParseWriteMultipleRsp) refers to modbusrtu.o(i.get16_be) for get16_be
@@ -3804,7 +3809,7 @@ Removing Unused input sections from the image.
     Removing comm485.o(.rev16_text), (4 bytes).
     Removing comm485.o(.revsh_text), (4 bytes).
     Removing comm485.o(.rrx_text), (6 bytes).
-    Removing comm485.o(i.Comm_485_Read_Pro), (538 bytes).
+    Removing comm485.o(i.Comm_485_Read_Pro), (650 bytes).
     Removing comm485.o(i.Comm_485_Write_Pro), (320 bytes).
     Removing comm485.o(.bss), (6144 bytes).
     Removing commcan.o(.rev16_text), (4 bytes).
@@ -3946,10 +3951,12 @@ Removing Unused input sections from the image.
     Removing protocolconvert.o(i.cJSON_To_PortConfig), (1396 bytes).
     Removing protocolconvert.o(i.cJSON_To_ProtocolConvert), (2016 bytes).
     Removing protocolconvert.o(.conststring), (734 bytes).
+    Removing modbusrtu.o(i.ModbusRTU_BuildReadCoils), (88 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildReadHolding), (86 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildWriteMultiple), (140 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildWriteSingle), (80 bytes).
     Removing modbusrtu.o(i.ModbusRTU_CRC16), (58 bytes).
+    Removing modbusrtu.o(i.ModbusRTU_ParseReadCoilsRsp), (156 bytes).
     Removing modbusrtu.o(i.ModbusRTU_ParseReadHoldingRsp), (158 bytes).
     Removing modbusrtu.o(i.ModbusRTU_ParseWriteMultipleRsp), (116 bytes).
     Removing modbusrtu.o(i.ModbusRTU_ParseWriteSingleRsp), (134 bytes).
@@ -3990,7 +3997,7 @@ Removing Unused input sections from the image.
     Removing d2f.o(.text), (56 bytes).
     Removing fepilogue.o(.text), (110 bytes).
 
-1255 unused section(s) (total 175914 bytes) removed from the image.
+1257 unused section(s) (total 176270 bytes) removed from the image.
 
 ==============================================================================
 
@@ -5376,40 +5383,40 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000298   Data   RO            3    RESET               startup_stm32h743xx.o
-    0x08000298   0x08000298   0x00000000   Code   RO         9858  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000298   0x08000298   0x00000004   Code   RO        10178    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x0800029c   0x0800029c   0x00000004   Code   RO        10181    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x080002a0   0x080002a0   0x00000000   Code   RO        10183    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x080002a0   0x080002a0   0x00000000   Code   RO        10185    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x080002a0   0x080002a0   0x00000008   Code   RO        10186    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080002a8   0x080002a8   0x00000004   Code   RO        10193    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
-    0x080002ac   0x080002ac   0x00000000   Code   RO        10188    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
-    0x080002ac   0x080002ac   0x00000000   Code   RO        10190    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
-    0x080002ac   0x080002ac   0x00000004   Code   RO        10179    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000298   0x08000298   0x00000000   Code   RO         9870  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000298   0x08000298   0x00000004   Code   RO        10190    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800029c   0x0800029c   0x00000004   Code   RO        10193    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080002a0   0x080002a0   0x00000000   Code   RO        10195    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080002a0   0x080002a0   0x00000000   Code   RO        10197    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080002a0   0x080002a0   0x00000008   Code   RO        10198    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080002a8   0x080002a8   0x00000004   Code   RO        10205    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
+    0x080002ac   0x080002ac   0x00000000   Code   RO        10200    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
+    0x080002ac   0x080002ac   0x00000000   Code   RO        10202    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
+    0x080002ac   0x080002ac   0x00000004   Code   RO        10191    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x080002b0   0x080002b0   0x000000be   Code   RO         8329    .emb_text           port.o
     0x0800036e   0x0800036e   0x00000002   PAD
     0x08000370   0x08000370   0x00000024   Code   RO            4    .text               startup_stm32h743xx.o
-    0x08000394   0x08000394   0x00000062   Code   RO         9861    .text               mc_w.l(uldiv.o)
-    0x080003f6   0x080003f6   0x00000028   Code   RO         9865    .text               mc_w.l(memcpy.o)
-    0x0800041e   0x0800041e   0x00000024   Code   RO         9871    .text               mc_w.l(memseta.o)
-    0x08000442   0x08000442   0x0000002c   Code   RO        10195    .text               mc_w.l(uidiv.o)
-    0x0800046e   0x0800046e   0x0000001e   Code   RO        10197    .text               mc_w.l(llshl.o)
-    0x0800048c   0x0800048c   0x00000020   Code   RO        10199    .text               mc_w.l(llushr.o)
-    0x080004ac   0x080004ac   0x00000000   Code   RO        10228    .text               mc_w.l(iusefp.o)
-    0x080004ac   0x080004ac   0x0000014e   Code   RO        10229    .text               mf_w.l(dadd.o)
-    0x080005fa   0x080005fa   0x000000e4   Code   RO        10231    .text               mf_w.l(dmul.o)
-    0x080006de   0x080006de   0x000000de   Code   RO        10233    .text               mf_w.l(ddiv.o)
-    0x080007bc   0x080007bc   0x00000030   Code   RO        10235    .text               mf_w.l(dfixul.o)
-    0x080007ec   0x080007ec   0x00000030   Code   RO        10237    .text               mf_w.l(cdrcmple.o)
-    0x0800081c   0x0800081c   0x00000024   Code   RO        10239    .text               mc_w.l(init.o)
-    0x08000840   0x08000840   0x00000024   Code   RO        10241    .text               mc_w.l(llsshr.o)
-    0x08000864   0x08000864   0x000000ba   Code   RO        10279    .text               mf_w.l(depilogue.o)
+    0x08000394   0x08000394   0x00000062   Code   RO         9873    .text               mc_w.l(uldiv.o)
+    0x080003f6   0x080003f6   0x00000028   Code   RO         9877    .text               mc_w.l(memcpy.o)
+    0x0800041e   0x0800041e   0x00000024   Code   RO         9883    .text               mc_w.l(memseta.o)
+    0x08000442   0x08000442   0x0000002c   Code   RO        10207    .text               mc_w.l(uidiv.o)
+    0x0800046e   0x0800046e   0x0000001e   Code   RO        10209    .text               mc_w.l(llshl.o)
+    0x0800048c   0x0800048c   0x00000020   Code   RO        10211    .text               mc_w.l(llushr.o)
+    0x080004ac   0x080004ac   0x00000000   Code   RO        10240    .text               mc_w.l(iusefp.o)
+    0x080004ac   0x080004ac   0x0000014e   Code   RO        10241    .text               mf_w.l(dadd.o)
+    0x080005fa   0x080005fa   0x000000e4   Code   RO        10243    .text               mf_w.l(dmul.o)
+    0x080006de   0x080006de   0x000000de   Code   RO        10245    .text               mf_w.l(ddiv.o)
+    0x080007bc   0x080007bc   0x00000030   Code   RO        10247    .text               mf_w.l(dfixul.o)
+    0x080007ec   0x080007ec   0x00000030   Code   RO        10249    .text               mf_w.l(cdrcmple.o)
+    0x0800081c   0x0800081c   0x00000024   Code   RO        10251    .text               mc_w.l(init.o)
+    0x08000840   0x08000840   0x00000024   Code   RO        10253    .text               mc_w.l(llsshr.o)
+    0x08000864   0x08000864   0x000000ba   Code   RO        10291    .text               mf_w.l(depilogue.o)
     0x0800091e   0x0800091e   0x00000002   PAD
     0x08000920   0x08000920   0x00000164   Code   RO         1031    i.ADC_ConfigureBoostMode  stm32h7xx_hal_adc.o
     0x08000a84   0x08000a84   0x00000010   Code   RO          794    i.BDMA_Channel0_IRQHandler  stm32h7xx_it.o
     0x08000a94   0x08000a94   0x00000010   Code   RO          795    i.BDMA_Channel1_IRQHandler  stm32h7xx_it.o
     0x08000aa4   0x08000aa4   0x00000004   Code   RO          796    i.BusFault_Handler  stm32h7xx_it.o
-    0x08000aa8   0x08000aa8   0x00000188   Code   RO         9818    i.CAN_Fire_HongHaiSheng_Recv  protocol_honghaisheng_fire.o
+    0x08000aa8   0x08000aa8   0x00000188   Code   RO         9830    i.CAN_Fire_HongHaiSheng_Recv  protocol_honghaisheng_fire.o
     0x08000c30   0x08000c30   0x0000000a   Code   RO         9424    i.CAN_ID_offset_calc  protocolconvert.o
     0x08000c3a   0x08000c3a   0x00000002   PAD
     0x08000c3c   0x08000c3c   0x000000d0   Code   RO         8560    i.Comm485_1_Task    comm485.o
@@ -5456,7 +5463,7 @@ Memory Map of the image
     0x08001f0c   0x08001f0c   0x000000d0   Code   RO         4045    i.FDCAN_CopyMessageToRAM  stm32h7xx_hal_fdcan.o
     0x08001fdc   0x08001fdc   0x00000014   Code   RO         9429    i.GetBits_8         protocolconvert.o
     0x08001ff0   0x08001ff0   0x00000018   Code   RO         8510    i.GetDI_Info        di.o
-    0x08002008   0x08002008   0x00000008   Code   RO         9628    i.GetNodePointer    protocolnode.o
+    0x08002008   0x08002008   0x00000008   Code   RO         9640    i.GetNodePointer    protocolnode.o
     0x08002010   0x08002010   0x00000020   Code   RO         9430    i.GetPortConfig_CAN  protocolconvert.o
     0x08002030   0x08002030   0x0000001c   Code   RO         9431    i.GetPortConfig_DI  protocolconvert.o
     0x0800204c   0x0800204c   0x0000001c   Code   RO         9434    i.GetProtocolConvert_CAN  protocolconvert.o
@@ -5591,7 +5598,7 @@ Memory Map of the image
     0x0800a474   0x0800a474   0x0000006c   Code   RO          694    i.MX_USART2_UART_Init  usart.o
     0x0800a4e0   0x0800a4e0   0x0000006c   Code   RO          695    i.MX_USART3_UART_Init  usart.o
     0x0800a54c   0x0800a54c   0x00000004   Code   RO          809    i.MemManage_Handler  stm32h7xx_it.o
-    0x0800a550   0x0800a550   0x00000104   Code   RO         9631    i.ModelIdToNodeIndex  protocolnode.o
+    0x0800a550   0x0800a550   0x00000104   Code   RO         9643    i.ModelIdToNodeIndex  protocolnode.o
     0x0800a654   0x0800a654   0x00000004   Code   RO          810    i.NMI_Handler       stm32h7xx_it.o
     0x0800a658   0x0800a658   0x00000076   Code   RO          541    i.ProcessFIFOData   fdcan.o
     0x0800a6ce   0x0800a6ce   0x00000002   PAD
@@ -5638,17 +5645,17 @@ Memory Map of the image
     0x0800bc24   0x0800bc24   0x00000010   Code   RO          815    i.USART1_IRQHandler  stm32h7xx_it.o
     0x0800bc34   0x0800bc34   0x00000010   Code   RO          816    i.USART3_IRQHandler  stm32h7xx_it.o
     0x0800bc44   0x0800bc44   0x00000004   Code   RO          817    i.UsageFault_Handler  stm32h7xx_it.o
-    0x0800bc48   0x0800bc48   0x00000020   Code   RO        10118    i.__0printf         mc_w.l(printfa.o)
+    0x0800bc48   0x0800bc48   0x00000020   Code   RO        10130    i.__0printf         mc_w.l(printfa.o)
     0x0800bc68   0x0800bc68   0x00000010   Code   RO         2997    i.__NVIC_GetPriorityGrouping  stm32h7xx_hal_cortex.o
     0x0800bc78   0x0800bc78   0x00000028   Code   RO         2998    i.__NVIC_SetPriority  stm32h7xx_hal_cortex.o
     0x0800bca0   0x0800bca0   0x00000006   Code   RO         7749    i.__get_IPSR        cmsis_os2.o
-    0x0800bca6   0x0800bca6   0x0000000e   Code   RO        10292    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0800bcb4   0x0800bcb4   0x00000002   Code   RO        10293    i.__scatterload_null  mc_w.l(handlers.o)
-    0x0800bcb6   0x0800bcb6   0x0000000e   Code   RO        10294    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0800bcc4   0x0800bcc4   0x00000184   Code   RO        10125    i._fp_digits        mc_w.l(printfa.o)
-    0x0800be48   0x0800be48   0x000006b4   Code   RO        10126    i._printf_core      mc_w.l(printfa.o)
-    0x0800c4fc   0x0800c4fc   0x00000024   Code   RO        10127    i._printf_post_padding  mc_w.l(printfa.o)
-    0x0800c520   0x0800c520   0x0000002e   Code   RO        10128    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x0800bca6   0x0800bca6   0x0000000e   Code   RO        10304    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0800bcb4   0x0800bcb4   0x00000002   Code   RO        10305    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0800bcb6   0x0800bcb6   0x0000000e   Code   RO        10306    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0800bcc4   0x0800bcc4   0x00000184   Code   RO        10137    i._fp_digits        mc_w.l(printfa.o)
+    0x0800be48   0x0800be48   0x000006b4   Code   RO        10138    i._printf_core      mc_w.l(printfa.o)
+    0x0800c4fc   0x0800c4fc   0x00000024   Code   RO        10139    i._printf_post_padding  mc_w.l(printfa.o)
+    0x0800c520   0x0800c520   0x0000002e   Code   RO        10140    i._printf_pre_padding  mc_w.l(printfa.o)
     0x0800c54e   0x0800c54e   0x00000002   PAD
     0x0800c550   0x0800c550   0x00000020   Code   RO           17    i.fputc             main.o
     0x0800c570   0x0800c570   0x00000060   Code   RO           18    i.main              main.o
@@ -5762,7 +5769,7 @@ Memory Map of the image
     0x0800f1f1   0x0800f1f1   0x00000003   PAD
     0x0800f1f4   0x0800f1f4   0x000001bf   Data   RO          311    .conststring        freertos.o
     0x0800f3b3   0x0800f3b3   0x00000001   PAD
-    0x0800f3b4   0x0800f3b4   0x00000030   Data   RO        10290    Region$$Table       anon$$obj.o
+    0x0800f3b4   0x0800f3b4   0x00000030   Data   RO        10302    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800f3e4, Size: 0x000095a8, Max: 0x00020000, ABSOLUTE)
@@ -5782,7 +5789,7 @@ Memory Map of the image
     0x200000f0   0x0800f4d4   0x00000004   Data   RW         7824    .data               cmsis_os2.o
     0x200000f4   0x0800f4d8   0x00000020   Data   RW         8283    .data               heap_4.o
     0x20000114   0x0800f4f8   0x0000000c   Data   RW         8339    .data               port.o
-    0x20000120   0x0800f504   0x00000004   Data   RW        10194    .data               mc_w.l(stdout.o)
+    0x20000120   0x0800f504   0x00000004   Data   RW        10206    .data               mc_w.l(stdout.o)
     0x20000124        -       0x00000064   Zero   RW          432    .bss                adc.o
     0x20000188        -       0x00001a50   Zero   RW          543    .bss                fdcan.o
     0x20001bd8        -       0x00000378   Zero   RW          634    .bss                spi.o
@@ -5803,7 +5810,7 @@ Memory Map of the image
 
     0x24000000        -       0x00012938   Zero   RW          309    .bss                freertos.o
     0x24012938        -       0x0002c43a   Zero   RW         9441    .bss                protocolconvert.o
-    0x2403ed72        -       0x0002eff4   Zero   RW         9634    .bss                protocolnode.o
+    0x2403ed72        -       0x0002eff4   Zero   RW         9646    .bss                protocolnode.o
 
 
 ==============================================================================

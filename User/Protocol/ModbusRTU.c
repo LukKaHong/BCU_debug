@@ -34,6 +34,21 @@ int32_t ModbusRTU_Validate(const uint8_t* frame, uint16_t len)
     return (crc == rxcrc) ? MB_OK : MB_ERR_CRC;
 }
 
+int32_t ModbusRTU_BuildReadCoils(uint8_t addr, uint16_t start, uint16_t quantity,
+                                 uint8_t* frame, uint16_t* frame_len)
+{
+    if (frame == NULL || frame_len == NULL || quantity == 0 || quantity > 2000) return MB_ERR_ARG;
+    frame[0] = addr;
+    frame[1] = MB_FC_READ_COILS;
+    put16_be(&frame[2], start);
+    put16_be(&frame[4], quantity);
+    uint16_t crc = ModbusRTU_CRC16(frame, 6);
+    frame[6] = (uint8_t)(crc & 0xFF);
+    frame[7] = (uint8_t)(crc >> 8);
+    *frame_len = 8;
+    return MB_OK;
+}
+
 int32_t ModbusRTU_BuildReadHolding(uint8_t addr, uint16_t start, uint16_t quantity,
                                     uint8_t* frame, uint16_t* frame_len)
 {
@@ -84,6 +99,25 @@ int32_t ModbusRTU_BuildWriteMultiple(uint8_t addr, uint16_t start,
     frame[data_len] = (uint8_t)(crc & 0xFF);
     frame[data_len + 1] = (uint8_t)(crc >> 8);
     *frame_len = (uint16_t)(data_len + 2);
+    return MB_OK;
+}
+
+int32_t ModbusRTU_ParseReadCoilsRsp(const uint8_t* frame, uint16_t len,
+                                    uint8_t expected_addr, uint16_t expected_quantity,
+                                    const uint8_t** data, uint16_t* data_len)
+{
+    if (frame == NULL || data == NULL || data_len == NULL) return MB_ERR_ARG;
+    if (ModbusRTU_Validate(frame, len) != MB_OK) return MB_ERR_CRC;
+    if (len < 5) return MB_ERR_LEN;
+    if (frame[0] != expected_addr) return MB_ERR_ADDR;
+    uint8_t func = frame[1];
+    if (func == (uint8_t)(MB_FC_READ_COILS | 0x80)) return MB_ERR_EXC;
+    if (func != MB_FC_READ_COILS) return MB_ERR_FUNC;
+    uint8_t bc = frame[2];
+    if (len != (uint16_t)(3 + bc + 2)) return MB_ERR_LEN;
+    if (expected_quantity != 0 && bc != (uint8_t)((expected_quantity + 7) / 8)) return MB_ERR_DATA;
+    *data = &frame[3];
+    *data_len = bc;
     return MB_OK;
 }
 
