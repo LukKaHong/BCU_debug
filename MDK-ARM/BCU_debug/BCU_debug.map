@@ -3803,7 +3803,7 @@ Removing Unused input sections from the image.
     Removing comm485.o(.revsh_text), (4 bytes).
     Removing comm485.o(.rrx_text), (6 bytes).
     Removing comm485.o(i.Comm_485_Read_Pro), (520 bytes).
-    Removing comm485.o(i.Comm_485_Write_Pro), (308 bytes).
+    Removing comm485.o(i.Comm_485_Write_Pro), (320 bytes).
     Removing comm485.o(.bss), (6144 bytes).
     Removing commcan.o(.rev16_text), (4 bytes).
     Removing commcan.o(.revsh_text), (4 bytes).
@@ -3959,7 +3959,7 @@ Removing Unused input sections from the image.
     Removing protocolnode.o(.rrx_text), (6 bytes).
     Removing protocolnode.o(i.GetNodeRange), (420 bytes).
     Removing protocolnode.o(i.GetWriteNodePointer), (8 bytes).
-    Removing protocolnode.o(i.ModelIdToRegAddr_modbus), (90 bytes).
+    Removing protocolnode.o(i.ModelIdToRegAddr_modbus), (116 bytes).
     Removing protocolnode.o(i.NodeIndexToModelId), (260 bytes).
     Removing modbustcp_client.o(.rev16_text), (4 bytes).
     Removing modbustcp_client.o(.revsh_text), (4 bytes).
@@ -3985,7 +3985,7 @@ Removing Unused input sections from the image.
     Removing d2f.o(.text), (56 bytes).
     Removing fepilogue.o(.text), (110 bytes).
 
-1252 unused section(s) (total 175748 bytes) removed from the image.
+1252 unused section(s) (total 175786 bytes) removed from the image.
 
 ==============================================================================
 
@@ -5820,7 +5820,7 @@ Image component sizes
        482         38          0          0          0    1376444   main.o
       1014         92          0         12          0      11749   port.o
       1322         46          0          0     181294      12708   protocolconvert.o
-       268         12          0          0     192500       2042   protocolnode.o
+       268         12          0          0     192500       2046   protocolnode.o
       2526         24          0          0         64      23287   queue.o
       1000         84          0          0        888       3563   spi.o
         36          8        664          0       4096        832   startup_stm32h743xx.o
@@ -5849,7 +5849,7 @@ Image component sizes
       1832        212          0          6       7456       6903   usart.o
 
     ----------------------------------------------------------------------
-     56294       3222       1996        288     487904    1920826   Object Totals
+     56294       3222       1996        288     487904    1920830   Object Totals
          0          0         48          0          0          0   (incl. Generated)
         42          0          4          7          2          0   (incl. Padding)
 
@@ -5906,8 +5906,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     59988       3328       1996        292     487904    1891094   Grand Totals
-     59988       3328       1996        292     487904    1891094   ELF Image Totals
+     59988       3328       1996        292     487904    1891098   Grand Totals
+     59988       3328       1996        292     487904    1891098   ELF Image Totals
      59988       3328       1996        292          0          0   ROM Totals
 
 ==============================================================================

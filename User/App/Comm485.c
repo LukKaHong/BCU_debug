@@ -129,16 +129,20 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                     continue;
 
                 uint16_t reg_addr = 0;
-                if(ModelIdToRegAddr_modbus(modbus->device_attr[device_num].device_type, model_id, &reg_addr) == false)
+                uint8_t fun_code = 0xff;
+                if(ModelIdToRegAddr_modbus(modbus->device_attr[device_num].device_type, model_id, &reg_addr, &fun_code) == false)
                     continue;
 
                 uint16_t tx_len = 0;
                 uint16_t rx_len = 0;
                 uint16_t value = 0;
 
-                ModbusRTU_BuildWriteSingle(modbus->device_attr[device_num].device_addr, reg_addr, write_node->value[index], tx_buff, &tx_len);
-                rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
-                ModbusRTU_ParseWriteSingleRsp(rx_buff, rx_len, modbus->device_attr[device_num].device_addr, reg_addr, &value); 
+                if(fun_code == MB_FC_READ_HOLDING_REGS)
+                {
+                    ModbusRTU_BuildWriteSingle(modbus->device_attr[device_num].device_addr, reg_addr, write_node->value[index], tx_buff, &tx_len);
+                    rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
+                    ModbusRTU_ParseWriteSingleRsp(rx_buff, rx_len, modbus->device_attr[device_num].device_addr, reg_addr, &value);
+                }
             }
         }
     }

@@ -91,7 +91,7 @@ bool NodeIndexToModelId(DEVICE_TYPE_e device_type, uint8_t no, uint16_t index, u
 
 ----------------------------------------------------------------------------------------------
 */
-bool ModelIdToRegAddr_modbus(DEVICE_TYPE_e device_type, uint16_t model_id, uint16_t* reg_addr)
+bool ModelIdToRegAddr_modbus(DEVICE_TYPE_e device_type, uint16_t model_id, uint16_t* reg_addr, uint8_t* fun_code)
 {
     ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus(device_type);
     if(convert == NULL)
@@ -101,7 +101,9 @@ bool ModelIdToRegAddr_modbus(DEVICE_TYPE_e device_type, uint16_t model_id, uint1
     {
         if(convert->node_attr[i].model_id == model_id)
         {
-            *reg_addr = convert->node_attr[i].reg_addr;
+            if(reg_addr != NULL) *reg_addr = convert->node_attr[i].reg_addr;
+            if(fun_code != NULL) *fun_code = convert->node_attr[i].fun_code;
+
             return true;
         }
     }
