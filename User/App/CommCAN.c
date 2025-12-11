@@ -3,6 +3,7 @@
 #include "fdcan.h"
 #include "ProtocolConvert.h"
 #include "ProtocolNode.h"
+#include "PROTOCOL_HongHaiSheng_Fire.h"
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -22,27 +23,35 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
 
     for(uint8_t device_num = 0; device_num < CAN->device_num; device_num++)//扫描所有设备
     {
-        if(CAN->device_attr[device_num].protocol != PROTOCOL_CAN)
-            continue;
-
-        //获取协议
-        ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN(CAN->device_attr[device_num].device_type);
-        if(convert == NULL)
-            continue;
-
-        for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
+        if(CAN->device_attr[device_num].protocol == PROTOCOL_CAN)
         {
-            if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
-            {
-                uint16_t index = 0;
+            //获取协议
+            ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN(CAN->device_attr[device_num].device_type);
+            if(convert == NULL)
+                continue;
 
-                if(ModelIdToNodeIndex(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == false)
+            for(uint16_t node_num = 0; node_num < convert->node_num; node_num++)//扫描所有点表
+            {
+                if(convert->node_attr[node_num].frame_ID == CAN_ID_offset_calc(msg->id, &CAN->device_attr[device_num]))//匹配ID
                 {
-                    ConvertToNode_CAN(GetNodePointer() + index, msg->data, &convert->node_attr[node_num]);
+                    uint16_t index = 0;
+
+                    if(ModelIdToNodeIndex(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == false)
+                    {
+                        ConvertToNode_CAN(GetNodePointer() + index, msg->data, &convert->node_attr[node_num]);
+                    }
+                    
+                    break;
                 }
-                
-                break;
             }
+        }
+        else if(CAN->device_attr[device_num].protocol == PROTOCOL_HongHaiSheng_Fire_CAN)
+        {
+
+            CAN_Fire_HongHaiSheng_Recv(CAN->device_attr[device_num].device_no, msg);
+
+
+
         }
     }
 }

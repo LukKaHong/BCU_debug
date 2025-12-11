@@ -60,6 +60,7 @@
 "bcu_debug\protocolnode.o"
 "bcu_debug\modbustcp_client.o"
 "bcu_debug\modbustcp_slave.o"
+"bcu_debug\protocol_honghaisheng_fire.o"
 --library_type=microlib --strict --scatter "BCU_debug\BCU_debug.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

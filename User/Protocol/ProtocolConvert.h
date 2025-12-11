@@ -12,7 +12,7 @@ typedef enum
 {
     PROTOCOL_MODBUS = 0,
     PROTOCOL_CAN    = 1,
-    PROTOCOL_HongHaiSheng_FIre_CAN = 2,
+    PROTOCOL_HongHaiSheng_Fire_CAN = 2,
 }PROTOCOL_e;
 
 
@@ -146,7 +146,7 @@ typedef struct
 typedef struct
 {
     DEVICE_TYPE_e device_type;//设备类型
-    uint16_t protocol;//协议
+    PROTOCOL_e protocol;//协议
     uint8_t device_no;//设备号
     uint8_t device_addr;//设备地址
     
@@ -176,7 +176,7 @@ typedef struct
 typedef struct
 {
     DEVICE_TYPE_e device_type;//设备类型
-    uint16_t protocol;//协议
+    PROTOCOL_e protocol;//协议
     uint8_t device_no;//设备号
     uint8_t master_addr;//主地址
     uint8_t slave_addr;//从地址
