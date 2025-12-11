@@ -30,6 +30,10 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 
     for(uint8_t device_num = 0; device_num < modbus->device_num; device_num++)//扫描所有设备
     {
+
+        if(modbus->device_attr[device_num].protocol != PROTOCOL_MODBUS)
+            continue;
+
         //获取协议
         ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus(modbus->device_attr[device_num].device_type);
         if(convert == NULL)

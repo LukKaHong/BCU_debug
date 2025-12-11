@@ -14,7 +14,7 @@
 
 ----------------------------------------------------------------------------------------------
 */
-void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
+void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
 {
     PortConfig_CAN_t* CAN = GetPortConfig_CAN(port);
     if(CAN == NULL)
@@ -22,6 +22,9 @@ void Comm_CAN_Pro(uint8_t port, CanMsgType *msg)
 
     for(uint8_t device_num = 0; device_num < CAN->device_num; device_num++)//扫描所有设备
     {
+        if(CAN->device_attr[device_num].protocol != PROTOCOL_CAN)
+            continue;
+
         //获取协议
         ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN(CAN->device_attr[device_num].device_type);
         if(convert == NULL)
@@ -81,7 +84,7 @@ void CommCAN_1_Receive_Pro(void)
 {
     while(CAN_1_ReceiveBuff.CurIndex != CAN_1_ReceiveBuff.RxIndex)
     {
-        Comm_CAN_Pro(1, &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
+        Comm_CAN_Read_Pro(1, &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
 
         if(++CAN_1_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_1_ReceiveBuff.CurIndex = 0;
     }
@@ -152,7 +155,7 @@ void CommCAN_2_Receive_Pro(void)
 {
     while(CAN_2_ReceiveBuff.CurIndex != CAN_2_ReceiveBuff.RxIndex)
     {
-        Comm_CAN_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+        Comm_CAN_Read_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
 
         if(++CAN_2_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_2_ReceiveBuff.CurIndex = 0;
     }

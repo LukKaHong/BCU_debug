@@ -493,6 +493,7 @@ void cJSON_To_PortConfig(char *message)
             {
                 cJSON *root_modbus_array_device_attr_array = cJSON_GetArrayItem(root_modbus_array_device_attr, j);
                 modbus->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dt"));
+                modbus->device_attr[j].protocol            = (PROTOCOL_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "p"));
                 modbus->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dn"));
                 modbus->device_attr[j].device_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "da"));
             }
@@ -522,6 +523,7 @@ void cJSON_To_PortConfig(char *message)
             {
                 cJSON *root_CAN_array_device_attr_array = cJSON_GetArrayItem(root_CAN_array_device_attr, j);
                 CAN->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "dt"));
+                CAN->device_attr[j].protocol            = (PROTOCOL_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "p"));
                 CAN->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "dn"));
                 CAN->device_attr[j].master_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "ma"));
                 CAN->device_attr[j].slave_addr          = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array_device_attr_array, "sa"));
@@ -598,7 +600,7 @@ void cJSON_To_ProtocolConvert(char *message)
 
     cJSON *root_protocol = cJSON_GetObjectItem(root, "protocol");
 
-    if(cJSON_GetNumberValue(root_protocol) == 0)//modbus
+    if(cJSON_GetNumberValue(root_protocol) == PROTOCOL_MODBUS)//modbus
     {
         ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus((DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "device_type")));
 
@@ -660,7 +662,7 @@ void cJSON_To_ProtocolConvert(char *message)
 
         Printf_ProtocolConvert_modbus();
     }
-    else if(cJSON_GetNumberValue(root_protocol) == 1)//CAN
+    else if(cJSON_GetNumberValue(root_protocol) == PROTOCOL_CAN)//CAN
     {
         ProtocolConvert_CAN_t* convert = GetProtocolConvert_CAN((DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "device_type")));
 

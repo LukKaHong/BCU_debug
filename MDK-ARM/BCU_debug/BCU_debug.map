@@ -2025,7 +2025,7 @@ Section Cross References
     comm485.o(i.Comm_485_Write_Pro) refers to modbusrtu.o(i.ModbusRTU_ParseWriteSingleRsp) for ModbusRTU_ParseWriteSingleRsp
     commcan.o(i.Add_CAN_1_SendMsg) refers to fdcan.o(.bss) for CAN_1_SendBuff
     commcan.o(i.Add_CAN_2_SendMsg) refers to fdcan.o(.bss) for CAN_2_SendBuff
-    commcan.o(i.CommCAN_1_Receive_Pro) refers to commcan.o(i.Comm_CAN_Pro) for Comm_CAN_Pro
+    commcan.o(i.CommCAN_1_Receive_Pro) refers to commcan.o(i.Comm_CAN_Read_Pro) for Comm_CAN_Read_Pro
     commcan.o(i.CommCAN_1_Receive_Pro) refers to fdcan.o(.bss) for CAN_1_ReceiveBuff
     commcan.o(i.CommCAN_1_Send_Pro) refers to fdcan.o(i.FDCAN1_Send_Msg) for FDCAN1_Send_Msg
     commcan.o(i.CommCAN_1_Send_Pro) refers to printfa.o(i.__0printf) for __2printf
@@ -2034,7 +2034,7 @@ Section Cross References
     commcan.o(i.CommCAN_1_Task) refers to commcan.o(i.CommCAN_1_Receive_Pro) for CommCAN_1_Receive_Pro
     commcan.o(i.CommCAN_1_Task) refers to commcan.o(i.CommCAN_1_Send_Pro) for CommCAN_1_Send_Pro
     commcan.o(i.CommCAN_1_Task) refers to freertos.o(.data) for CommCAN_1_EventHandle
-    commcan.o(i.CommCAN_2_Receive_Pro) refers to commcan.o(i.Comm_CAN_Pro) for Comm_CAN_Pro
+    commcan.o(i.CommCAN_2_Receive_Pro) refers to commcan.o(i.Comm_CAN_Read_Pro) for Comm_CAN_Read_Pro
     commcan.o(i.CommCAN_2_Receive_Pro) refers to fdcan.o(.bss) for CAN_2_ReceiveBuff
     commcan.o(i.CommCAN_2_Send_Pro) refers to fdcan.o(i.FDCAN2_Send_Msg) for FDCAN2_Send_Msg
     commcan.o(i.CommCAN_2_Send_Pro) refers to printfa.o(i.__0printf) for __2printf
@@ -2045,12 +2045,12 @@ Section Cross References
     commcan.o(i.CommCAN_2_Task) refers to freertos.o(.data) for CommCAN_2_EventHandle
     commcan.o(i.CommCAN_3_Task) refers to cmsis_os2.o(i.osEventFlagsWait) for osEventFlagsWait
     commcan.o(i.CommCAN_3_Task) refers to freertos.o(.data) for CommCAN_3_EventHandle
-    commcan.o(i.Comm_CAN_Pro) refers to protocolconvert.o(i.GetPortConfig_CAN) for GetPortConfig_CAN
-    commcan.o(i.Comm_CAN_Pro) refers to protocolconvert.o(i.GetProtocolConvert_CAN) for GetProtocolConvert_CAN
-    commcan.o(i.Comm_CAN_Pro) refers to protocolconvert.o(i.CAN_ID_offset_calc) for CAN_ID_offset_calc
-    commcan.o(i.Comm_CAN_Pro) refers to protocolnode.o(i.ModelIdToNodeIndex) for ModelIdToNodeIndex
-    commcan.o(i.Comm_CAN_Pro) refers to protocolnode.o(i.GetNodePointer) for GetNodePointer
-    commcan.o(i.Comm_CAN_Pro) refers to protocolconvert.o(i.ConvertToNode_CAN) for ConvertToNode_CAN
+    commcan.o(i.Comm_CAN_Read_Pro) refers to protocolconvert.o(i.GetPortConfig_CAN) for GetPortConfig_CAN
+    commcan.o(i.Comm_CAN_Read_Pro) refers to protocolconvert.o(i.GetProtocolConvert_CAN) for GetProtocolConvert_CAN
+    commcan.o(i.Comm_CAN_Read_Pro) refers to protocolconvert.o(i.CAN_ID_offset_calc) for CAN_ID_offset_calc
+    commcan.o(i.Comm_CAN_Read_Pro) refers to protocolnode.o(i.ModelIdToNodeIndex) for ModelIdToNodeIndex
+    commcan.o(i.Comm_CAN_Read_Pro) refers to protocolnode.o(i.GetNodePointer) for GetNodePointer
+    commcan.o(i.Comm_CAN_Read_Pro) refers to protocolconvert.o(i.ConvertToNode_CAN) for ConvertToNode_CAN
     do.o(i.DO_Ctrl) refers to protocolconvert.o(i.GetPortConfig_DO) for GetPortConfig_DO
     do.o(i.DO_Ctrl) refers to do.o(i.Write_DO_ctrl_Pin) for Write_DO_ctrl_Pin
     do.o(i.Write_DO_ctrl_Pin) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
@@ -3802,8 +3802,8 @@ Removing Unused input sections from the image.
     Removing comm485.o(.rev16_text), (4 bytes).
     Removing comm485.o(.revsh_text), (4 bytes).
     Removing comm485.o(.rrx_text), (6 bytes).
-    Removing comm485.o(i.Comm_485_Read_Pro), (520 bytes).
-    Removing comm485.o(i.Comm_485_Write_Pro), (320 bytes).
+    Removing comm485.o(i.Comm_485_Read_Pro), (572 bytes).
+    Removing comm485.o(i.Comm_485_Write_Pro), (348 bytes).
     Removing comm485.o(.bss), (6144 bytes).
     Removing commcan.o(.rev16_text), (4 bytes).
     Removing commcan.o(.revsh_text), (4 bytes).
@@ -3936,12 +3936,12 @@ Removing Unused input sections from the image.
     Removing protocolconvert.o(i.ConvertToNode_modbus), (928 bytes).
     Removing protocolconvert.o(i.GetBits_16), (20 bytes).
     Removing protocolconvert.o(i.GetPortConfig_DO), (28 bytes).
-    Removing protocolconvert.o(i.GetPortConfig_modbus), (32 bytes).
+    Removing protocolconvert.o(i.GetPortConfig_modbus), (36 bytes).
     Removing protocolconvert.o(i.GetProtocolConvert_modbus), (28 bytes).
     Removing protocolconvert.o(i.Printf_PortConfig), (436 bytes).
     Removing protocolconvert.o(i.Printf_ProtocolConvert_CAN), (300 bytes).
     Removing protocolconvert.o(i.Printf_ProtocolConvert_modbus), (408 bytes).
-    Removing protocolconvert.o(i.cJSON_To_PortConfig), (1308 bytes).
+    Removing protocolconvert.o(i.cJSON_To_PortConfig), (1388 bytes).
     Removing protocolconvert.o(i.cJSON_To_ProtocolConvert), (2016 bytes).
     Removing protocolconvert.o(.conststring), (734 bytes).
     Removing modbusrtu.o(i.ModbusRTU_BuildReadHolding), (86 bytes).
@@ -3985,7 +3985,7 @@ Removing Unused input sections from the image.
     Removing d2f.o(.text), (56 bytes).
     Removing fepilogue.o(.text), (110 bytes).
 
-1252 unused section(s) (total 175786 bytes) removed from the image.
+1252 unused section(s) (total 175950 bytes) removed from the image.
 
 ==============================================================================
 
@@ -4247,47 +4247,47 @@ Image Symbol Table
     i.CommCAN_3_Task                         0x08000db0   Section        0  commcan.o(i.CommCAN_3_Task)
     i.CommLAN_1_Task                         0x08000dcc   Section        0  commlan_1.o(i.CommLAN_1_Task)
     i.CommLAN_2_Task                         0x08000de8   Section        0  commlan_2.o(i.CommLAN_2_Task)
-    i.Comm_CAN_Pro                           0x08000e04   Section        0  commcan.o(i.Comm_CAN_Pro)
-    i.ConvertToNode_CAN                      0x08000ec8   Section        0  protocolconvert.o(i.ConvertToNode_CAN)
-    i.DI_Signal_Pro                          0x080012e8   Section        0  di.o(i.DI_Signal_Pro)
-    i.DI_Task                                0x08001368   Section        0  di.o(i.DI_Task)
-    i.DMA1_Stream0_IRQHandler                0x0800139c   Section        0  stm32h7xx_it.o(i.DMA1_Stream0_IRQHandler)
-    i.DMA1_Stream1_IRQHandler                0x080013ac   Section        0  stm32h7xx_it.o(i.DMA1_Stream1_IRQHandler)
-    i.DMA1_Stream2_IRQHandler                0x080013bc   Section        0  stm32h7xx_it.o(i.DMA1_Stream2_IRQHandler)
-    i.DMA1_Stream3_IRQHandler                0x080013cc   Section        0  stm32h7xx_it.o(i.DMA1_Stream3_IRQHandler)
-    i.DMA1_Stream4_IRQHandler                0x080013dc   Section        0  stm32h7xx_it.o(i.DMA1_Stream4_IRQHandler)
-    i.DMA1_Stream5_IRQHandler                0x080013ec   Section        0  stm32h7xx_it.o(i.DMA1_Stream5_IRQHandler)
-    i.DMA1_Stream6_IRQHandler                0x080013fc   Section        0  stm32h7xx_it.o(i.DMA1_Stream6_IRQHandler)
-    i.DMA1_Stream7_IRQHandler                0x0800140c   Section        0  stm32h7xx_it.o(i.DMA1_Stream7_IRQHandler)
-    i.DMA_CalcBaseAndBitshift                0x0800141c   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift)
-    DMA_CalcBaseAndBitshift                  0x0800141d   Thumb Code   224  stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift)
-    i.DMA_CalcDMAMUXChannelBaseAndMask       0x08001508   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask)
-    DMA_CalcDMAMUXChannelBaseAndMask         0x08001509   Thumb Code   178  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask)
-    i.DMA_CalcDMAMUXRequestGenBaseAndMask    0x080015cc   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask)
-    DMA_CalcDMAMUXRequestGenBaseAndMask      0x080015cd   Thumb Code   140  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask)
-    i.DMA_CheckFifoParam                     0x08001664   Section        0  stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam)
-    DMA_CheckFifoParam                       0x08001665   Thumb Code   174  stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam)
-    i.DMA_SetConfig                          0x08001714   Section        0  stm32h7xx_hal_dma.o(i.DMA_SetConfig)
-    DMA_SetConfig                            0x08001715   Thumb Code   614  stm32h7xx_hal_dma.o(i.DMA_SetConfig)
-    i.DataToNode                             0x08001988   Section        0  protocolconvert.o(i.DataToNode)
-    i.DebugMon_Handler                       0x08001a1c   Section        0  stm32h7xx_it.o(i.DebugMon_Handler)
-    i.Error_Handler                          0x08001a1e   Section        0  main.o(i.Error_Handler)
-    i.FDCAN1_Filter_Cfg                      0x08001a24   Section        0  fdcan.o(i.FDCAN1_Filter_Cfg)
-    FDCAN1_Filter_Cfg                        0x08001a25   Thumb Code    54  fdcan.o(i.FDCAN1_Filter_Cfg)
-    i.FDCAN1_IT0_IRQHandler                  0x08001a60   Section        0  stm32h7xx_it.o(i.FDCAN1_IT0_IRQHandler)
-    i.FDCAN1_Send_Msg                        0x08001a70   Section        0  fdcan.o(i.FDCAN1_Send_Msg)
-    i.FDCAN2_Filter_Cfg                      0x08001aac   Section        0  fdcan.o(i.FDCAN2_Filter_Cfg)
-    FDCAN2_Filter_Cfg                        0x08001aad   Thumb Code    44  fdcan.o(i.FDCAN2_Filter_Cfg)
-    i.FDCAN2_IT0_IRQHandler                  0x08001adc   Section        0  stm32h7xx_it.o(i.FDCAN2_IT0_IRQHandler)
-    i.FDCAN2_Send_Msg                        0x08001aec   Section        0  fdcan.o(i.FDCAN2_Send_Msg)
-    i.FDCAN_CalcultateRamBlockAddresses      0x08001b28   Section        0  stm32h7xx_hal_fdcan.o(i.FDCAN_CalcultateRamBlockAddresses)
-    FDCAN_CalcultateRamBlockAddresses        0x08001b29   Thumb Code   536  stm32h7xx_hal_fdcan.o(i.FDCAN_CalcultateRamBlockAddresses)
-    i.FDCAN_CopyMessageToRAM                 0x08001d48   Section        0  stm32h7xx_hal_fdcan.o(i.FDCAN_CopyMessageToRAM)
-    FDCAN_CopyMessageToRAM                   0x08001d49   Thumb Code   202  stm32h7xx_hal_fdcan.o(i.FDCAN_CopyMessageToRAM)
-    i.GetBits_8                              0x08001e18   Section        0  protocolconvert.o(i.GetBits_8)
-    i.GetDI_Info                             0x08001e2c   Section        0  di.o(i.GetDI_Info)
-    i.GetNodePointer                         0x08001e44   Section        0  protocolnode.o(i.GetNodePointer)
-    i.GetPortConfig_CAN                      0x08001e4c   Section        0  protocolconvert.o(i.GetPortConfig_CAN)
+    i.Comm_CAN_Read_Pro                      0x08000e04   Section        0  commcan.o(i.Comm_CAN_Read_Pro)
+    i.ConvertToNode_CAN                      0x08000ecc   Section        0  protocolconvert.o(i.ConvertToNode_CAN)
+    i.DI_Signal_Pro                          0x080012ec   Section        0  di.o(i.DI_Signal_Pro)
+    i.DI_Task                                0x0800136c   Section        0  di.o(i.DI_Task)
+    i.DMA1_Stream0_IRQHandler                0x080013a0   Section        0  stm32h7xx_it.o(i.DMA1_Stream0_IRQHandler)
+    i.DMA1_Stream1_IRQHandler                0x080013b0   Section        0  stm32h7xx_it.o(i.DMA1_Stream1_IRQHandler)
+    i.DMA1_Stream2_IRQHandler                0x080013c0   Section        0  stm32h7xx_it.o(i.DMA1_Stream2_IRQHandler)
+    i.DMA1_Stream3_IRQHandler                0x080013d0   Section        0  stm32h7xx_it.o(i.DMA1_Stream3_IRQHandler)
+    i.DMA1_Stream4_IRQHandler                0x080013e0   Section        0  stm32h7xx_it.o(i.DMA1_Stream4_IRQHandler)
+    i.DMA1_Stream5_IRQHandler                0x080013f0   Section        0  stm32h7xx_it.o(i.DMA1_Stream5_IRQHandler)
+    i.DMA1_Stream6_IRQHandler                0x08001400   Section        0  stm32h7xx_it.o(i.DMA1_Stream6_IRQHandler)
+    i.DMA1_Stream7_IRQHandler                0x08001410   Section        0  stm32h7xx_it.o(i.DMA1_Stream7_IRQHandler)
+    i.DMA_CalcBaseAndBitshift                0x08001420   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift)
+    DMA_CalcBaseAndBitshift                  0x08001421   Thumb Code   224  stm32h7xx_hal_dma.o(i.DMA_CalcBaseAndBitshift)
+    i.DMA_CalcDMAMUXChannelBaseAndMask       0x0800150c   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask)
+    DMA_CalcDMAMUXChannelBaseAndMask         0x0800150d   Thumb Code   178  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXChannelBaseAndMask)
+    i.DMA_CalcDMAMUXRequestGenBaseAndMask    0x080015d0   Section        0  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask)
+    DMA_CalcDMAMUXRequestGenBaseAndMask      0x080015d1   Thumb Code   140  stm32h7xx_hal_dma.o(i.DMA_CalcDMAMUXRequestGenBaseAndMask)
+    i.DMA_CheckFifoParam                     0x08001668   Section        0  stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam)
+    DMA_CheckFifoParam                       0x08001669   Thumb Code   174  stm32h7xx_hal_dma.o(i.DMA_CheckFifoParam)
+    i.DMA_SetConfig                          0x08001718   Section        0  stm32h7xx_hal_dma.o(i.DMA_SetConfig)
+    DMA_SetConfig                            0x08001719   Thumb Code   614  stm32h7xx_hal_dma.o(i.DMA_SetConfig)
+    i.DataToNode                             0x0800198c   Section        0  protocolconvert.o(i.DataToNode)
+    i.DebugMon_Handler                       0x08001a20   Section        0  stm32h7xx_it.o(i.DebugMon_Handler)
+    i.Error_Handler                          0x08001a22   Section        0  main.o(i.Error_Handler)
+    i.FDCAN1_Filter_Cfg                      0x08001a28   Section        0  fdcan.o(i.FDCAN1_Filter_Cfg)
+    FDCAN1_Filter_Cfg                        0x08001a29   Thumb Code    54  fdcan.o(i.FDCAN1_Filter_Cfg)
+    i.FDCAN1_IT0_IRQHandler                  0x08001a64   Section        0  stm32h7xx_it.o(i.FDCAN1_IT0_IRQHandler)
+    i.FDCAN1_Send_Msg                        0x08001a74   Section        0  fdcan.o(i.FDCAN1_Send_Msg)
+    i.FDCAN2_Filter_Cfg                      0x08001ab0   Section        0  fdcan.o(i.FDCAN2_Filter_Cfg)
+    FDCAN2_Filter_Cfg                        0x08001ab1   Thumb Code    44  fdcan.o(i.FDCAN2_Filter_Cfg)
+    i.FDCAN2_IT0_IRQHandler                  0x08001ae0   Section        0  stm32h7xx_it.o(i.FDCAN2_IT0_IRQHandler)
+    i.FDCAN2_Send_Msg                        0x08001af0   Section        0  fdcan.o(i.FDCAN2_Send_Msg)
+    i.FDCAN_CalcultateRamBlockAddresses      0x08001b2c   Section        0  stm32h7xx_hal_fdcan.o(i.FDCAN_CalcultateRamBlockAddresses)
+    FDCAN_CalcultateRamBlockAddresses        0x08001b2d   Thumb Code   536  stm32h7xx_hal_fdcan.o(i.FDCAN_CalcultateRamBlockAddresses)
+    i.FDCAN_CopyMessageToRAM                 0x08001d4c   Section        0  stm32h7xx_hal_fdcan.o(i.FDCAN_CopyMessageToRAM)
+    FDCAN_CopyMessageToRAM                   0x08001d4d   Thumb Code   202  stm32h7xx_hal_fdcan.o(i.FDCAN_CopyMessageToRAM)
+    i.GetBits_8                              0x08001e1c   Section        0  protocolconvert.o(i.GetBits_8)
+    i.GetDI_Info                             0x08001e30   Section        0  di.o(i.GetDI_Info)
+    i.GetNodePointer                         0x08001e48   Section        0  protocolnode.o(i.GetNodePointer)
+    i.GetPortConfig_CAN                      0x08001e50   Section        0  protocolconvert.o(i.GetPortConfig_CAN)
     i.GetPortConfig_DI                       0x08001e6c   Section        0  protocolconvert.o(i.GetPortConfig_DI)
     i.GetProtocolConvert_CAN                 0x08001e88   Section        0  protocolconvert.o(i.GetProtocolConvert_CAN)
     i.HAL_ADC_ConfigChannel                  0x08001ea4   Section        0  stm32h7xx_hal_adc.o(i.HAL_ADC_ConfigChannel)
@@ -4720,10 +4720,10 @@ Image Symbol Table
     .bss                                     0x20008590   Section       24  di.o(.bss)
     STACK                                    0x200085a8   Section     4096  startup_stm32h743xx.o(STACK)
     .bss                                     0x24000000   Section    76088  freertos.o(.bss)
-    .bss                                     0x24012938   Section    181294  protocolconvert.o(.bss)
-    .bss                                     0x2403ed66   Section    192500  protocolnode.o(.bss)
-    Node                                     0x2403ed66   Data       77000  protocolnode.o(.bss)
-    Write_Node                               0x24051a2e   Data       115500  protocolnode.o(.bss)
+    .bss                                     0x24012938   Section    181354  protocolconvert.o(.bss)
+    .bss                                     0x2403eda2   Section    192500  protocolnode.o(.bss)
+    Node                                     0x2403eda2   Data       77000  protocolnode.o(.bss)
+    Write_Node                               0x24051a6a   Data       115500  protocolnode.o(.bss)
 
     Global Symbols
 
@@ -4967,29 +4967,29 @@ Image Symbol Table
     CommCAN_3_Task                           0x08000db1   Thumb Code    24  commcan.o(i.CommCAN_3_Task)
     CommLAN_1_Task                           0x08000dcd   Thumb Code    24  commlan_1.o(i.CommLAN_1_Task)
     CommLAN_2_Task                           0x08000de9   Thumb Code    24  commlan_2.o(i.CommLAN_2_Task)
-    Comm_CAN_Pro                             0x08000e05   Thumb Code   196  commcan.o(i.Comm_CAN_Pro)
-    ConvertToNode_CAN                        0x08000ec9   Thumb Code  1056  protocolconvert.o(i.ConvertToNode_CAN)
-    DI_Signal_Pro                            0x080012e9   Thumb Code   128  di.o(i.DI_Signal_Pro)
-    DI_Task                                  0x08001369   Thumb Code    48  di.o(i.DI_Task)
-    DMA1_Stream0_IRQHandler                  0x0800139d   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream0_IRQHandler)
-    DMA1_Stream1_IRQHandler                  0x080013ad   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream1_IRQHandler)
-    DMA1_Stream2_IRQHandler                  0x080013bd   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream2_IRQHandler)
-    DMA1_Stream3_IRQHandler                  0x080013cd   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream3_IRQHandler)
-    DMA1_Stream4_IRQHandler                  0x080013dd   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream4_IRQHandler)
-    DMA1_Stream5_IRQHandler                  0x080013ed   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream5_IRQHandler)
-    DMA1_Stream6_IRQHandler                  0x080013fd   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream6_IRQHandler)
-    DMA1_Stream7_IRQHandler                  0x0800140d   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream7_IRQHandler)
-    DataToNode                               0x08001989   Thumb Code   148  protocolconvert.o(i.DataToNode)
-    DebugMon_Handler                         0x08001a1d   Thumb Code     2  stm32h7xx_it.o(i.DebugMon_Handler)
-    Error_Handler                            0x08001a1f   Thumb Code     6  main.o(i.Error_Handler)
-    FDCAN1_IT0_IRQHandler                    0x08001a61   Thumb Code    10  stm32h7xx_it.o(i.FDCAN1_IT0_IRQHandler)
-    FDCAN1_Send_Msg                          0x08001a71   Thumb Code    54  fdcan.o(i.FDCAN1_Send_Msg)
-    FDCAN2_IT0_IRQHandler                    0x08001add   Thumb Code    10  stm32h7xx_it.o(i.FDCAN2_IT0_IRQHandler)
-    FDCAN2_Send_Msg                          0x08001aed   Thumb Code    54  fdcan.o(i.FDCAN2_Send_Msg)
-    GetBits_8                                0x08001e19   Thumb Code    20  protocolconvert.o(i.GetBits_8)
-    GetDI_Info                               0x08001e2d   Thumb Code    18  di.o(i.GetDI_Info)
-    GetNodePointer                           0x08001e45   Thumb Code     4  protocolnode.o(i.GetNodePointer)
-    GetPortConfig_CAN                        0x08001e4d   Thumb Code    26  protocolconvert.o(i.GetPortConfig_CAN)
+    Comm_CAN_Read_Pro                        0x08000e05   Thumb Code   200  commcan.o(i.Comm_CAN_Read_Pro)
+    ConvertToNode_CAN                        0x08000ecd   Thumb Code  1056  protocolconvert.o(i.ConvertToNode_CAN)
+    DI_Signal_Pro                            0x080012ed   Thumb Code   128  di.o(i.DI_Signal_Pro)
+    DI_Task                                  0x0800136d   Thumb Code    48  di.o(i.DI_Task)
+    DMA1_Stream0_IRQHandler                  0x080013a1   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream0_IRQHandler)
+    DMA1_Stream1_IRQHandler                  0x080013b1   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream1_IRQHandler)
+    DMA1_Stream2_IRQHandler                  0x080013c1   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream2_IRQHandler)
+    DMA1_Stream3_IRQHandler                  0x080013d1   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream3_IRQHandler)
+    DMA1_Stream4_IRQHandler                  0x080013e1   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream4_IRQHandler)
+    DMA1_Stream5_IRQHandler                  0x080013f1   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream5_IRQHandler)
+    DMA1_Stream6_IRQHandler                  0x08001401   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream6_IRQHandler)
+    DMA1_Stream7_IRQHandler                  0x08001411   Thumb Code    10  stm32h7xx_it.o(i.DMA1_Stream7_IRQHandler)
+    DataToNode                               0x0800198d   Thumb Code   148  protocolconvert.o(i.DataToNode)
+    DebugMon_Handler                         0x08001a21   Thumb Code     2  stm32h7xx_it.o(i.DebugMon_Handler)
+    Error_Handler                            0x08001a23   Thumb Code     6  main.o(i.Error_Handler)
+    FDCAN1_IT0_IRQHandler                    0x08001a65   Thumb Code    10  stm32h7xx_it.o(i.FDCAN1_IT0_IRQHandler)
+    FDCAN1_Send_Msg                          0x08001a75   Thumb Code    54  fdcan.o(i.FDCAN1_Send_Msg)
+    FDCAN2_IT0_IRQHandler                    0x08001ae1   Thumb Code    10  stm32h7xx_it.o(i.FDCAN2_IT0_IRQHandler)
+    FDCAN2_Send_Msg                          0x08001af1   Thumb Code    54  fdcan.o(i.FDCAN2_Send_Msg)
+    GetBits_8                                0x08001e1d   Thumb Code    20  protocolconvert.o(i.GetBits_8)
+    GetDI_Info                               0x08001e31   Thumb Code    18  di.o(i.GetDI_Info)
+    GetNodePointer                           0x08001e49   Thumb Code     4  protocolnode.o(i.GetNodePointer)
+    GetPortConfig_CAN                        0x08001e51   Thumb Code    22  protocolconvert.o(i.GetPortConfig_CAN)
     GetPortConfig_DI                         0x08001e6d   Thumb Code    22  protocolconvert.o(i.GetPortConfig_DI)
     GetProtocolConvert_CAN                   0x08001e89   Thumb Code    24  protocolconvert.o(i.GetProtocolConvert_CAN)
     HAL_ADC_ConfigChannel                    0x08001ea5   Thumb Code  1314  stm32h7xx_hal_adc.o(i.HAL_ADC_ConfigChannel)
@@ -5347,10 +5347,10 @@ Image Symbol Table
     DI_EventControlBlock                     0x24012918   Data          32  freertos.o(.bss)
     ProtocolConvert_modbus                   0x24012938   Data       90784  protocolconvert.o(.bss)
     ProtocolConvert_CAN                      0x24028bd8   Data       90144  protocolconvert.o(.bss)
-    PortConfig_modbus                        0x2403ebf8   Data         240  protocolconvert.o(.bss)
-    PortConfig_CAN                           0x2403ece8   Data          60  protocolconvert.o(.bss)
-    PortConfig_DI                            0x2403ed24   Data          48  protocolconvert.o(.bss)
-    PortConfig_DO                            0x2403ed54   Data          18  protocolconvert.o(.bss)
+    PortConfig_modbus                        0x2403ebf8   Data         264  protocolconvert.o(.bss)
+    PortConfig_CAN                           0x2403ed00   Data          96  protocolconvert.o(.bss)
+    PortConfig_DI                            0x2403ed60   Data          48  protocolconvert.o(.bss)
+    PortConfig_DO                            0x2403ed90   Data          18  protocolconvert.o(.bss)
 
 
 
@@ -5414,39 +5414,39 @@ Memory Map of the image
     0x08000db0   0x08000db0   0x0000001c   Code   RO         8628    i.CommCAN_3_Task    commcan.o
     0x08000dcc   0x08000dcc   0x0000001c   Code   RO         8409    i.CommLAN_1_Task    commlan_1.o
     0x08000de8   0x08000de8   0x0000001c   Code   RO         8461    i.CommLAN_2_Task    commlan_2.o
-    0x08000e04   0x08000e04   0x000000c4   Code   RO         8629    i.Comm_CAN_Pro      commcan.o
-    0x08000ec8   0x08000ec8   0x00000420   Code   RO         9422    i.ConvertToNode_CAN  protocolconvert.o
-    0x080012e8   0x080012e8   0x00000080   Code   RO         8508    i.DI_Signal_Pro     di.o
-    0x08001368   0x08001368   0x00000034   Code   RO         8509    i.DI_Task           di.o
-    0x0800139c   0x0800139c   0x00000010   Code   RO          797    i.DMA1_Stream0_IRQHandler  stm32h7xx_it.o
-    0x080013ac   0x080013ac   0x00000010   Code   RO          798    i.DMA1_Stream1_IRQHandler  stm32h7xx_it.o
-    0x080013bc   0x080013bc   0x00000010   Code   RO          799    i.DMA1_Stream2_IRQHandler  stm32h7xx_it.o
-    0x080013cc   0x080013cc   0x00000010   Code   RO          800    i.DMA1_Stream3_IRQHandler  stm32h7xx_it.o
-    0x080013dc   0x080013dc   0x00000010   Code   RO          801    i.DMA1_Stream4_IRQHandler  stm32h7xx_it.o
-    0x080013ec   0x080013ec   0x00000010   Code   RO          802    i.DMA1_Stream5_IRQHandler  stm32h7xx_it.o
-    0x080013fc   0x080013fc   0x00000010   Code   RO          803    i.DMA1_Stream6_IRQHandler  stm32h7xx_it.o
-    0x0800140c   0x0800140c   0x00000010   Code   RO          804    i.DMA1_Stream7_IRQHandler  stm32h7xx_it.o
-    0x0800141c   0x0800141c   0x000000ec   Code   RO         2269    i.DMA_CalcBaseAndBitshift  stm32h7xx_hal_dma.o
-    0x08001508   0x08001508   0x000000c4   Code   RO         2270    i.DMA_CalcDMAMUXChannelBaseAndMask  stm32h7xx_hal_dma.o
-    0x080015cc   0x080015cc   0x00000098   Code   RO         2271    i.DMA_CalcDMAMUXRequestGenBaseAndMask  stm32h7xx_hal_dma.o
-    0x08001664   0x08001664   0x000000ae   Code   RO         2272    i.DMA_CheckFifoParam  stm32h7xx_hal_dma.o
-    0x08001712   0x08001712   0x00000002   PAD
-    0x08001714   0x08001714   0x00000274   Code   RO         2273    i.DMA_SetConfig     stm32h7xx_hal_dma.o
-    0x08001988   0x08001988   0x00000094   Code   RO         9424    i.DataToNode        protocolconvert.o
-    0x08001a1c   0x08001a1c   0x00000002   Code   RO          805    i.DebugMon_Handler  stm32h7xx_it.o
-    0x08001a1e   0x08001a1e   0x00000006   Code   RO           13    i.Error_Handler     main.o
-    0x08001a24   0x08001a24   0x0000003c   Code   RO          531    i.FDCAN1_Filter_Cfg  fdcan.o
-    0x08001a60   0x08001a60   0x00000010   Code   RO          806    i.FDCAN1_IT0_IRQHandler  stm32h7xx_it.o
-    0x08001a70   0x08001a70   0x0000003c   Code   RO          532    i.FDCAN1_Send_Msg   fdcan.o
-    0x08001aac   0x08001aac   0x00000030   Code   RO          533    i.FDCAN2_Filter_Cfg  fdcan.o
-    0x08001adc   0x08001adc   0x00000010   Code   RO          807    i.FDCAN2_IT0_IRQHandler  stm32h7xx_it.o
-    0x08001aec   0x08001aec   0x0000003c   Code   RO          534    i.FDCAN2_Send_Msg   fdcan.o
-    0x08001b28   0x08001b28   0x00000220   Code   RO         4044    i.FDCAN_CalcultateRamBlockAddresses  stm32h7xx_hal_fdcan.o
-    0x08001d48   0x08001d48   0x000000d0   Code   RO         4045    i.FDCAN_CopyMessageToRAM  stm32h7xx_hal_fdcan.o
-    0x08001e18   0x08001e18   0x00000014   Code   RO         9426    i.GetBits_8         protocolconvert.o
-    0x08001e2c   0x08001e2c   0x00000018   Code   RO         8510    i.GetDI_Info        di.o
-    0x08001e44   0x08001e44   0x00000008   Code   RO         9625    i.GetNodePointer    protocolnode.o
-    0x08001e4c   0x08001e4c   0x00000020   Code   RO         9427    i.GetPortConfig_CAN  protocolconvert.o
+    0x08000e04   0x08000e04   0x000000c8   Code   RO         8629    i.Comm_CAN_Read_Pro  commcan.o
+    0x08000ecc   0x08000ecc   0x00000420   Code   RO         9422    i.ConvertToNode_CAN  protocolconvert.o
+    0x080012ec   0x080012ec   0x00000080   Code   RO         8508    i.DI_Signal_Pro     di.o
+    0x0800136c   0x0800136c   0x00000034   Code   RO         8509    i.DI_Task           di.o
+    0x080013a0   0x080013a0   0x00000010   Code   RO          797    i.DMA1_Stream0_IRQHandler  stm32h7xx_it.o
+    0x080013b0   0x080013b0   0x00000010   Code   RO          798    i.DMA1_Stream1_IRQHandler  stm32h7xx_it.o
+    0x080013c0   0x080013c0   0x00000010   Code   RO          799    i.DMA1_Stream2_IRQHandler  stm32h7xx_it.o
+    0x080013d0   0x080013d0   0x00000010   Code   RO          800    i.DMA1_Stream3_IRQHandler  stm32h7xx_it.o
+    0x080013e0   0x080013e0   0x00000010   Code   RO          801    i.DMA1_Stream4_IRQHandler  stm32h7xx_it.o
+    0x080013f0   0x080013f0   0x00000010   Code   RO          802    i.DMA1_Stream5_IRQHandler  stm32h7xx_it.o
+    0x08001400   0x08001400   0x00000010   Code   RO          803    i.DMA1_Stream6_IRQHandler  stm32h7xx_it.o
+    0x08001410   0x08001410   0x00000010   Code   RO          804    i.DMA1_Stream7_IRQHandler  stm32h7xx_it.o
+    0x08001420   0x08001420   0x000000ec   Code   RO         2269    i.DMA_CalcBaseAndBitshift  stm32h7xx_hal_dma.o
+    0x0800150c   0x0800150c   0x000000c4   Code   RO         2270    i.DMA_CalcDMAMUXChannelBaseAndMask  stm32h7xx_hal_dma.o
+    0x080015d0   0x080015d0   0x00000098   Code   RO         2271    i.DMA_CalcDMAMUXRequestGenBaseAndMask  stm32h7xx_hal_dma.o
+    0x08001668   0x08001668   0x000000ae   Code   RO         2272    i.DMA_CheckFifoParam  stm32h7xx_hal_dma.o
+    0x08001716   0x08001716   0x00000002   PAD
+    0x08001718   0x08001718   0x00000274   Code   RO         2273    i.DMA_SetConfig     stm32h7xx_hal_dma.o
+    0x0800198c   0x0800198c   0x00000094   Code   RO         9424    i.DataToNode        protocolconvert.o
+    0x08001a20   0x08001a20   0x00000002   Code   RO          805    i.DebugMon_Handler  stm32h7xx_it.o
+    0x08001a22   0x08001a22   0x00000006   Code   RO           13    i.Error_Handler     main.o
+    0x08001a28   0x08001a28   0x0000003c   Code   RO          531    i.FDCAN1_Filter_Cfg  fdcan.o
+    0x08001a64   0x08001a64   0x00000010   Code   RO          806    i.FDCAN1_IT0_IRQHandler  stm32h7xx_it.o
+    0x08001a74   0x08001a74   0x0000003c   Code   RO          532    i.FDCAN1_Send_Msg   fdcan.o
+    0x08001ab0   0x08001ab0   0x00000030   Code   RO          533    i.FDCAN2_Filter_Cfg  fdcan.o
+    0x08001ae0   0x08001ae0   0x00000010   Code   RO          807    i.FDCAN2_IT0_IRQHandler  stm32h7xx_it.o
+    0x08001af0   0x08001af0   0x0000003c   Code   RO          534    i.FDCAN2_Send_Msg   fdcan.o
+    0x08001b2c   0x08001b2c   0x00000220   Code   RO         4044    i.FDCAN_CalcultateRamBlockAddresses  stm32h7xx_hal_fdcan.o
+    0x08001d4c   0x08001d4c   0x000000d0   Code   RO         4045    i.FDCAN_CopyMessageToRAM  stm32h7xx_hal_fdcan.o
+    0x08001e1c   0x08001e1c   0x00000014   Code   RO         9426    i.GetBits_8         protocolconvert.o
+    0x08001e30   0x08001e30   0x00000018   Code   RO         8510    i.GetDI_Info        di.o
+    0x08001e48   0x08001e48   0x00000008   Code   RO         9625    i.GetNodePointer    protocolnode.o
+    0x08001e50   0x08001e50   0x0000001c   Code   RO         9427    i.GetPortConfig_CAN  protocolconvert.o
     0x08001e6c   0x08001e6c   0x0000001c   Code   RO         9428    i.GetPortConfig_DI  protocolconvert.o
     0x08001e88   0x08001e88   0x0000001c   Code   RO         9431    i.GetProtocolConvert_CAN  protocolconvert.o
     0x08001ea4   0x08001ea4   0x0000054c   Code   RO         1039    i.HAL_ADC_ConfigChannel  stm32h7xx_hal_adc.o
@@ -5786,13 +5786,13 @@ Memory Map of the image
     0x200085a8        -       0x00001000   Zero   RW            1    STACK               startup_stm32h743xx.o
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x0800f344, Size: 0x0006dd5c, Max: 0x00080000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x0800f344, Size: 0x0006dd98, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x24000000        -       0x00012938   Zero   RW          309    .bss                freertos.o
-    0x24012938        -       0x0002c42e   Zero   RW         9438    .bss                protocolconvert.o
-    0x2403ed66        -       0x0002eff4   Zero   RW         9631    .bss                protocolnode.o
+    0x24012938        -       0x0002c46a   Zero   RW         9438    .bss                protocolconvert.o
+    0x2403eda2        -       0x0002eff4   Zero   RW         9631    .bss                protocolnode.o
 
 
 ==============================================================================
@@ -5806,8 +5806,8 @@ Image component sizes
         68          4          0          0          0        887   bdma.o
       1032         46          0          4       1720      72092   cmsis_os2.o
        320        170         45          0          0       1723   comm485.o
-       668         84          0          0          0       5060   commcan.o
-        28          4          0          0          0       3673   commlan_1.o
+       672         84          0          0          0       5077   commcan.o
+        28          4          0          0          0       3801   commlan_1.o
         28          4          0          0          0        497   commlan_2.o
        324         30          0          0         24       3430   di.o
        164          4          0          0          0        930   dma.o
@@ -5819,7 +5819,7 @@ Image component sizes
        148          0          0          0          0       3670   list.o
        482         38          0          0          0    1376444   main.o
       1014         92          0         12          0      11749   port.o
-      1322         46          0          0     181294      12708   protocolconvert.o
+      1318         46          0          0     181354      12836   protocolconvert.o
        268         12          0          0     192500       2046   protocolnode.o
       2526         24          0          0         64      23287   queue.o
       1000         84          0          0        888       3563   spi.o
@@ -5849,7 +5849,7 @@ Image component sizes
       1832        212          0          6       7456       6903   usart.o
 
     ----------------------------------------------------------------------
-     56294       3222       1996        288     487904    1920830   Object Totals
+     56294       3222       1996        288     487964    1921103   Object Totals
          0          0         48          0          0          0   (incl. Generated)
         42          0          4          7          2          0   (incl. Padding)
 
@@ -5906,14 +5906,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     59988       3328       1996        292     487904    1891098   Grand Totals
-     59988       3328       1996        292     487904    1891098   ELF Image Totals
+     59988       3328       1996        292     487964    1891371   Grand Totals
+     59988       3328       1996        292     487964    1891371   ELF Image Totals
      59988       3328       1996        292          0          0   ROM Totals
 
 ==============================================================================
 
     Total RO  Size (Code + RO Data)                61984 (  60.53kB)
-    Total RW  Size (RW Data + ZI Data)            488196 ( 476.75kB)
+    Total RW  Size (RW Data + ZI Data)            488256 ( 476.81kB)
     Total ROM Size (Code + RO Data + RW Data)      62276 (  60.82kB)
 
 ==============================================================================

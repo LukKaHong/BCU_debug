@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BCU_debug\BCU_debug.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BCU_debug\BCU_debug.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Dec 11 09:46:35 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Dec 11 10:50:31 2025
 <BR><P>
 <H3>Maximum Stack Usage =        384 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -792,7 +792,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32h743xx.o(RESET)
 </UL>
 <P><STRONG><a name="[d7]"></a>CAN_ID_offset_calc</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, protocolconvert.o(i.CAN_ID_offset_calc))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 
 <P><STRONG><a name="[c4]"></a>Comm485_1_Task</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, comm485.o(i.Comm485_1_Task))
@@ -823,9 +823,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c9]"></a>CommCAN_1_Receive_Pro</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, commcan.o(i.CommCAN_1_Receive_Pro))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CommCAN_1_Receive_Pro &rArr; Comm_CAN_Pro &rArr; ConvertToNode_CAN &rArr; DataToNode
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CommCAN_1_Receive_Pro &rArr; Comm_CAN_Read_Pro &rArr; ConvertToNode_CAN &rArr; DataToNode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_1_Task
 </UL>
@@ -850,9 +850,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ce]"></a>CommCAN_2_Receive_Pro</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, commcan.o(i.CommCAN_2_Receive_Pro))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CommCAN_2_Receive_Pro &rArr; Comm_CAN_Pro &rArr; ConvertToNode_CAN &rArr; DataToNode
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CommCAN_2_Receive_Pro &rArr; Comm_CAN_Read_Pro &rArr; ConvertToNode_CAN &rArr; DataToNode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CommCAN_2_Task
 </UL>
@@ -900,8 +900,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartCommLAN_2_Task
 </UL>
 
-<P><STRONG><a name="[ca]"></a>Comm_CAN_Pro</STRONG> (Thumb, 196 bytes, Stack size 40 bytes, commcan.o(i.Comm_CAN_Pro))
-<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Comm_CAN_Pro &rArr; ConvertToNode_CAN &rArr; DataToNode
+<P><STRONG><a name="[ca]"></a>Comm_CAN_Read_Pro</STRONG> (Thumb, 200 bytes, Stack size 40 bytes, commcan.o(i.Comm_CAN_Read_Pro))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Comm_CAN_Read_Pro &rArr; ConvertToNode_CAN &rArr; DataToNode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetProtocolConvert_CAN
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetPortConfig_CAN
@@ -920,7 +920,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetBits_8
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DataToNode
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 
 <P><STRONG><a name="[dd]"></a>DI_Signal_Pro</STRONG> (Thumb, 128 bytes, Stack size 16 bytes, di.o(i.DI_Signal_Pro))
@@ -1068,11 +1068,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d9]"></a>GetNodePointer</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, protocolnode.o(i.GetNodePointer))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 
-<P><STRONG><a name="[d5]"></a>GetPortConfig_CAN</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, protocolconvert.o(i.GetPortConfig_CAN))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<P><STRONG><a name="[d5]"></a>GetPortConfig_CAN</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, protocolconvert.o(i.GetPortConfig_CAN))
+<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 
 <P><STRONG><a name="[de]"></a>GetPortConfig_DI</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, protocolconvert.o(i.GetPortConfig_DI))
@@ -1080,7 +1080,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d6]"></a>GetProtocolConvert_CAN</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, protocolconvert.o(i.GetProtocolConvert_CAN))
-<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 
 <P><STRONG><a name="[e9]"></a>HAL_ADC_ConfigChannel</STRONG> (Thumb, 1314 bytes, Stack size 40 bytes, stm32h7xx_hal_adc.o(i.HAL_ADC_ConfigChannel))
@@ -2017,7 +2017,7 @@ Global Symbols
 <P><STRONG><a name="[d8]"></a>ModelIdToNodeIndex</STRONG> (Thumb, 260 bytes, Stack size 12 bytes, protocolnode.o(i.ModelIdToNodeIndex))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = ModelIdToNodeIndex
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Pro
+<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Comm_CAN_Read_Pro
 </UL>
 
 <P><STRONG><a name="[1]"></a>NMI_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32h7xx_it.o(i.NMI_Handler))
