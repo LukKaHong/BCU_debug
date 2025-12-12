@@ -603,7 +603,7 @@ void cJSON_To_PortConfig(char *message)
             if(NTC->en == 0)
                 continue;
 
-            NTC->temp  = (NTC_Temp_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "t"));
+            NTC->temp  = (NTC_Temp_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tp"));
             NTC->table = (NTC_Table_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tb"));
         }
     }
