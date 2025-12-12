@@ -325,6 +325,110 @@
 
 
 
+
+
+
+/* PCS 参数设置 */
+#define NODE_PCS_COM_BAUDRATE               16000 // COM波特率
+#define NODE_PCS_SCI_STOP_BIT               16001 // SCI停止位
+#define NODE_PCS_SCI_PARITY                 16002 // SCI奇偶校验位
+#define NODE_PCS_EMS_PROTO_SEL              16003 // EMS协议选择
+#define NODE_PCS_BMS_TIMEOUT                16004 // BMS超时时间
+#define NODE_PCS_EPO_ENABLE                 16005 // EPO使能
+#define NODE_PCS_BMS_MS_SEL                 16006 // BMS主从机选择
+#define NODE_PCS_BMS_PROTO_SEL              16007 // BMS协议选择
+#define NODE_PCS_POWER_SCHED_BMS_LINK       16008 // 功率调度关联BMS使能
+#define NODE_PCS_VOLT_CALIB_ZERO            16009 // 电压校零
+#define NODE_PCS_OUTPUT_VOLT_SYSTEM         16010 // 输出电压体制
+#define NODE_PCS_GRID_POWER_SCHED_MODE      16011 // 并网功率调度方式
+#define NODE_PCS_AC_CONST_CURR_REF          16012 // 交流侧恒电流期望值
+#define NODE_PCS_DC_CONST_POWER_REF         16013 // 直流侧恒功率期望
+#define NODE_PCS_DC_CONST_CURR_REF          16014 // 直流侧恒电流期望
+#define NODE_PCS_GRID_OVER_VOLT_I_AMP       16015 // 电网过压I段保护幅值
+#define NODE_PCS_GRID_OVER_VOLT_I_TIME      16016 // 电网过压I段保护时间
+#define NODE_PCS_GRID_OVER_VOLT_II_AMP      16017 // 电网过压Ⅱ段保护幅值
+#define NODE_PCS_GRID_OVER_VOLT_II_TIME     16018 // 电网过压Ⅱ段保护时间
+#define NODE_PCS_GRID_UNDER_VOLT_I_AMP      16019 // 电网欠压I段保护幅值
+#define NODE_PCS_GRID_UNDER_VOLT_I_TIME     16020 // 电网欠压I段保护时间
+#define NODE_PCS_GRID_UNDER_VOLT_II_AMP     16021 // 电网欠压Ⅱ段保护幅值
+#define NODE_PCS_GRID_UNDER_VOLT_II_TIME    16022 // 电网欠压Ⅱ段保护时间
+#define NODE_PCS_GRID_UNDER_VOLT_III_AMP    16023 // 电网欠压Ⅲ段保护幅值
+#define NODE_PCS_GRID_UNDER_VOLT_III_TIME   16024 // 电网欠压Ⅲ段保护时间
+#define NODE_PCS_GRID_OVER_FREQ_I_AMP       16025 // 电网过频I段保护幅值
+#define NODE_PCS_GRID_OVER_FREQ_I_TIME      16026 // 电网过频I段保护时间
+#define NODE_PCS_GRID_OVER_FREQ_II_AMP      16027 // 电网过频Ⅱ段保护幅值
+#define NODE_PCS_GRID_OVER_FREQ_II_TIME     16028 // 电网过频Ⅱ段保护时间
+#define NODE_PCS_GRID_UNDER_FREQ_I_AMP      16029 // 电网欠频I段保护幅值
+#define NODE_PCS_GRID_UNDER_FREQ_I_TIME     16030 // 电网欠频I段保护时间
+#define NODE_PCS_GRID_UNDER_FREQ_II_AMP     16031 // 电网欠频Ⅱ段保护幅值
+#define NODE_PCS_GRID_UNDER_FREQ_II_TIME    16032 // 电网欠频Ⅱ段保护时间
+#define NODE_PCS_ISLANDING_DETECT           16033 // 孤岛检测
+#define NODE_PCS_POWER_RAMP_RATE            16034 // 功率变化速率
+#define NODE_PCS_BUS_OVER_VOLT_PROT         16035 // 母线过压保护点
+#define NODE_PCS_BUS_OVER_VOLT_PROT_2       16036 // 母线过压保护点
+#define NODE_PCS_DC_OVER_CURR_PROT          16037 // 直流过流保护点
+#define NODE_PCS_AC_OVER_CURR_PROT          16038 // 交流过流保护点
+#define NODE_PCS_COMM_TIMEOUT_ACTION        16039 // 通信超时关机/待机
+#define NODE_PCS_ACTIVE_POWER_CTRL_MODE     16040 // 有功三相总控/分控
+#define NODE_PCS_ACTIVE_POWER_A             16041 // A相有功
+#define NODE_PCS_ACTIVE_POWER_B             16042 // B相有功
+#define NODE_PCS_ACTIVE_POWER_C             16043 // C相有功
+#define NODE_PCS_REACTIVE_POWER_A           16044 // A相无功
+#define NODE_PCS_REACTIVE_POWER_B           16045 // B相无功
+#define NODE_PCS_REACTIVE_POWER_C           16046 // C相无功
+#define NODE_PCS_OFF_GRID_VOLT_SET          16047 // 离网电压设置
+#define NODE_PCS_OFF_GRID_FREQ_SET          16048 // 离网频率设置
+#define NODE_PCS_REGULATION_COEFF           16049 // 调节系数
+#define NODE_PCS_VOLT_RIDE_THROUGH_EN       16050 // 电压穿越功能使能
+#define NODE_PCS_REACTIVE_POWER_ADJ_MODE    16051 // 无功功率调整模式
+#define NODE_PCS_INSULATION_DETECT_EN       16052 // 绝缘检测使能
+#define NODE_PCS_VOLT_DROOP                 16053 // 电压下垂
+#define NODE_PCS_FREQ_DROOP                 16054 // 频率下垂
+#define NODE_PCS_VSG_TIME_CONST             16055 // VSG时间常数
+#define NODE_PCS_VSG_DAMPING_COEFF          16056 // VSG阻尼系数
+#define NODE_PCS_VSG_SEC_REG_ACTIVE_POWER   16057 // VSG二次调节有功功率
+#define NODE_PCS_VSG_SEC_REG_REACTIVE_POWER 16058 // VSG二次调节无功功率
+#define NODE_PCS_REACTIVE_COMP_POWER_SET    16059 // 无功功率补偿功率设置
+#define NODE_PCS_OFF_GRID_MODE_SET          16060 // 离网模式设置
+#define NODE_PCS_MODULE_RUN_MODE_SET        16061 // 模块运行模式设置
+#define NODE_PCS_GRID_SINGLE_PHASE_CTRL     16062 // 并网单相功率独立控制设置
+#define NODE_PCS_MODULE_MASTER_SET          16063 // 模块主机设置
+#define NODE_PCS_MODULE_CURR_SOURCE_PARALLEL 16064 // 模块电流源并联使能设置
+#define NODE_PCS_OFF_GRID_VOLT_SET_2        16065 // 离网电压设置
+#define NODE_PCS_OFF_GRID_FREQ_SET_2        16066 // 离网频率设置
+#define NODE_PCS_A_ACTIVE_POWER_REF         16067 // A 相有功功率给定
+#define NODE_PCS_A_REACTIVE_POWER_REF       16068 // A 相无功功率给定
+#define NODE_PCS_B_ACTIVE_POWER_REF         16069 // B 相有功功率给定
+#define NODE_PCS_B_REACTIVE_POWER_REF       16070 // B 相无功功率给定
+#define NODE_PCS_C_ACTIVE_POWER_REF         16071 // C 相有功功率给定
+#define NODE_PCS_C_REACTIVE_POWER_REF       16072 // C 相无功功率给定
+#define NODE_PCS_GRID_OVER_FREQ_PROT        16073 // 电网过频保护
+#define NODE_PCS_GRID_UNDER_FREQ_PROT       16074 // 电网欠频保护
+#define NODE_PCS_ISLAND_OVER_FREQ_PROT      16075 // 孤岛过频保护
+#define NODE_PCS_ISLAND_UNDER_FREQ_PROT     16076 // 孤岛欠频保护
+#define NODE_PCS_BAT_OVER_VOLT_PROT         16077 // 电池过压保护点
+#define NODE_PCS_BAT_UNDER_VOLT_PROT        16078 // 电池欠压保护点
+#define NODE_PCS_GRID_MAX_CHARGE_DISCHARGE_CURR 16079 // 并网允许最大充电/放电电流
+#define NODE_PCS_BUS_OVER_VOLT_PROT_3       16080 // 母线过压保护点
+#define NODE_PCS_BUS_UNDER_VOLT_PROT        16081 // 母线欠压保护点
+#define NODE_PCS_DC_OVER_CURR_PROT_2        16082 // 直流过流保护点
+#define NODE_PCS_AC_LINE_OVER_VOLT_PROT     16083 // 交流线电压过压保护点
+#define NODE_PCS_AC_LINE_UNDER_VOLT_PROT    16084 // 交流线电压欠压保护点
+#define NODE_PCS_AC_OVER_CURR_PROT_2        16085 // 交流过流保护点
+#define NODE_PCS_MODULE_OVER_TEMP_PROT      16086 // 模块过温保护点
+#define NODE_PCS_CC_CV_SWITCH_VOLT          16087 // 恒流转恒压充电电池电压点
+#define NODE_PCS_BAT_CV_CHARGE_VOLT         16088 // 电池恒压充电电压
+#define NODE_PCS_CV_CHARGE_MAX_TIME         16089 // 恒压充电最大时间限制
+#define NODE_PCS_CV_FLOAT_SWITCH_CURR       16090 // 恒压转浮充电流点设置
+#define NODE_PCS_BAT_FLOAT_VOLT             16091 // 电池浮充电压点设置
+#define NODE_PCS_FLOAT_CC_SWITCH_CURR       16092 // 浮充转恒流电流点设置
+#define NODE_PCS_REMODBUS_ADDR              16093 // ReModbus 地址
+#define NODE_PCS_REMODBUS_BAUDRATE          16094 // ReModbus 波特率
+#define NODE_PCS_HMI_MODBUS_ADDR            16095 // HMI Modbus 地址
+#define NODE_PCS_HMI_MODBUS_BAUDRATE        16096 // HMI Modbus 波特率
+#define NODE_PCS_EMS_BMS_COMM_FAULT_TIME    16097 // EMS(BMS)通讯故障时间阈值
+
+
 /*
 ----------------------------------------------------------------------------------------------
 
