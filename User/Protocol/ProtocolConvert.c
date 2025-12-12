@@ -16,6 +16,7 @@ PortConfig_modbus_t PortConfig_modbus[PortConfig_modbus_Num];
 PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 PortConfig_DI_t PortConfig_DI[PortConfig_DI_Num];
 PortConfig_DO_t PortConfig_DO[PortConfig_DO_Num];
+PortConfig_NTC_t PortConfig_NTC[PortConfig_NTC_Num];
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -97,7 +98,18 @@ PortConfig_DO_t* GetPortConfig_DO(uint8_t no)
 
     return &PortConfig_DO[no - 1];
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+PortConfig_NTC_t* GetPortConfig_NTC(uint8_t no)
+{
+    if(no == 0 || no > PortConfig_NTC_Num)
+        return NULL;
+
+    return &PortConfig_NTC[no - 1];
+}
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -572,10 +584,30 @@ void cJSON_To_PortConfig(char *message)
             if(DO->en == 0)
                 continue;
 
-            DO->ctrl        = (DO_Ctrl_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "c"));
-            DO->valid         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "v"));
+            DO->ctrl  = (DO_Ctrl_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "c"));
+            DO->valid = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_DO_array, "v"));
         }
     }
+
+    cJSON *root_NTC = cJSON_GetObjectItem(root, "NTC"); 
+    if(root_NTC != NULL)
+    {
+        for(uint8_t i = 0; i < cJSON_GetArraySize(root_NTC); i++)
+        {
+            cJSON *root_NTC_array = cJSON_GetArrayItem(root_NTC, i);
+            PortConfig_NTC_t* NTC = GetPortConfig_NTC((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "p")));
+            if(NTC == NULL)
+                continue;
+
+            NTC->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "e"));
+            if(NTC->en == 0)
+                continue;
+
+            NTC->temp  = (NTC_Temp_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "t"));
+            NTC->table = (NTC_Table_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tb"));
+        }
+    }
+
 
     Printf_PortConfig();
 }
@@ -771,6 +803,18 @@ static void Printf_PortConfig(void)
 
         printf("DO port: %d, ctrl: %d, valid: %d\r\n",
             i, _do->ctrl, _do->valid);
+
+        printf("\r\n");
+    }
+
+    for(uint8_t i = 1; i <= PortConfig_NTC_Num; i++)
+    {
+        PortConfig_NTC_t* ntc = GetPortConfig_NTC(i);
+        if(ntc == NULL)
+            return;
+
+        printf("NTC port: %d, en: %d, temp: %d, table: %d\r\n",
+            i, ntc->en, ntc->temp, ntc->table);
 
         printf("\r\n");
     }

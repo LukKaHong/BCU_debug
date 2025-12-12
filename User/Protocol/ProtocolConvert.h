@@ -11,7 +11,7 @@
 
 /*
 ----------------------------------------------------------------------------------------------
-大小端组合宏定义
+
 ----------------------------------------------------------------------------------------------
 */
 /* 16位数据组合 */
@@ -31,14 +31,6 @@
 #define BUILD_S32_BADC(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b1)<<24) | ((uint32_t)(b0)<<16) | ((uint32_t)(b3)<<8) | (uint32_t)(b2)))
 #define BUILD_S32_CDAB(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b2)<<24) | ((uint32_t)(b3)<<16) | ((uint32_t)(b0)<<8) | (uint32_t)(b1)))
 #define BUILD_S32_DCBA(b0, b1, b2, b3) ((int32_t)(((uint32_t)(b3)<<24) | ((uint32_t)(b2)<<16) | ((uint32_t)(b1)<<8) | (uint32_t)(b0)))
-
-// /* 变量值传递（保持二进制位不变） */
-// #define TRANS_VAL_16(dst, src)         (*(uint16_t*)&(dst) = *(uint16_t*)&(src))
-// #define TRANS_VAL_32(dst, src)         (*(uint32_t*)&(dst) = *(uint32_t*)&(src))
-
-// typedef enum
-
-
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -284,7 +276,26 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
+#define PortConfig_NTC_Num (2)
 
+typedef enum
+{
+    NTC_Temp_Distribution_cabinet = 0,
+    NTC_Temp_Max,
+}NTC_Temp_e;
+
+typedef enum
+{
+    NTC_Table_3435 = 0,
+    NTC_Table_Max,
+}NTC_Table_e;
+
+typedef struct
+{
+    uint8_t en;
+    NTC_Temp_e temp;
+    NTC_Table_e table;
+}PortConfig_NTC_t;
 
 
 /*
