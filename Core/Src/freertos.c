@@ -31,7 +31,7 @@
 #include "CommLAN_2.h"
 #include "Comm485.h"
 #include "DI.h"
-#include "ADC_task.h"
+#include "AD.h"
 
 
 

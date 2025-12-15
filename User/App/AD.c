@@ -1,7 +1,8 @@
-#include "ADC_task.h"
+#include "AD.h"
 #include "cmsis_os.h"
 #include "ProtocolConvert.h"
-
+#include "adc.h"
+#include "NTCTable.h"
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -28,19 +29,22 @@ NTC_Info_t* GetNTC_Info(NTC_Temp_e ntc)
 
 ----------------------------------------------------------------------------------------------
 */
-int16_t Read_NTC_temp(uint8_t port)
+uint32_t Read_NTC_Res(uint8_t port)
 {
+    uint32_t TmpmV = 0;
     switch (port)
     {
     case 1:
-        break;
+        TmpmV =  (uint32_t)ADC_GetAverage_Channel(VOL1_SAMP);
     case 2:
-        break;
+        TmpmV =  (uint32_t)ADC_GetAverage_Channel(VOL2_SAMP);
     default:
         break;
     }
 
-    return 0;
+    TmpmV = (3300 * TmpmV / 65535);
+
+    return (TmpmV * 10000) / (3300 - TmpmV);
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -60,7 +64,7 @@ void NTC_Pro(uint8_t port)
     if(ntc_info == NULL)
         return;
 
-    ntc_info->temp = Read_NTC_temp(port);
+    ntc_info->temp = GetTemperatureFromNTCTable(Read_NTC_Res(port), NTC->table);
 }
 
 /*
@@ -76,7 +80,6 @@ void ADC_Task(void)
 
         if(r_event & ADC_Event_Tick)
         {
-
             for(uint8_t port = 1; port <= PortConfig_NTC_Num; port++)
             {
                 NTC_Pro(port);

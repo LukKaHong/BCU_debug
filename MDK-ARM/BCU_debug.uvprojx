@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App;../User/Protocol;../User/Middle</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App;../User/Protocol;../User/Middle;..\User\Table</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1041,9 +1041,9 @@
               <FilePath>..\User\App\DO.c</FilePath>
             </File>
             <File>
-              <FileName>ADC_task.c</FileName>
+              <FileName>AD.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\App\ADC_task.c</FilePath>
+              <FilePath>..\User\App\AD.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1096,6 +1096,19 @@
               <FilePath>..\User\Protocol\Protocol_n9_PCS.c</FilePath>
             </File>
           </Files>
+        </Group>
+        <Group>
+          <GroupName>User/Table</GroupName>
+          <Files>
+            <File>
+              <FileName>NTCTable.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Table\NTCTable.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>User/Driver</GroupName>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

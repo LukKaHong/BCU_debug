@@ -29,7 +29,7 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "AD.h"
 /* USER CODE END Includes */
 
 extern ADC_HandleTypeDef hadc3;
@@ -41,7 +41,9 @@ extern ADC_HandleTypeDef hadc3;
 void MX_ADC3_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+// extern uint16_t Get_Adc(ADC_HandleTypeDef *adc,uint32_t channel);
+extern uint16_t ADC_GetAverage(ADC_HandleTypeDef *adc,uint32_t channel,uint8_t times);
+extern uint16_t ADC_GetAverage_Channel(ADCTYPE type);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

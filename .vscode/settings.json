@@ -28,6 +28,8 @@
         "modbustcp.h": "c",
         "modbustcp_slave.h": "c",
         "protocol_honghaisheng_fire.h": "c",
-        "adc.h": "c"
+        "adc.h": "c",
+        "ad.h": "c",
+        "cmsis_os2.h": "c"
     }
 }

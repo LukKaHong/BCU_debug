@@ -54,7 +54,7 @@
 "bcu_debug\comm485.o"
 "bcu_debug\commcan.o"
 "bcu_debug\do.o"
-"bcu_debug\adc_task.o"
+"bcu_debug\ad.o"
 "bcu_debug\cjson.o"
 "bcu_debug\protocolconvert.o"
 "bcu_debug\modbusrtu.o"
@@ -63,6 +63,7 @@
 "bcu_debug\modbustcp_slave.o"
 "bcu_debug\protocol_honghaisheng_fire.o"
 "bcu_debug\protocol_n9_pcs.o"
+"bcu_debug\ntctable.o"
 --library_type=microlib --strict --scatter "BCU_debug\BCU_debug.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

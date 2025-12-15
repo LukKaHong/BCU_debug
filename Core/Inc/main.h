@@ -48,7 +48,7 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#define countof(a)   (sizeof(a) / sizeof(*(a)))
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/

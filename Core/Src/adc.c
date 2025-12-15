@@ -21,6 +21,7 @@
 #include "adc.h"
 
 /* USER CODE BEGIN 0 */
+#include "cmsis_os.h"
 
 /* USER CODE END 0 */
 
@@ -167,5 +168,62 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+uint16_t Get_Adc(ADC_HandleTypeDef *adc,uint32_t channel)
+{
+  uint16_t temp = 0;
 
+  if(adc == &hadc3)
+  {
+    ADC_ChannelConfTypeDef ADC_ChanConf;
+
+    ADC_ChanConf.Channel      = channel;
+    ADC_ChanConf.Rank         = ADC_REGULAR_RANK_1;
+    ADC_ChanConf.SamplingTime = ADC_SAMPLETIME_64CYCLES_5;
+    ADC_ChanConf.SingleDiff   = ADC_SINGLE_ENDED;
+    ADC_ChanConf.OffsetNumber = ADC_OFFSET_NONE;
+    ADC_ChanConf.Offset       = 0;
+
+    HAL_ADC_ConfigChannel(adc,&ADC_ChanConf);
+    HAL_ADC_Start(adc); 
+    HAL_ADC_PollForConversion(adc,10);
+    temp = (uint16_t)HAL_ADC_GetValue(adc);
+    HAL_ADC_Stop(adc);
+  }
+
+  return temp;
+}
+
+uint16_t ADC_GetAverage(ADC_HandleTypeDef *adc,uint32_t channel,uint8_t times)
+{
+  uint32_t temp_val = 0;
+  uint8_t t;
+
+  for(t = 0; t < times; t++)
+  {
+    temp_val += Get_Adc(adc, channel);
+    osDelay(5);
+  }
+  return (uint16_t)(temp_val / times);
+}
+
+uint16_t ADC_GetAverage_Channel(ADCTYPE type)
+{
+  switch((uint8_t)type)
+  {
+    // case VREF_2048:
+    //   return ADC_GetAverage(&hadc3, xx,3);
+    // case PWR_SAMP:
+    //   return ADC_GetAverage(&hadc3, xx,3);
+    // case RT1_SAMP:
+    //   return ADC_GetAverage(&hadc3, xx,3);
+    // case RT2_SAMP:
+    //   return ADC_GetAverage(&hadc3, xx,3);
+    // case VOL1_SAMP:
+    //   return ADC_GetAverage(&hadc3, xx,3);
+    // case VOL2_SAMP:
+    //   return ADC_GetAverage(&hadc3, xx,3);
+    default:
+      return 0;
+  }
+}
 /* USER CODE END 1 */
