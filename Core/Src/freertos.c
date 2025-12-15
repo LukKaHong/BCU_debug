@@ -31,6 +31,7 @@
 #include "CommLAN_2.h"
 #include "Comm485.h"
 #include "DI.h"
+#include "NTC.h"
 
 /* USER CODE END Includes */
 
@@ -646,10 +647,7 @@ void StartNTC_Task(void *argument)
 {
   /* USER CODE BEGIN StartNTC_Task */
   /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  NTC_Task();
   /* USER CODE END StartNTC_Task */
 }
 
@@ -666,6 +664,7 @@ void Task_Cycle_Count(void)
   static uint16_t CommLAN_1_tick = 0;
   static uint16_t CommLAN_2_tick = 0;
   static uint16_t DI_tick = 0;
+  static uint16_t NTC_tick = 0;
 
   if(++Comm485_1_tick >= Comm485_Task_Cycle)
   {
@@ -719,6 +718,12 @@ void Task_Cycle_Count(void)
   {
     DI_tick = 0;
     osEventFlagsSet(DI_EventHandle, DI_Event_Tick);
+  }
+
+  if(++NTC_tick >= NTC_Task_Cycle)
+  {
+    NTC_tick = 0;
+    osEventFlagsSet(NTC_EventHandle, NTC_Event_Tick);
   }
 
 }

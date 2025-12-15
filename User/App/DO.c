@@ -48,6 +48,9 @@ void DO_Ctrl(DO_Ctrl_e ctrl, uint8_t onoff)
         if(_do == NULL)
             continue;
 
+        if(!_do->en)
+            continue;
+
         if (_do->ctrl == ctrl)
         {
             Write_DO_ctrl_Pin(i, (GPIO_PinState)(onoff == 1 ? _do->valid : (!_do->valid)));

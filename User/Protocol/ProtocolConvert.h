@@ -309,6 +309,7 @@ extern PortConfig_modbus_t* GetPortConfig_modbus(uint8_t no);
 extern PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no);
 extern PortConfig_DI_t* GetPortConfig_DI(uint8_t no);
 extern PortConfig_DO_t* GetPortConfig_DO(uint8_t no);
+extern PortConfig_NTC_t* GetPortConfig_NTC(uint8_t no);
 
 extern void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert);
 extern void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* convert);
