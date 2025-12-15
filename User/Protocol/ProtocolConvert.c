@@ -491,6 +491,8 @@ void cJSON_To_PortConfig(char *message)
             PortConfig_modbus_t* modbus = GetPortConfig_modbus((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "p")));
             if(modbus == NULL)
                 continue;
+
+            modbus->en         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "e"));
             modbus->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "b"));
             modbus->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "db"));
             modbus->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "sb"));
@@ -524,6 +526,8 @@ void cJSON_To_PortConfig(char *message)
             PortConfig_CAN_t* CAN = GetPortConfig_CAN((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "p")));
             if(CAN == NULL)
                 continue;
+                
+            CAN->en         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "e"));
             CAN->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "b"));
             CAN->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_CAN_array, "dn"));
 

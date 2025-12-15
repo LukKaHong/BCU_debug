@@ -186,6 +186,7 @@ typedef struct
 
 typedef struct
 {
+    uint8_t en;
     uint32_t baud;//波特率
     uint8_t date_bit;//数据位
     uint8_t stop_bit;//停止位
@@ -215,6 +216,7 @@ typedef struct
 
 typedef struct
 {
+    uint8_t en;
     uint32_t baud;//波特率
     uint8_t device_num;//设备数量
     CAN_device_attr_t device_attr[PortConfig_CAN_Device_Num];//设备属性

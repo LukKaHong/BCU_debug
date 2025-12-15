@@ -20,6 +20,9 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
     PortConfig_CAN_t* CAN = GetPortConfig_CAN(port);
     if(CAN == NULL)
         return;
+    
+    if(CAN->en == 0)
+        return;
 
     for(uint8_t device_num = 0; device_num < CAN->device_num; device_num++)//扫描所有设备
     {

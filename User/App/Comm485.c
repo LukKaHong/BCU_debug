@@ -135,6 +135,9 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
     if(modbus == NULL)
         return;
 
+    if(modbus->en == 0)
+        return;
+
     for(uint8_t device_num = 0; device_num < modbus->device_num; device_num++)//扫描所有设备
     {
         if(modbus->device_attr[device_num].protocol == PROTOCOL_MODBUS)
@@ -176,7 +179,7 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
         else
         {
 
-            
+
         }
     }
 }
