@@ -176,6 +176,18 @@ const osThreadAttr_t DI_Task_attributes = {
   .stack_size = sizeof(DI_TaskBuffer),
   .priority = (osPriority_t) osPriorityBelowNormal7,
 };
+/* Definitions for NTC_Task */
+osThreadId_t NTC_TaskHandle;
+uint32_t NTC_TaskBuffer[ 2048 ];
+osStaticThreadDef_t NTC_TaskControlBlock;
+const osThreadAttr_t NTC_Task_attributes = {
+  .name = "NTC_Task",
+  .cb_mem = &NTC_TaskControlBlock,
+  .cb_size = sizeof(NTC_TaskControlBlock),
+  .stack_mem = &NTC_TaskBuffer[0],
+  .stack_size = sizeof(NTC_TaskBuffer),
+  .priority = (osPriority_t) osPriorityBelowNormal6,
+};
 /* Definitions for BinarySem_485_1_Tx */
 osSemaphoreId_t BinarySem_485_1_TxHandle;
 osStaticSemaphoreDef_t BinarySem_485_1_TxControlBlock;
@@ -312,6 +324,14 @@ const osEventFlagsAttr_t DI_Event_attributes = {
   .cb_mem = &DI_EventControlBlock,
   .cb_size = sizeof(DI_EventControlBlock),
 };
+/* Definitions for NTC_Event */
+osEventFlagsId_t NTC_EventHandle;
+osStaticEventGroupDef_t NTC_EventControlBlock;
+const osEventFlagsAttr_t NTC_Event_attributes = {
+  .name = "NTC_Event",
+  .cb_mem = &NTC_EventControlBlock,
+  .cb_size = sizeof(NTC_EventControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -328,6 +348,7 @@ void StartCommCAN_3_Task(void *argument);
 void StartCommLAN_1_Task(void *argument);
 void StartCommLAN_2_Task(void *argument);
 void StartDI_Task(void *argument);
+void StartNTC_Task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -413,6 +434,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of DI_Task */
   DI_TaskHandle = osThreadNew(StartDI_Task, NULL, &DI_Task_attributes);
 
+  /* creation of NTC_Task */
+  NTC_TaskHandle = osThreadNew(StartNTC_Task, NULL, &NTC_Task_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -444,6 +468,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of DI_Event */
   DI_EventHandle = osEventFlagsNew(&DI_Event_attributes);
+
+  /* creation of NTC_Event */
+  NTC_EventHandle = osEventFlagsNew(&NTC_Event_attributes);
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
@@ -606,6 +633,24 @@ void StartDI_Task(void *argument)
   /* Infinite loop */
   DI_Task();
   /* USER CODE END StartDI_Task */
+}
+
+/* USER CODE BEGIN Header_StartNTC_Task */
+/**
+* @brief Function implementing the NTC_Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartNTC_Task */
+void StartNTC_Task(void *argument)
+{
+  /* USER CODE BEGIN StartNTC_Task */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END StartNTC_Task */
 }
 
 /* Private application code --------------------------------------------------*/

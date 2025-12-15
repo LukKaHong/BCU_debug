@@ -248,10 +248,10 @@ void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
                         *(GetNodePointer() + NODE_PCS_MODULE_CURR_SOURCE_PARALLEL + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x2227:
-                        *(GetNodePointer() + NODE_PCS_OFF_GRID_VOLT_SET_2 + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
+                        *(GetNodePointer() + NODE_PCS_OFF_GRID_VOLT_SET + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x0103:
-                        *(GetNodePointer() + NODE_PCS_OFF_GRID_FREQ_SET_2 + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
+                        *(GetNodePointer() + NODE_PCS_OFF_GRID_FREQ_SET + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x02a6:
                         *(GetNodePointer() + NODE_PCS_A_ACTIVE_POWER_REF + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
@@ -293,13 +293,13 @@ void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
                         *(GetNodePointer() + NODE_PCS_GRID_MAX_CHARGE_DISCHARGE_CURR + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x1611:
-                        *(GetNodePointer() + NODE_PCS_BUS_OVER_VOLT_PROT_3 + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
+                        *(GetNodePointer() + NODE_PCS_BUS_OVER_VOLT_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x1612:
                         *(GetNodePointer() + NODE_PCS_BUS_UNDER_VOLT_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x1641:
-                        *(GetNodePointer() + NODE_PCS_DC_OVER_CURR_PROT_2 + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
+                        *(GetNodePointer() + NODE_PCS_DC_OVER_CURR_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x1600:
                         *(GetNodePointer() + NODE_PCS_AC_LINE_OVER_VOLT_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
@@ -308,7 +308,7 @@ void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
                         *(GetNodePointer() + NODE_PCS_AC_LINE_UNDER_VOLT_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x1603:
-                        *(GetNodePointer() + NODE_PCS_AC_OVER_CURR_PROT_2 + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
+                        *(GetNodePointer() + NODE_PCS_AC_OVER_CURR_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
                         break;
                     case 0x1620:
                         *(GetNodePointer() + NODE_PCS_MODULE_OVER_TEMP_PROT + device_no * Node_Num_PCS) = BUILD_S16_BA(msg->data[4], msg->data[5]);
