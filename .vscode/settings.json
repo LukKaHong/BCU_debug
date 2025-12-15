@@ -27,6 +27,7 @@
         "protocolnode.h": "c",
         "modbustcp.h": "c",
         "modbustcp_slave.h": "c",
-        "protocol_honghaisheng_fire.h": "c"
+        "protocol_honghaisheng_fire.h": "c",
+        "adc.h": "c"
     }
 }

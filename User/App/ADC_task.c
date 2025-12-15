@@ -1,4 +1,4 @@
-#include "NTC.h"
+#include "ADC_task.h"
 #include "cmsis_os.h"
 #include "ProtocolConvert.h"
 
@@ -68,13 +68,13 @@ void NTC_Pro(uint8_t port)
 
 ----------------------------------------------------------------------------------------------
 */
-void NTC_Task(void)
+void ADC_Task(void)
 {
     while(1)
     {
-        uint32_t r_event = osEventFlagsWait(NTC_EventHandle, NTC_Event_Tick, osFlagsWaitAny, osWaitForever);
+        uint32_t r_event = osEventFlagsWait(ADC_EventHandle, ADC_Event_Tick, osFlagsWaitAny, osWaitForever);
 
-        if(r_event & NTC_Event_Tick)
+        if(r_event & ADC_Event_Tick)
         {
 
             for(uint8_t port = 1; port <= PortConfig_NTC_Num; port++)

@@ -1041,9 +1041,9 @@
               <FilePath>..\User\App\DO.c</FilePath>
             </File>
             <File>
-              <FileName>NTC.c</FileName>
+              <FileName>ADC_task.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\App\NTC.c</FilePath>
+              <FilePath>..\User\App\ADC_task.c</FilePath>
             </File>
           </Files>
         </Group>

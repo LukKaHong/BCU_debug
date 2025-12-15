@@ -208,8 +208,8 @@ extern osEventFlagsId_t CommLAN_2_EventHandle;
 #define DI_Event_Tick      (1 << 0)
 extern osEventFlagsId_t DI_EventHandle;
 
-#define NTC_Event_Tick      (1 << 0)
-extern osEventFlagsId_t NTC_EventHandle;
+#define ADC_Event_Tick      (1 << 0)
+extern osEventFlagsId_t ADC_EventHandle;
 
 
 

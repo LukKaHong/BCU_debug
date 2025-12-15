@@ -1,6 +1,6 @@
 Dependencies for Project 'BCU_debug', Target 'BCU_debug': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (startup_stm32h743xx.s)(0x693F7668)(--cpu Cortex-M7.fp.dp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ../Core/Inc-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 532" --pd "_RTE_ SETA 1" --pd "STM32H743xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h743xx.lst --xref -o bcu_debug\startup_stm32h743xx.o --depend bcu_debug\startup_stm32h743xx.d)
+F (startup_stm32h743xx.s)(0x693F83A9)(--cpu Cortex-M7.fp.dp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ../Core/Inc-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 532" --pd "_RTE_ SETA 1" --pd "STM32H743xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h743xx.lst --xref -o bcu_debug\startup_stm32h743xx.o --depend bcu_debug\startup_stm32h743xx.d)
 F (../Core/Src/main.c)(0x6936636C)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\main.o --depend bcu_debug\main.d)
 I (../Core/Inc/main.h)(0x69392360)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67E3674A)
@@ -49,7 +49,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -112,11 +112,11 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x67E3674A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
-F (../Core/Src/freertos.c)(0x693F7854)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\freertos.o --depend bcu_debug\freertos.d)
+F (../Core/Src/freertos.c)(0x693F850C)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\freertos.o --depend bcu_debug\freertos.d)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -175,7 +175,7 @@ I (../User/App/CommLAN_1.h)(0x692E5A80)
 I (../User/App/CommLAN_2.h)(0x692E5A84)
 I (../User/App/Comm485.h)(0x6938DA1C)
 I (../User/App/DI.h)(0x69369356)
-I (../User/App/NTC.h)(0x693F785D)
+I (../User/App/ADC_task.h)(0x693F84FA)
 F (../Core/Src/adc.c)(0x6924207D)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\adc.o --depend bcu_debug\adc.d)
 I (../Core/Inc/adc.h)(0x6924207D)
 I (../Core/Inc/main.h)(0x69392360)
@@ -365,7 +365,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -467,7 +467,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1705,7 +1705,7 @@ F (../Middlewares/Third_Party/FreeRTOS/Source/croutine.c)(0x67E36704)(--c99 --gn
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1720,7 +1720,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1736,7 +1736,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1750,7 +1750,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1765,7 +1765,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1781,7 +1781,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1797,7 +1797,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1816,7 +1816,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x67E36702)
 I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x67E36702)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x67E36704)
@@ -1872,7 +1872,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1885,7 +1885,7 @@ F (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c)(0x6
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5F63877C)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1943,7 +1943,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -1956,7 +1956,7 @@ I (../User/Protocol/ModbusTCP.h)(0x6937B682)
 I (../User/Protocol/ModbusTCP_Client.h)(0x6937B658)
 I (../User/Protocol/ModbusTCP_Slave.h)(0x69391A03)
 I (../User/Protocol/ProtocolNode.h)(0x693F71AA)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\App\CommLAN_2.c)(0x6939112B)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\commlan_2.o --depend bcu_debug\commlan_2.d)
 I (..\User\App\CommLAN_2.h)(0x692E5A84)
@@ -2007,7 +2007,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -2020,7 +2020,7 @@ I (../User/Protocol/ModbusTCP.h)(0x6937B682)
 I (../User/Protocol/ModbusTCP_Client.h)(0x6937B658)
 I (../User/Protocol/ModbusTCP_Slave.h)(0x69391A03)
 I (../User/Protocol/ProtocolNode.h)(0x693F71AA)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\App\DI.c)(0x6938D89F)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\di.o --depend bcu_debug\di.d)
 I (..\User\App\DI.h)(0x69369356)
@@ -2071,7 +2071,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -2080,7 +2080,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67E36705)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\App\Comm485.c)(0x693A6A98)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\comm485.o --depend bcu_debug\comm485.d)
 I (..\User\App\Comm485.h)(0x6938DA1C)
@@ -2132,7 +2132,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -2141,7 +2141,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67E36705)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 I (../User/Protocol/ModbusRTU.h)(0x693A61DA)
 I (../User/Protocol/ProtocolNode.h)(0x693F71AA)
@@ -2194,7 +2194,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -2204,7 +2204,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67E36704
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67E36705)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
 I (../Core/Inc/fdcan.h)(0x6926B908)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../User/Protocol/ProtocolNode.h)(0x693F71AA)
 I (../User/Protocol/PROTOCOL_HongHaiSheng_Fire.h)(0x693A83AE)
 F (..\User\App\DO.c)(0x693F76A4)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\do.o --depend bcu_debug\do.d)
@@ -2256,7 +2256,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -2265,10 +2265,10 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67E36705)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
-F (..\User\App\NTC.c)(0x693F788D)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\ntc.o --depend bcu_debug\ntc.d)
-I (..\User\App\NTC.h)(0x693F785D)
+F (..\User\App\ADC_task.c)(0x693F84FF)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\adc_task.o --depend bcu_debug\adc_task.d)
+I (..\User\App\ADC_task.h)(0x693F84FA)
 I (../Core/Inc/main.h)(0x69392360)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67E3674A)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x6923FF6F)
@@ -2316,7 +2316,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x67E36704)
-I (../Core/Inc/FreeRTOSConfig.h)(0x693F7848)
+I (../Core/Inc/FreeRTOSConfig.h)(0x693F8341)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x67E36704)
@@ -2325,7 +2325,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67E36705)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
-I (../User/Protocol/ProtocolConvert.h)(0x693BC2BE)
+I (../User/Protocol/ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\Middle\cJSON.c)(0x692FF195)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\cjson.o --depend bcu_debug\cjson.d)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
@@ -2338,7 +2338,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\float.h)(0x5F63877C)
 I (..\User\Middle\cJSON.h)(0x68C031FA)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5F63877C)
 F (..\User\Protocol\ProtocolConvert.c)(0x693BC41C)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\protocolconvert.o --depend bcu_debug\protocolconvert.d)
-I (..\User\Protocol\ProtocolConvert.h)(0x693BC2BE)
+I (..\User\Protocol\ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/main.h)(0x69392360)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67E3674A)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x6923FF6F)
@@ -2441,7 +2441,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x67E3674A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
-I (..\User\Protocol\ProtocolConvert.h)(0x693BC2BE)
+I (..\User\Protocol\ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\Protocol\ModbusTCP_Client.c)(0x6937B66D)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\modbustcp_client.o --depend bcu_debug\modbustcp_client.d)
 I (..\User\Protocol\ModbusTCP.h)(0x6937B682)
@@ -2493,7 +2493,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x67E3674A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
-I (..\User\Protocol\ProtocolConvert.h)(0x693BC2BE)
+I (..\User\Protocol\ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\Protocol\ModbusTCP_Slave.c)(0x69391AC7)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\modbustcp_slave.o --depend bcu_debug\modbustcp_slave.d)
 I (..\User\Protocol\ModbusTCP.h)(0x6937B682)
@@ -2545,7 +2545,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x67E3674A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
-I (..\User\Protocol\ProtocolConvert.h)(0x693BC2BE)
+I (..\User\Protocol\ProtocolConvert.h)(0x693F79BB)
 I (../Core/Inc/fdcan.h)(0x6926B908)
 F (..\User\Protocol\Protocol_HongHaiSheng_Fire.c)(0x693A837A)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\protocol_honghaisheng_fire.o --depend bcu_debug\protocol_honghaisheng_fire.d)
 I (..\User\Protocol\PROTOCOL_HongHaiSheng_Fire.h)(0x693A83AE)
@@ -2595,7 +2595,7 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Core/Inc/fdcan.h)(0x6926B908)
-I (..\User\Protocol\ProtocolConvert.h)(0x693BC2BE)
+I (..\User\Protocol\ProtocolConvert.h)(0x693F79BB)
 I (..\User\Protocol\ProtocolNode.h)(0x693F71AA)
 F (..\User\Protocol\Protocol_n9_PCS.c)(0x693F71D9)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\protocol_n9_pcs.o --depend bcu_debug\protocol_n9_pcs.d)
 I (..\User\Protocol\Protocol_n9_PCS.h)(0x693A83BD)
@@ -2645,5 +2645,5 @@ I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5F63877C)
 I (../Core/Inc/fdcan.h)(0x6926B908)
-I (..\User\Protocol\ProtocolConvert.h)(0x693BC2BE)
+I (..\User\Protocol\ProtocolConvert.h)(0x693F79BB)
 I (..\User\Protocol\ProtocolNode.h)(0x693F71AA)
