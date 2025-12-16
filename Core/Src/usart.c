@@ -24,9 +24,9 @@
 #include "FreeRTOS.h"
 #include <string.h>
 
-// #define _485_1_Printf_Debug
-// #define _485_2_Printf_Debug
-// #define _485_3_Printf_Debug
+#define _485_1_Printf_Debug
+#define _485_2_Printf_Debug
+#define _485_3_Printf_Debug
 
 static uint8_t huart1_Tx_DMA_Buff[Uart_Tx_Buff_Size];
 static uint8_t huart1_Rx_DMA_Buff[Uart_Rx_Buff_Size];

@@ -203,8 +203,10 @@ void Comm485_1_Task(void)
 
         if(r_event & Comm485_1_Event_Tick)
         {
-            printf("%s\r\n", __func__);
-            // Comm_485_Read_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
+            // printf("%s\r\n", __func__);
+            Comm_485_Read_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
+
+            // _485_Tx_And_Rx(1, "111111", 6, Comm485_1_Rx_Buff, Uart_Rx_Buff_Size);
         }
 
         if(r_event & Comm485_1_Event_Write)
@@ -226,8 +228,9 @@ void Comm485_2_Task(void)
 
         if(r_event & Comm485_2_Event_Tick)
         {
-            printf("%s\r\n", __func__);
+            // printf("%s\r\n", __func__);
             // Comm_485_Read_Pro(2, Comm485_2_Tx_Buff, Comm485_2_Rx_Buff);
+            // _485_Tx_And_Rx(2, "222222", 6, Comm485_2_Rx_Buff, Uart_Rx_Buff_Size);
         }
 
         if(r_event & Comm485_2_Event_Write)
@@ -249,8 +252,9 @@ void Comm485_3_Task(void)
 
         if(r_event & Comm485_3_Event_Tick)
         {
-            printf("%s\r\n", __func__);
+            // printf("%s\r\n", __func__);
             // Comm_485_Read_Pro(3, Comm485_3_Tx_Buff, Comm485_3_Rx_Buff);
+            // _485_Tx_And_Rx(3, "333333", 6, Comm485_3_Rx_Buff, Uart_Rx_Buff_Size);
         }
 
         if(r_event & Comm485_3_Event_Write)

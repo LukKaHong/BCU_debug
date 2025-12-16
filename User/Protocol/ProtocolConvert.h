@@ -321,6 +321,8 @@ extern uint32_t CAN_ID_Deoffset_calc(uint32_t id, CAN_device_attr_t* device_attr
 
 extern void cJSON_To_PortConfig(char *message);
 extern void cJSON_To_ProtocolConvert(char *message);
+
+extern void Init_ProtocolConvert(void);
 /*
 ----------------------------------------------------------------------------------------------
 

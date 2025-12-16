@@ -759,8 +759,8 @@ static void Printf_PortConfig(void)
         if(modbus == NULL)
             return;
 
-        printf("modbus port: %d, baud: %d, date_bit: %d, stop_bit: %d, parity: %d, device_num: %d\r\n",
-            i, modbus->baud, modbus->date_bit, modbus->stop_bit, modbus->parity, modbus->device_num);
+        printf("modbus port: %d, en: %d, baud: %d, date_bit: %d, stop_bit: %d, parity: %d, device_num: %d\r\n",
+            i, modbus->en, modbus->baud, modbus->date_bit, modbus->stop_bit, modbus->parity, modbus->device_num);
 
         for(uint8_t j = 0; j < modbus->device_num; j++)
         {
@@ -776,8 +776,8 @@ static void Printf_PortConfig(void)
         if(can == NULL)
             return;
 
-        printf("CAN port: %d, baud: %d, device_num: %d\r\n",
-            i, can->baud, can->device_num);
+        printf("CAN port: %d, en: %d, baud: %d, device_num: %d\r\n",
+            i, can->en, can->baud, can->device_num);
 
         for(uint8_t j = 0; j < can->device_num; j++)
         {
@@ -793,8 +793,8 @@ static void Printf_PortConfig(void)
         if(di == NULL)
             return;
 
-        printf("DI port: %d, signal: %d, valid: %d, trigger_delay: %d, recover_delay: %d\r\n",
-            i, di->signal, di->valid, di->trigger_delay, di->recover_delay);
+        printf("DI port: %d, en: %d, signal: %d, valid: %d, trigger_delay: %d, recover_delay: %d\r\n",
+            i, di->en, di->signal, di->valid, di->trigger_delay, di->recover_delay);
 
         printf("\r\n");
     }
@@ -805,8 +805,8 @@ static void Printf_PortConfig(void)
         if(_do == NULL)
             return;
 
-        printf("DO port: %d, ctrl: %d, valid: %d\r\n",
-            i, _do->ctrl, _do->valid);
+        printf("DO port: %d, en: %d, ctrl: %d, valid: %d\r\n",
+            i, _do->en, _do->ctrl, _do->valid);
 
         printf("\r\n");
     }
@@ -874,5 +874,50 @@ static void Printf_ProtocolConvert_CAN(void)
         
         printf("\r\n");
     }
+}
+
+
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+
+
+const char portconfig_json_string[] = "{\"modbus\":[{\"p\":1,\"e\":1,\"n\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":2,\"p\":0,\"dn\":1,\"da\":1}]},{\"p\":2,\"e\":1,\"n\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":1,\"p\":0,\"dn\":1,\"da\":1}]}],\"CAN\":[{\"p\":1,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":0,\"p\":1,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":1}]},{\"p\":2,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":3,\"p\":2,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":0}]}],\"DI\":[{\"p\":5,\"e\":1,\"s\":4,\"v\":0,\"td\":1000,\"rd\":1000}],\"DO\":[{\"p\":4,\"e\":1,\"c\":3,\"v\":1},{\"p\":5,\"e\":1,\"c\":4,\"v\":1}],\"NTC\":[{\"p\":1,\"e\":1,\"tp\":0,\"tb\":0}]}";
+
+
+const char protocolconvert_modbus_meter_json_string[] = "{\"protocol\":0,\"device_type\":2,\"area\":{\"area_num\":1,\"area_attr\":[{\"fc\":3,\"a\":10,\"n\":3,\"c\":500}]},\"node\":{\"node_num\":0,\"node_attr\":[{\"ni\":0,\"mi\":3600,\"mt\":3,\"dt\":6,\"a\":10,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
+
+
+
+
+void Init_ProtocolConvert(void)
+{
+    return;
+
+    memset(ProtocolConvert_modbus, 0, sizeof(ProtocolConvert_modbus));
+    memset(ProtocolConvert_CAN, 0, sizeof(ProtocolConvert_CAN));
+
+    memset(PortConfig_modbus, 0, sizeof(PortConfig_modbus));
+    memset(PortConfig_CAN, 0, sizeof(PortConfig_CAN));
+    memset(PortConfig_DI, 0, sizeof(PortConfig_DI));
+    memset(PortConfig_DO, 0, sizeof(PortConfig_DO));
+    memset(PortConfig_NTC, 0, sizeof(PortConfig_NTC));
+
+
+    char* json = NULL;
+
+    //read
+    json = (char*)portconfig_json_string;
+    if(json != NULL)
+        cJSON_To_PortConfig(json);
+
+    
+    //read
+    json = (char*)protocolconvert_modbus_meter_json_string;
+    if(json != NULL)
+        cJSON_To_ProtocolConvert(json);
+
 }
 
