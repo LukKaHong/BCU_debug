@@ -894,8 +894,6 @@ const char protocolconvert_modbus_meter_json_string[] = "{\"protocol\":0,\"devic
 
 void Init_ProtocolConvert(void)
 {
-    return;
-
     memset(ProtocolConvert_modbus, 0, sizeof(ProtocolConvert_modbus));
     memset(ProtocolConvert_CAN, 0, sizeof(ProtocolConvert_CAN));
 

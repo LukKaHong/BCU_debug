@@ -191,12 +191,6 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 */
 void Comm485_1_Task(void)
 {
-    printf("modbus_node_attr_t : %d\r\n", sizeof(modbus_node_attr_t));
-    printf("CAN_node_attr_t : %d\r\n", sizeof(CAN_node_attr_t));
-
-    printf("ProtocolConvert_modbus_t : %d\r\n", sizeof(ProtocolConvert_modbus_t));
-    printf("ProtocolConvert_CAN_t : %d\r\n", sizeof(ProtocolConvert_CAN_t));
-
     while(1)
     {
         uint32_t r_event = osEventFlagsWait(Comm485_1_EventHandle, Comm485_1_Event_Tick | Comm485_1_Event_Write, osFlagsWaitAny, osWaitForever);
@@ -206,7 +200,15 @@ void Comm485_1_Task(void)
             // printf("%s\r\n", __func__);
             Comm_485_Read_Pro(1, Comm485_1_Tx_Buff, Comm485_1_Rx_Buff);
 
-            // _485_Tx_And_Rx(1, "111111", 6, Comm485_1_Rx_Buff, Uart_Rx_Buff_Size);
+            // Comm485_1_Tx_Buff[0] = 0x01;
+            // Comm485_1_Tx_Buff[1] = 0x03;
+            // Comm485_1_Tx_Buff[2] = 0x00;
+            // Comm485_1_Tx_Buff[3] = 0x0a;
+            // Comm485_1_Tx_Buff[4] = 0x00;
+            // Comm485_1_Tx_Buff[5] = 0x03;
+            // Comm485_1_Tx_Buff[6] = 0x25;
+            // Comm485_1_Tx_Buff[7] = 0xc9;
+            // _485_Tx_And_Rx(1, Comm485_1_Tx_Buff, 8, Comm485_1_Rx_Buff, Uart_Rx_Buff_Size);
         }
 
         if(r_event & Comm485_1_Event_Write)

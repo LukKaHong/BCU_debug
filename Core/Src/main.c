@@ -26,11 +26,10 @@
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-#include "ProtocolConvert.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ProtocolConvert.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
