@@ -28,16 +28,16 @@
 #define _485_2_Printf_Debug
 #define _485_3_Printf_Debug
 
-static uint8_t huart1_Tx_DMA_Buff[Uart_Tx_Buff_Size];
-static uint8_t huart1_Rx_DMA_Buff[Uart_Rx_Buff_Size];
+static uint8_t huart1_Tx_DMA_Buff[Uart_Tx_Buff_Size] __attribute__((at(0x38000000)));
+static uint8_t huart1_Rx_DMA_Buff[Uart_Rx_Buff_Size] __attribute__((at(0x38000000)));
 static uint16_t huart1_Rx_Len;
 
-static uint8_t huart3_Tx_DMA_Buff[Uart_Tx_Buff_Size];
-static uint8_t huart3_Rx_DMA_Buff[Uart_Rx_Buff_Size];
+static uint8_t huart3_Tx_DMA_Buff[Uart_Tx_Buff_Size] __attribute__((at(0x38000000)));
+static uint8_t huart3_Rx_DMA_Buff[Uart_Rx_Buff_Size] __attribute__((at(0x38000000)));
 static uint16_t huart3_Rx_Len;
 
-static uint8_t huart4_Tx_DMA_Buff[Uart_Tx_Buff_Size];
-static uint8_t huart4_Rx_DMA_Buff[Uart_Rx_Buff_Size];
+static uint8_t huart4_Tx_DMA_Buff[Uart_Tx_Buff_Size] __attribute__((at(0x38000000)));
+static uint8_t huart4_Rx_DMA_Buff[Uart_Rx_Buff_Size] __attribute__((at(0x38000000)));
 static uint16_t huart4_Rx_Len;
 /* USER CODE END 0 */
 
@@ -656,8 +656,8 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
     HAL_UARTEx_ReceiveToIdle_DMA(&huart4,huart4_Rx_DMA_Buff,Uart_Rx_Buff_Size);
   }
 }
-#if 0
 
+#if 0
 uint16_t _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len)
 {
 #ifdef _485_1_Printf_Debug

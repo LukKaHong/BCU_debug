@@ -109,9 +109,9 @@ typedef struct
 */
 #define enum_num_max (16)
 #define modbus_area_num_max (10)
-#define modbus_node_attr_num_max (128)
+#define modbus_node_attr_num_max (56)
 
-#define can_node_attr_num_max (128)
+#define can_node_attr_num_max (56)
 
 typedef struct
 {
