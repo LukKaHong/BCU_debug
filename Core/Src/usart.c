@@ -24,6 +24,7 @@
 #include "FreeRTOS.h"
 #include <string.h>
 
+
 #define _485_1_Printf_Debug
 #define _485_2_Printf_Debug
 #define _485_3_Printf_Debug
@@ -874,5 +875,94 @@ uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t
   return 0;
 }
 
+
+
+void USART_UART_Init(uint8_t port, PortConfig_modbus_t* config)
+{
+  UART_HandleTypeDef* huart;
+  switch(port)
+  {
+    case 1:
+        huart = &huart4;
+        huart->Instance = UART4;
+        break;
+    case 2:
+        huart = &huart1;
+        huart->Instance = USART1;
+        break;
+    case 3:
+        huart = &huart3;
+        huart->Instance = USART3;
+        break;
+    default:
+        return;
+  }
+  
+  switch (config->date_bit)
+  {
+    case 7:
+      huart->Init.WordLength = UART_WORDLENGTH_7B;
+      break;
+    case 8:
+      huart->Init.WordLength = UART_WORDLENGTH_8B;
+      break;
+    case 9:
+      huart->Init.WordLength = UART_WORDLENGTH_9B;
+      break;
+    default:
+      return;
+  }
+
+  switch (config->stop_bit)
+  {
+    case 1:
+      huart->Init.StopBits = UART_STOPBITS_1;
+      break;
+    case 2:
+      huart->Init.StopBits = UART_STOPBITS_2;
+      break;
+    default:
+      return;
+  }
+
+  switch (config->parity)
+  {
+    case 0:
+      huart->Init.Parity = UART_PARITY_NONE;
+      break;
+    case 1:
+      huart->Init.Parity = UART_PARITY_ODD;
+      break;
+    case 2:
+      huart->Init.Parity = UART_PARITY_EVEN;
+      break;
+    default:
+      return;
+  }
+  
+  huart->Init.BaudRate = config->baud;
+  huart->Init.Mode = UART_MODE_TX_RX;
+  huart->Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart->Init.OverSampling = UART_OVERSAMPLING_16;
+  huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart->Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(huart) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(huart, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(huart, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(huart) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
 
 /* USER CODE END 1 */

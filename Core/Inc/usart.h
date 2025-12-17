@@ -29,7 +29,7 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "ProtocolNode.h"
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart4;
@@ -55,7 +55,7 @@ extern uint16_t _485_1_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_
 extern uint16_t _485_2_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
 extern uint16_t _485_3_Tx_And_Rx(uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
 extern uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t *Rx_Buff, uint16_t Rx_Len);
-
+extern void USART_UART_Init(uint8_t port, PortConfig_modbus_t* config);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
