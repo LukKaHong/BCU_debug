@@ -76,7 +76,7 @@ void MX_ADC3_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN ADC3_Init 2 */
-
+  HAL_ADCEx_Calibration_Start(&hadc3,ADC_CALIB_OFFSET,ADC_SINGLE_ENDED);
   /* USER CODE END ADC3_Init 2 */
 
 }
@@ -214,8 +214,8 @@ uint16_t ADC_GetAverage_Channel(ADCTYPE type)
     //   return ADC_GetAverage(&hadc3, xx,3);
     // case PWR_SAMP:
     //   return ADC_GetAverage(&hadc3, xx,3);
-    // case RT1_SAMP:
-    //   return ADC_GetAverage(&hadc3, xx,3);
+    case RT1_SAMP:
+      return ADC_GetAverage(&hadc3, ADC_CHANNEL_13, 3);
     // case RT2_SAMP:
     //   return ADC_GetAverage(&hadc3, xx,3);
     // case VOL1_SAMP:

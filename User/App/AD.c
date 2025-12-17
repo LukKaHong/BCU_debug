@@ -35,9 +35,10 @@ uint32_t Read_NTC_Res(uint8_t port)
     switch (port)
     {
     case 1:
-        TmpmV =  (uint32_t)ADC_GetAverage_Channel(VOL1_SAMP);
+        TmpmV =  (uint32_t)ADC_GetAverage_Channel(RT1_SAMP);
+        break;
     case 2:
-        TmpmV =  (uint32_t)ADC_GetAverage_Channel(VOL2_SAMP);
+        TmpmV =  (uint32_t)ADC_GetAverage_Channel(RT2_SAMP);
     default:
         break;
     }
