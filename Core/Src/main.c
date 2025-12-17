@@ -116,8 +116,8 @@ int main(void)
   MX_DMA_Init();
   // MX_UART4_Init();
   MX_SPI6_Init();
-  MX_FDCAN1_Init();
-  MX_FDCAN2_Init();
+  // MX_FDCAN1_Init();
+  // MX_FDCAN2_Init();
   // MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   // MX_USART3_UART_Init();
@@ -132,6 +132,9 @@ int main(void)
   USART_UART_Init(1, GetPortConfig_modbus(1));
   USART_UART_Init(2, GetPortConfig_modbus(2));
   USART_UART_Init(3, GetPortConfig_modbus(3));
+
+  FDCAN_Init(1, GetPortConfig_CAN(1));
+  FDCAN_Init(2, GetPortConfig_CAN(2));
 
   /* USER CODE END 2 */
 

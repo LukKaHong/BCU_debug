@@ -880,6 +880,7 @@ uint16_t _485_Tx_And_Rx(uint8_t port, uint8_t *Tx_Buff, uint16_t Tx_Len, uint8_t
 void USART_UART_Init(uint8_t port, PortConfig_modbus_t* config)
 {
   UART_HandleTypeDef* huart;
+  
   switch(port)
   {
     case 1:

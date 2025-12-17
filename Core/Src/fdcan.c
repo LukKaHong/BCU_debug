@@ -56,12 +56,12 @@ void MX_FDCAN1_Init(void)
   hfdcan1.Init.AutoRetransmission = DISABLE;
   hfdcan1.Init.TransmitPause = DISABLE;
   hfdcan1.Init.ProtocolException = DISABLE;
-  hfdcan1.Init.NominalPrescaler = 6;
+  hfdcan1.Init.NominalPrescaler = 12;
   hfdcan1.Init.NominalSyncJumpWidth = 8;
   hfdcan1.Init.NominalTimeSeg1 = 31;
   hfdcan1.Init.NominalTimeSeg2 = 8;
-  hfdcan1.Init.DataPrescaler = 6;
-  hfdcan1.Init.DataSyncJumpWidth = 8;
+  hfdcan1.Init.DataPrescaler = 8;
+  hfdcan1.Init.DataSyncJumpWidth = 12;
   hfdcan1.Init.DataTimeSeg1 = 31;
   hfdcan1.Init.DataTimeSeg2 = 8;
   hfdcan1.Init.MessageRAMOffset = 0;
@@ -107,12 +107,12 @@ void MX_FDCAN2_Init(void)
   hfdcan2.Init.AutoRetransmission = DISABLE;
   hfdcan2.Init.TransmitPause = DISABLE;
   hfdcan2.Init.ProtocolException = DISABLE;
-  hfdcan2.Init.NominalPrescaler = 6;
+  hfdcan2.Init.NominalPrescaler = 12;
   hfdcan2.Init.NominalSyncJumpWidth = 8;
   hfdcan2.Init.NominalTimeSeg1 = 31;
   hfdcan2.Init.NominalTimeSeg2 = 8;
-  hfdcan2.Init.DataPrescaler = 6;
-  hfdcan2.Init.DataSyncJumpWidth = 8;
+  hfdcan2.Init.DataPrescaler = 8;
+  hfdcan2.Init.DataSyncJumpWidth = 12;
   hfdcan2.Init.DataTimeSeg1 = 31;
   hfdcan2.Init.DataTimeSeg2 = 8;
   hfdcan2.Init.MessageRAMOffset = 1280;
@@ -439,5 +439,103 @@ void HAL_FDCAN_RxFifo1Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo1ITs)
 }
 
 
+void FDCAN_Init(uint8_t port, PortConfig_CAN_t* config)
+{
+  FDCAN_HandleTypeDef* hfdcan;
 
+  switch(port)
+  {
+    case 1:
+        hfdcan = &hfdcan1;
+        hfdcan->Instance = FDCAN1;
+        hfdcan->Init.MessageRAMOffset = 0;
+        hfdcan->Init.RxFifo0ElmtsNbr = 64;
+        hfdcan->Init.RxFifo1ElmtsNbr = 0;
+        break;
+    case 2:
+        hfdcan = &hfdcan2;
+        hfdcan->Instance = FDCAN2;
+        hfdcan->Init.MessageRAMOffset = 1280;
+        hfdcan->Init.RxFifo0ElmtsNbr = 0;
+        hfdcan->Init.RxFifo1ElmtsNbr = 64;
+        break;
+    default:
+        return;
+  }
+
+  switch(config->baud)
+  {
+    case 250000:
+        hfdcan->Init.NominalPrescaler = 12;
+        hfdcan->Init.NominalSyncJumpWidth = 8;
+        hfdcan->Init.NominalTimeSeg1 = 31;
+        hfdcan->Init.NominalTimeSeg2 = 8;
+        hfdcan->Init.DataPrescaler = 8;
+        hfdcan->Init.DataSyncJumpWidth = 12;
+        hfdcan->Init.DataTimeSeg1 = 31;
+        hfdcan->Init.DataTimeSeg2 = 8;
+        break;
+    case 500000:
+        hfdcan->Init.NominalPrescaler = 6;
+        hfdcan->Init.NominalSyncJumpWidth = 8;
+        hfdcan->Init.NominalTimeSeg1 = 31;
+        hfdcan->Init.NominalTimeSeg2 = 8;
+        hfdcan->Init.DataPrescaler = 6;
+        hfdcan->Init.DataSyncJumpWidth = 8;
+        hfdcan->Init.DataTimeSeg1 = 31;
+        hfdcan->Init.DataTimeSeg2 = 8;
+        break;
+    default:
+        return;
+  }
+
+  hfdcan->Init.FrameFormat = FDCAN_FRAME_CLASSIC;
+  hfdcan->Init.Mode = FDCAN_MODE_NORMAL;
+  hfdcan->Init.AutoRetransmission = DISABLE;
+  hfdcan->Init.TransmitPause = DISABLE;
+  hfdcan->Init.ProtocolException = DISABLE;
+
+  hfdcan->Init.StdFiltersNbr = 1;
+  hfdcan->Init.ExtFiltersNbr = 1;
+  hfdcan->Init.RxFifo0ElmtSize = FDCAN_DATA_BYTES_8;
+  hfdcan->Init.RxFifo1ElmtSize = FDCAN_DATA_BYTES_8;
+  hfdcan->Init.RxBuffersNbr = 0;
+  hfdcan->Init.RxBufferSize = FDCAN_DATA_BYTES_8;
+  hfdcan->Init.TxEventsNbr = 0;
+  hfdcan->Init.TxBuffersNbr = 0;
+  hfdcan->Init.TxFifoQueueElmtsNbr = 32;
+  hfdcan->Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
+  hfdcan->Init.TxElmtSize = FDCAN_DATA_BYTES_8;
+  if (HAL_FDCAN_Init(hfdcan) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  
+  switch(port)
+  {
+    case 1:
+        FDCAN1_Filter_Cfg();
+        break;
+    case 2:
+        FDCAN2_Filter_Cfg();
+        break;
+    default:
+        return;
+  }
+
+  HAL_FDCAN_Start(hfdcan);
+
+  switch(port)
+  {
+    case 1:
+        HAL_FDCAN_ActivateNotification(hfdcan,FDCAN_IT_RX_FIFO0_NEW_MESSAGE,0);
+        break;
+    case 2:
+        HAL_FDCAN_ActivateNotification(hfdcan,FDCAN_IT_RX_FIFO1_NEW_MESSAGE,0);
+        break;
+    default:
+        return;
+  }
+}
 /* USER CODE END 1 */

@@ -29,7 +29,7 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "ProtocolNode.h"
 /* USER CODE END Includes */
 
 extern FDCAN_HandleTypeDef hfdcan1;
@@ -73,6 +73,8 @@ void MX_FDCAN2_Init(void);
 /* USER CODE BEGIN Prototypes */
 extern HAL_StatusTypeDef FDCAN1_Send_Msg(CanMsgType *msg);
 extern HAL_StatusTypeDef FDCAN2_Send_Msg(CanMsgType *msg);
+
+extern void FDCAN_Init(uint8_t port, PortConfig_CAN_t* config);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
