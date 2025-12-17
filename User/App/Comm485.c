@@ -104,6 +104,7 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                                     if(ModelIdToNodeIndex(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == true)
                                     {
                                         ConvertToNode_modbus(GetNodePointer() + index, (uint8_t*)data, &convert->node_attr[node_num]);
+                                        printf("node[%d] = %d\n", index, GetNodePointer()[index]);
                                     }
 
                                     break;
