@@ -46,12 +46,13 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
                 {
                     uint16_t index = 0;
 
-                    if(ModelIdToNodeIndex(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == false)
+                    if(ModelIdToNodeIndex(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == true)
                     {
                         ConvertToNode_CAN(GetNodePointer() + index, msg->data, &convert->node_attr[node_num]);
+                        // printf("CAN %d node[%d] = %d\n", port, index, GetNodePointer()[index]);
                     }
                     
-                    break;
+                    // break;
                 }
             }
         }
@@ -99,8 +100,8 @@ void CommCAN_1_Receive_Pro(void)
 {
     while(CAN_1_ReceiveBuff.CurIndex != CAN_1_ReceiveBuff.RxIndex)
     {
-        Printf_CAN_Msg("CAN_1 --- ", &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
-        // Comm_CAN_Read_Pro(1, &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
+        // Printf_CAN_Msg("CAN_1 --- ", &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
+        Comm_CAN_Read_Pro(1, &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
 
         if(++CAN_1_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_1_ReceiveBuff.CurIndex = 0;
     }
@@ -171,9 +172,8 @@ void CommCAN_2_Receive_Pro(void)
 {
     while(CAN_2_ReceiveBuff.CurIndex != CAN_2_ReceiveBuff.RxIndex)
     {
-        Printf_CAN_Msg("CAN_2 --- ", &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
-
-        // Comm_CAN_Read_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+        // Printf_CAN_Msg("CAN_2 --- ", &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+        Comm_CAN_Read_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
 
         if(++CAN_2_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_2_ReceiveBuff.CurIndex = 0;
     }

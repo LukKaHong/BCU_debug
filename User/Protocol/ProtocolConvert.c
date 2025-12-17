@@ -716,7 +716,7 @@ void cJSON_To_ProtocolConvert(char *message)
             convert->node_attr[node_index].model_id      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mi"));
             convert->node_attr[node_index].model_type    = (MODEL_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mt"));
             convert->node_attr[node_index].date_type     = (DATE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "dt"));
-            convert->node_attr[node_index].frame_ID      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fi"));
+            convert->node_attr[node_index].frame_ID      = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fi"));
             convert->node_attr[node_index].frame_byte    = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fb"));
             convert->node_attr[node_index].bit_field_msb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "m"));
             convert->node_attr[node_index].bit_field_lsb = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "l"));
@@ -868,7 +868,7 @@ static void Printf_ProtocolConvert_CAN(void)
 
         for(uint8_t j = 0; j < convert->node_num; j++)
         {
-            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, frame_ID: %d, frame_byte: %d,bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
+            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, frame_ID: 0x%x, frame_byte: %d,bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
                 j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].frame_ID, convert->node_attr[j].frame_byte, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
         }
         
@@ -884,15 +884,11 @@ static void Printf_ProtocolConvert_CAN(void)
 */
 
 
-const char portconfig_json_string[] = "{\"modbus\":[{\"p\":1,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":2,\"p\":0,\"dn\":1,\"da\":1}]},{\"p\":2,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":1,\"p\":0,\"dn\":1,\"da\":1}]}],\"CAN\":[{\"p\":1,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":0,\"p\":1,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":1}]},{\"p\":2,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":3,\"p\":2,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":0}]}],\"DI\":[{\"p\":5,\"e\":1,\"s\":4,\"v\":0,\"td\":1000,\"rd\":1000}],\"DO\":[{\"p\":4,\"e\":1,\"c\":3,\"v\":1},{\"p\":5,\"e\":1,\"c\":4,\"v\":1}],\"NTC\":[{\"p\":1,\"e\":1,\"tp\":0,\"tb\":0}]}";
-
-
+const char portconfig_json_string[] = "{\"modbus\":[{\"p\":1,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":2,\"p\":0,\"dn\":1,\"da\":1}]},{\"p\":2,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":1,\"p\":0,\"dn\":1,\"da\":1}]}],\"CAN\":[{\"p\":1,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":3,\"p\":2,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":0}]},{\"p\":2,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":0,\"p\":1,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":1}]}],\"DI\":[{\"p\":5,\"e\":1,\"s\":4,\"v\":0,\"td\":1000,\"rd\":1000}],\"DO\":[{\"p\":4,\"e\":1,\"c\":3,\"v\":1},{\"p\":5,\"e\":1,\"c\":4,\"v\":1}],\"NTC\":[{\"p\":1,\"e\":1,\"tp\":0,\"tb\":0}]}";
 
 const char protocolconvert_modbus_meter_json_string[] = "{\"protocol\":0,\"device_type\":2,\"area\":{\"area_num\":1,\"area_attr\":[{\"fc\":3,\"a\":97,\"n\":3,\"c\":2000}]},\"node\":{\"node_num\":3,\"node_attr\":[{\"ni\":0,\"mi\":3640,\"mt\":0,\"dt\":1,\"fc\":3,\"a\":97,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":1,\"mi\":3641,\"mt\":0,\"dt\":1,\"fc\":3,\"a\":98,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":2,\"mi\":3642,\"mt\":0,\"dt\":1,\"fc\":3,\"a\":99,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
 
-
-
-
+const char protocolconvert_CAN_PCS_json_string[] = "{\"protocol\":1,\"device_type\":0,\"node\":{\"node_num\":3,\"node_attr\":[{\"ni\":0,\"mi\":14600,\"mt\":1,\"dt\":4,\"fi\":403701760,\"fb\":0,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":1,\"mi\":14601,\"mt\":1,\"dt\":4,\"fi\":403701760,\"fb\":2,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":2,\"mi\":14602,\"mt\":1,\"dt\":4,\"fi\":403701760,\"fb\":4,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
 
 
 void Init_ProtocolConvert(void)
@@ -919,6 +915,12 @@ void Init_ProtocolConvert(void)
     json = (char*)protocolconvert_modbus_meter_json_string;
     if(json != NULL)
         cJSON_To_ProtocolConvert(json);
+
+
+     //read
+    json = (char*)protocolconvert_CAN_PCS_json_string;
+    if(json != NULL)
+        cJSON_To_ProtocolConvert(json);   
 
 }
 
