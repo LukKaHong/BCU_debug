@@ -9,6 +9,13 @@
 
 ----------------------------------------------------------------------------------------------
 */
+void Printf_CAN_Msg(char* string, CanMsgType *msg)
+{
+    printf("%s ID: 0x%08x, Length: %d, Data: ", string, msg->id, msg->length);
+    for(int i = 0; i < msg->length; i++)
+        printf("0x%02x, ", msg->data[i]);
+    printf("\n");
+}
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -92,7 +99,8 @@ void CommCAN_1_Receive_Pro(void)
 {
     while(CAN_1_ReceiveBuff.CurIndex != CAN_1_ReceiveBuff.RxIndex)
     {
-        Comm_CAN_Read_Pro(1, &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
+        Printf_CAN_Msg("CAN_1 --- ", &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
+        // Comm_CAN_Read_Pro(1, &CAN_1_ReceiveBuff.Msg[CAN_1_ReceiveBuff.CurIndex]);
 
         if(++CAN_1_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_1_ReceiveBuff.CurIndex = 0;
     }
@@ -112,7 +120,7 @@ void CommCAN_1_Task(void)
 
         if(r_event & CommCAN_1_Event_Receive)
         {
-            // CommCAN_1_Receive_Pro();
+            CommCAN_1_Receive_Pro();
         }
 
         if(r_event & CommCAN_1_Event_Tick)
@@ -163,7 +171,9 @@ void CommCAN_2_Receive_Pro(void)
 {
     while(CAN_2_ReceiveBuff.CurIndex != CAN_2_ReceiveBuff.RxIndex)
     {
-        Comm_CAN_Read_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+        Printf_CAN_Msg("CAN_2 --- ", &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
+
+        // Comm_CAN_Read_Pro(2, &CAN_2_ReceiveBuff.Msg[CAN_2_ReceiveBuff.CurIndex]);
 
         if(++CAN_2_ReceiveBuff.CurIndex >= CAN_ReceiveBuff_Max) CAN_2_ReceiveBuff.CurIndex = 0;
     }
@@ -181,7 +191,7 @@ void CommCAN_2_Task(void)
 
         if(r_event & CommCAN_2_Event_Receive)
         {
-            // CommCAN_2_Receive_Pro();
+            CommCAN_2_Receive_Pro();
         }
 
         if(r_event & CommCAN_2_Event_Tick)
