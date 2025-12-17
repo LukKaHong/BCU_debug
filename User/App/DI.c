@@ -117,6 +117,14 @@ void DI_Task(void)
         if(r_event & DI_Event_Tick)
         {
 
+            // DO_Ctrl(DO_Ctrl_red_led, 0);
+            // DO_Ctrl(DO_Ctrl_green_led, 1);
+
+            // HAL_GPIO_WritePin(Relay2_GPIO_Port, Relay2_Pin, GPIO_PIN_SET);
+            // HAL_GPIO_WritePin(Relay3_GPIO_Port, Relay3_Pin, GPIO_PIN_SET);
+            // HAL_GPIO_WritePin(Relay5_GPIO_Port, Relay5_Pin, GPIO_PIN_RESET);
+            // HAL_GPIO_WritePin(Relay6_GPIO_Port, Relay6_Pin, GPIO_PIN_SET);
+
             for(uint8_t port = 1; port <= PortConfig_DI_Num; port++)
             {
                 DI_Signal_Pro(port);
