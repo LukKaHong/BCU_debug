@@ -5,7 +5,7 @@
 
 ----------------------------------------------------------------------------------------------
 */
-static uint16_t Node[Node_Num_Max];
+static Node_t Node;
 static Write_Node_t Write_Node;
 
 /*
@@ -15,7 +15,7 @@ static Write_Node_t Write_Node;
 */
 uint16_t* GetNodePointer(void)
 {
-    return Node;
+    return Node.value;
 }
 /*
 ----------------------------------------------------------------------------------------------

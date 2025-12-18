@@ -81,12 +81,12 @@ void ADC_Task(void)
 
         if(r_event & ADC_Event_Tick)
         {
-            for(uint8_t port = 1; port <= PortConfig_TEMP_Num; port++)
-            {
-                TEMP_Pro(port);
-            }
+            // for(uint8_t port = 1; port <= PortConfig_TEMP_Num; port++)
+            // {
+            //     TEMP_Pro(port);
+            // }
 
-            // printf("%s\r\n", __func__);
+            printf("%s\r\n", __func__);
         }
     }
 }

@@ -26,6 +26,7 @@ SysFault_t SysFault;
 static void Printf_PortConfig(void);
 static void Printf_ProtocolConvert_modbus(void);
 static void Printf_ProtocolConvert_CAN(void);
+static void Printf_SysFault(void);
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -923,7 +924,7 @@ static void Printf_ProtocolConvert_CAN(void)
 
 ----------------------------------------------------------------------------------------------
 */
-void Printf_SysFault(void)
+static void Printf_SysFault(void)
 {
     SysFault_t* fault = GetSysFault();
     if(fault == NULL)

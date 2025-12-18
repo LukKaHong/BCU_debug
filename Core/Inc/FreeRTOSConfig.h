@@ -211,6 +211,8 @@ extern osEventFlagsId_t DI_EventHandle;
 #define ADC_Event_Tick      (1 << 0)
 extern osEventFlagsId_t ADC_EventHandle;
 
+#define SysManage_Event_Tick      (1 << 0)
+extern osEventFlagsId_t SysManage_EventHandle;
 
 
 extern void Task_Cycle_Count(void);

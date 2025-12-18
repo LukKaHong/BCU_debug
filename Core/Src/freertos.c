@@ -32,6 +32,7 @@
 #include "Comm485.h"
 #include "DI.h"
 #include "AD.h"
+#include "SysManage.h"
 
 
 
@@ -191,6 +192,18 @@ const osThreadAttr_t ADC_Task_attributes = {
   .stack_size = sizeof(ADC_TaskBuffer),
   .priority = (osPriority_t) osPriorityBelowNormal6,
 };
+/* Definitions for SysManage_Task */
+osThreadId_t SysManage_TaskHandle;
+uint32_t SysManage_TaskBuffer[ 2048 ];
+osStaticThreadDef_t SysManage_TaskControlBlock;
+const osThreadAttr_t SysManage_Task_attributes = {
+  .name = "SysManage_Task",
+  .cb_mem = &SysManage_TaskControlBlock,
+  .cb_size = sizeof(SysManage_TaskControlBlock),
+  .stack_mem = &SysManage_TaskBuffer[0],
+  .stack_size = sizeof(SysManage_TaskBuffer),
+  .priority = (osPriority_t) osPriorityAboveNormal1,
+};
 /* Definitions for BinarySem_485_1_Tx */
 osSemaphoreId_t BinarySem_485_1_TxHandle;
 osStaticSemaphoreDef_t BinarySem_485_1_TxControlBlock;
@@ -335,6 +348,14 @@ const osEventFlagsAttr_t ADC_Event_attributes = {
   .cb_mem = &ADC_EventControlBlock,
   .cb_size = sizeof(ADC_EventControlBlock),
 };
+/* Definitions for SysManage_Event */
+osEventFlagsId_t SysManage_EventHandle;
+osStaticEventGroupDef_t SysManage_EventControlBlock;
+const osEventFlagsAttr_t SysManage_Event_attributes = {
+  .name = "SysManage_Event",
+  .cb_mem = &SysManage_EventControlBlock,
+  .cb_size = sizeof(SysManage_EventControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -352,6 +373,7 @@ void StartCommLAN_1_Task(void *argument);
 void StartCommLAN_2_Task(void *argument);
 void StartDI_Task(void *argument);
 void StartADC_Task(void *argument);
+void StartSystemManageTask(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -440,6 +462,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of ADC_Task */
   ADC_TaskHandle = osThreadNew(StartADC_Task, NULL, &ADC_Task_attributes);
 
+  /* creation of SysManage_Task */
+  SysManage_TaskHandle = osThreadNew(StartSystemManageTask, NULL, &SysManage_Task_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -474,6 +499,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of ADC_Event */
   ADC_EventHandle = osEventFlagsNew(&ADC_Event_attributes);
+
+  /* creation of SysManage_Event */
+  SysManage_EventHandle = osEventFlagsNew(&SysManage_Event_attributes);
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
@@ -653,20 +681,36 @@ void StartADC_Task(void *argument)
   /* USER CODE END StartADC_Task */
 }
 
+/* USER CODE BEGIN Header_StartSystemManageTask */
+/**
+* @brief Function implementing the SysManage_Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartSystemManageTask */
+void StartSystemManageTask(void *argument)
+{
+  /* USER CODE BEGIN StartSystemManageTask */
+  /* Infinite loop */
+  SysManage_Task();
+  /* USER CODE END StartSystemManageTask */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 void Task_Cycle_Count(void)
 {
-  static uint16_t Comm485_1_tick = 0;
-  static uint16_t Comm485_2_tick = 0;
-  static uint16_t Comm485_3_tick = 0;
-  static uint16_t CommCAN_1_tick = 0;
-  static uint16_t CommCAN_2_tick = 0;
-  static uint16_t CommCAN_3_tick = 0;
-  static uint16_t CommLAN_1_tick = 0;
-  static uint16_t CommLAN_2_tick = 0;
-  static uint16_t DI_tick = 0;
-  static uint16_t ADC_tick = 0;
+  static uint16_t Comm485_1_tick = 1;
+  static uint16_t Comm485_2_tick = 3;
+  static uint16_t Comm485_3_tick = 5;
+  static uint16_t CommCAN_1_tick = 7;
+  static uint16_t CommCAN_2_tick = 9;
+  static uint16_t CommCAN_3_tick = 11;
+  static uint16_t CommLAN_1_tick = 13;
+  static uint16_t CommLAN_2_tick = 15;
+  static uint16_t DI_tick = 17;
+  static uint16_t ADC_tick = 19;
+  static uint16_t SysManage_tick = 21;
 
   if(++Comm485_1_tick >= Comm485_Task_Cycle)
   {
@@ -726,6 +770,12 @@ void Task_Cycle_Count(void)
   {
     ADC_tick = 0;
     osEventFlagsSet(ADC_EventHandle, ADC_Event_Tick);
+  }
+
+  if(++SysManage_tick >= SysManage_Task_Cycle)
+  {
+    SysManage_tick = 0;
+    osEventFlagsSet(SysManage_EventHandle, SysManage_Event_Tick);
   }
 
 }

@@ -126,7 +126,7 @@ void CommCAN_1_Task(void)
 
         if(r_event & CommCAN_1_Event_Tick)
         {
-            // printf("%s\r\n", __func__);
+            printf("%s\r\n", __func__);
         }
         
         CommCAN_1_Send_Pro();
@@ -196,7 +196,7 @@ void CommCAN_2_Task(void)
 
         if(r_event & CommCAN_2_Event_Tick)
         {
-            // printf("%s\r\n", __func__);
+            printf("%s\r\n", __func__);
         }
         
         CommCAN_2_Send_Pro();
@@ -216,7 +216,7 @@ void CommCAN_3_Task(void)
 
         if(r_event & CommCAN_3_Event_Tick)
         {
-            // printf("%s\r\n", __func__);
+            printf("%s\r\n", __func__);
 
         }
     }

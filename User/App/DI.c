@@ -130,7 +130,7 @@ void DI_Task(void)
                 DI_Signal_Pro(port);
             }
 
-            // printf("%s\r\n", __func__);
+            printf("%s\r\n", __func__);
         }
     }
 }

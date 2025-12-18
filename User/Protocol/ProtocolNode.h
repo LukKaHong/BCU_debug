@@ -431,6 +431,13 @@
 typedef struct
 {
     uint16_t value[Node_Num_Max];
+    MODEL_TYPE_e type[Node_Num_Max];
+}Node_t;
+
+
+typedef struct
+{
+    uint16_t value[Node_Num_Max];
     uint8_t writeflag[Node_Num_Max];
 }Write_Node_t;
 

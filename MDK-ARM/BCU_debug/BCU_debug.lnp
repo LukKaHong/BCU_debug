@@ -55,6 +55,7 @@
 "bcu_debug\commcan.o"
 "bcu_debug\do.o"
 "bcu_debug\ad.o"
+"bcu_debug\sysmanage.o"
 "bcu_debug\cjson.o"
 "bcu_debug\protocolconvert.o"
 "bcu_debug\modbusrtu.o"

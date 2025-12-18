@@ -1045,6 +1045,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\App\AD.c</FilePath>
             </File>
+            <File>
+              <FileName>SysManage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\App\SysManage.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
