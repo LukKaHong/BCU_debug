@@ -24,24 +24,24 @@ uint8_t Comm485_3_Rx_Buff[Uart_Rx_Buff_Size];
 */
 static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 {
-    PortConfig_modbus_t* modbus = GetPortConfig_modbus(port);
-    if(modbus == NULL)
+    PortConfig_rs485_t* rs485 = GetPortConfig_rs485(port);
+    if(rs485 == NULL)
         return;
 
-    for(uint8_t device_num = 0; device_num < modbus->device_num; device_num++)//扫描所有设备
+    for(uint8_t device_num = 0; device_num < rs485->device_num; device_num++)//扫描所有设备
     {
-        if(modbus->device_attr[device_num].protocol == PROTOCOL_MODBUS)
+        if(rs485->device_attr[device_num].protocol == PROTOCOL_MODBUSRTU)
         {
             //获取协议
-            ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus(modbus->device_attr[device_num].device_type);
+            ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus(rs485->device_attr[device_num].device_type);
             if(convert == NULL)
                 continue;
         
             for(uint8_t area_num = 0; area_num < convert->area_num; area_num++)//扫描所有区域
             {
-                if(++modbus->device_attr[device_num].cyclecnt[area_num] >= convert->area_attr[area_num].cycle / Comm485_Task_Cycle)//定时查询
+                if(++rs485->device_attr[device_num].cyclecnt[area_num] >= convert->area_attr[area_num].cycle / Comm485_Task_Cycle)//定时查询
                 {
-                    modbus->device_attr[device_num].cyclecnt[area_num] = 0;
+                    rs485->device_attr[device_num].cyclecnt[area_num] = 0;
 
                     uint16_t tx_len = 0;
                     const uint8_t* data;
@@ -51,7 +51,7 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                     if(convert->area_attr[area_num].fun_code == MB_FC_READ_COILS)
                     {
                         ModbusRTU_BuildReadCoils(
-                            modbus->device_attr[device_num].device_addr,//设备地址
+                            rs485->device_attr[device_num].device_addr,//设备地址
                             convert->area_attr[area_num].reg_addr,//寄存器地址
                             convert->area_attr[area_num].reg_num,//寄存器数量
                             tx_buff,
@@ -61,7 +61,7 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                         result = ModbusRTU_ParseReadCoilsRsp(
                                 rx_buff,
                                 _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size),
-                                modbus->device_attr[device_num].device_addr,//设备地址
+                                rs485->device_attr[device_num].device_addr,//设备地址
                                 convert->area_attr[area_num].reg_num,//寄存器数量
                                 &data,//存寄存器数据的指针
                                 &data_len//字节数
@@ -71,7 +71,7 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                     else if(convert->area_attr[area_num].fun_code == MB_FC_READ_HOLDING_REGS)
                     {
                         ModbusRTU_BuildReadHolding(
-                            modbus->device_attr[device_num].device_addr,//设备地址
+                            rs485->device_attr[device_num].device_addr,//设备地址
                             convert->area_attr[area_num].reg_addr,//寄存器地址
                             convert->area_attr[area_num].reg_num,//寄存器数量
                             tx_buff,
@@ -81,7 +81,7 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                         result = ModbusRTU_ParseReadHoldingRsp(
                                 rx_buff,
                                 _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size),
-                                modbus->device_attr[device_num].device_addr,//设备地址
+                                rs485->device_attr[device_num].device_addr,//设备地址
                                 convert->area_attr[area_num].reg_num,//寄存器数量
                                 &data,//存寄存器数据的指针
                                 &data_len//字节数
@@ -101,7 +101,7 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                                 {
                                     uint16_t index = 0;
 
-                                    if(ModelIdToNodeIndex(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == true)
+                                    if(ModelIdToNodeIndex(rs485->device_attr[device_num].device_type, rs485->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == true)
                                     {
                                         ConvertToNode_modbus(GetNodePointer() + index, (uint8_t*)data, &convert->node_attr[node_num]);
                                         // printf("485 %d node[%d] = %d\n", port, index, GetNodePointer()[index]);
@@ -132,19 +132,19 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 */
 static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 {
-    PortConfig_modbus_t* modbus = GetPortConfig_modbus(port);
-    if(modbus == NULL)
+    PortConfig_rs485_t* rs485 = GetPortConfig_rs485(port);
+    if(rs485 == NULL)
         return;
 
-    if(modbus->en == 0)
+    if(rs485->en == 0)
         return;
 
-    for(uint8_t device_num = 0; device_num < modbus->device_num; device_num++)//扫描所有设备
+    for(uint8_t device_num = 0; device_num < rs485->device_num; device_num++)//扫描所有设备
     {
-        if(modbus->device_attr[device_num].protocol == PROTOCOL_MODBUS)
+        if(rs485->device_attr[device_num].protocol == PROTOCOL_MODBUSRTU)
         {
             uint16_t start = 0, end = 0;
-            if(GetNodeRange(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, &start, &end) == false)
+            if(GetNodeRange(rs485->device_attr[device_num].device_type, rs485->device_attr[device_num].device_no, &start, &end) == false)
                 continue;
 
             Write_Node_t* write_node = GetWriteNodePointer();
@@ -156,12 +156,12 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                     write_node->writeflag[index] = 0;
 
                     uint16_t model_id = 0;
-                    if(NodeIndexToModelId(modbus->device_attr[device_num].device_type, modbus->device_attr[device_num].device_no, index, &model_id) == false)
+                    if(NodeIndexToModelId(rs485->device_attr[device_num].device_type, rs485->device_attr[device_num].device_no, index, &model_id) == false)
                         continue;
 
                     uint16_t reg_addr = 0;
                     uint8_t fun_code = 0xff;
-                    if(ModelIdToRegAddr_modbus(modbus->device_attr[device_num].device_type, model_id, &reg_addr, &fun_code) == false)
+                    if(ModelIdToRegAddr_modbus(rs485->device_attr[device_num].device_type, model_id, &reg_addr, &fun_code) == false)
                         continue;
 
                     uint16_t tx_len = 0;
@@ -170,9 +170,9 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 
                     if(fun_code == MB_FC_READ_HOLDING_REGS)
                     {
-                        ModbusRTU_BuildWriteSingle(modbus->device_attr[device_num].device_addr, reg_addr, write_node->value[index], tx_buff, &tx_len);
+                        ModbusRTU_BuildWriteSingle(rs485->device_attr[device_num].device_addr, reg_addr, write_node->value[index], tx_buff, &tx_len);
                         rx_len = _485_Tx_And_Rx(port, tx_buff, tx_len, rx_buff, Uart_Rx_Buff_Size);
-                        ModbusRTU_ParseWriteSingleRsp(rx_buff, rx_len, modbus->device_attr[device_num].device_addr, reg_addr, &value);
+                        ModbusRTU_ParseWriteSingleRsp(rx_buff, rx_len, rs485->device_attr[device_num].device_addr, reg_addr, &value);
                     }
                 }
             }

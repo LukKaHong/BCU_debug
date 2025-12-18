@@ -22,7 +22,7 @@ extern const uint32_t NTCTab_3435[161];
 *
 *********************************************************************************************************
 */
-extern int16_t GetTemperatureFromNTCTable(uint32_t ohms,NTC_Table_e ntc);
+extern int16_t GetTemperatureFromNTCTable(uint32_t ohms,TEMP_Table_e temp);
 
 /*
 *********************************************************************************************************

@@ -194,14 +194,14 @@ const uint32_t NTCTab_3435[161] =
 *
 *********************************************************************************************************
 */
-int16_t GetTemperatureFromNTCTable(uint32_t ohms,NTC_Table_e ntc)
+int16_t GetTemperatureFromNTCTable(uint32_t ohms,TEMP_Table_e temp)
 {
 	const uint32_t* table = NULL;
 	uint16_t tablen = 0;
 		
-	switch(ntc)
+	switch(temp)
 	{
-		case NTC_Table_3435:
+		case TEMP_Table_3435:
 			table = NTCTab_3435;
 			tablen = countof(NTCTab_3435);
 			break;
@@ -218,7 +218,7 @@ int16_t GetTemperatureFromNTCTable(uint32_t ohms,NTC_Table_e ntc)
 	}
 	else if(ohms <= table[tablen-1])
 	{
-		if(NTCTab_3435 == table)
+		if(TEMP_Table_3435 == temp)
 			Temperature = 1250;
 		else
 			Temperature = 1250;

@@ -12,11 +12,12 @@
 ProtocolConvert_modbus_t ProtocolConvert_modbus[DEVICE_TYPE_Max];
 ProtocolConvert_CAN_t ProtocolConvert_CAN[DEVICE_TYPE_Max];
 
-PortConfig_modbus_t PortConfig_modbus[PortConfig_modbus_Num];
+PortConfig_rs485_t PortConfig_rs485[PortConfig_rs485_Num];
 PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 PortConfig_DI_t PortConfig_DI[PortConfig_DI_Num];
 PortConfig_DO_t PortConfig_DO[PortConfig_DO_Num];
-PortConfig_NTC_t PortConfig_NTC[PortConfig_NTC_Num];
+PortConfig_TEMP_t PortConfig_TEMP[PortConfig_TEMP_Num];
+SysFault_t SysFault;
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -55,12 +56,12 @@ ProtocolConvert_CAN_t* GetProtocolConvert_CAN(DEVICE_TYPE_e device_type)
 
 ----------------------------------------------------------------------------------------------
 */
-PortConfig_modbus_t* GetPortConfig_modbus(uint8_t no)
+PortConfig_rs485_t* GetPortConfig_rs485(uint8_t no)
 {
-    if(no == 0 || no > PortConfig_modbus_Num)
+    if(no == 0 || no > PortConfig_rs485_Num)
         return NULL;
 
-    return &PortConfig_modbus[no - 1];
+    return &PortConfig_rs485[no - 1];
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -103,12 +104,21 @@ PortConfig_DO_t* GetPortConfig_DO(uint8_t no)
 
 ----------------------------------------------------------------------------------------------
 */
-PortConfig_NTC_t* GetPortConfig_NTC(uint8_t no)
+PortConfig_TEMP_t* GetPortConfig_TEMP(uint8_t no)
 {
-    if(no == 0 || no > PortConfig_NTC_Num)
+    if(no == 0 || no > PortConfig_TEMP_Num)
         return NULL;
 
-    return &PortConfig_NTC[no - 1];
+    return &PortConfig_TEMP[no - 1];
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+SysFault_t* GetSysFault(void)
+{
+    return &SysFault;
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -482,37 +492,37 @@ void cJSON_To_PortConfig(char *message)
         return;
     }
 
-    cJSON *root_modbus = cJSON_GetObjectItem(root, "modbus"); 
+    cJSON *root_modbus = cJSON_GetObjectItem(root, "RS485"); 
     if(root_modbus != NULL)
     {
         for(uint8_t i = 0; i < cJSON_GetArraySize(root_modbus); i++)
         {
             cJSON *root_modbus_array = cJSON_GetArrayItem(root_modbus, i);
-            PortConfig_modbus_t* modbus = GetPortConfig_modbus((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "p")));
-            if(modbus == NULL)
+            PortConfig_rs485_t* rs485 = GetPortConfig_rs485((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "p")));
+            if(rs485 == NULL)
                 continue;
 
-            modbus->en         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "e"));
-            modbus->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "b"));
-            modbus->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "db"));
-            modbus->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "sb"));
-            modbus->parity     = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "pa"));
-            modbus->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "dn"));
+            rs485->en         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "e"));
+            rs485->baud       = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "b"));
+            rs485->date_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "db"));
+            rs485->stop_bit   = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "sb"));
+            rs485->parity     = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "pa"));
+            rs485->device_num = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array, "dn"));
 
             cJSON *root_modbus_array_device_attr = cJSON_GetObjectItem(root_modbus_array, "da"); 
-            if(modbus->device_num != cJSON_GetArraySize(root_modbus_array_device_attr))
+            if(rs485->device_num != cJSON_GetArraySize(root_modbus_array_device_attr))
             {
-                modbus->device_num = 0;
+                rs485->device_num = 0;
                 continue;
             }
   
-            for(uint8_t j = 0; j < modbus->device_num; j++)
+            for(uint8_t j = 0; j < rs485->device_num; j++)
             {
                 cJSON *root_modbus_array_device_attr_array = cJSON_GetArrayItem(root_modbus_array_device_attr, j);
-                modbus->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dt"));
-                modbus->device_attr[j].protocol            = (PROTOCOL_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "p"));
-                modbus->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dn"));
-                modbus->device_attr[j].device_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "da"));
+                rs485->device_attr[j].device_type         = (DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dt"));
+                rs485->device_attr[j].protocol            = (PROTOCOL_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "p"));
+                rs485->device_attr[j].device_no           = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "dn"));
+                rs485->device_attr[j].device_addr         = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_modbus_array_device_attr_array, "da"));
             }
         }
     }
@@ -593,22 +603,22 @@ void cJSON_To_PortConfig(char *message)
         }
     }
 
-    cJSON *root_NTC = cJSON_GetObjectItem(root, "NTC"); 
+    cJSON *root_NTC = cJSON_GetObjectItem(root, "TEMP"); 
     if(root_NTC != NULL)
     {
         for(uint8_t i = 0; i < cJSON_GetArraySize(root_NTC); i++)
         {
             cJSON *root_NTC_array = cJSON_GetArrayItem(root_NTC, i);
-            PortConfig_NTC_t* NTC = GetPortConfig_NTC((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "p")));
-            if(NTC == NULL)
+            PortConfig_TEMP_t* TEMP = GetPortConfig_TEMP((uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "p")));
+            if(TEMP == NULL)
                 continue;
 
-            NTC->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "e"));
-            if(NTC->en == 0)
+            TEMP->en = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "e"));
+            if(TEMP->en == 0)
                 continue;
 
-            NTC->temp  = (NTC_Temp_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tp"));
-            NTC->table = (NTC_Table_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tb"));
+            TEMP->temp  = (TEMP_Temp_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tp"));
+            TEMP->table = (TEMP_Table_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_NTC_array, "tb"));
         }
     }
 
@@ -639,7 +649,7 @@ void cJSON_To_ProtocolConvert(char *message)
 
     cJSON *root_protocol = cJSON_GetObjectItem(root, "protocol");
 
-    if(cJSON_GetNumberValue(root_protocol) == PROTOCOL_MODBUS)//modbus
+    if(cJSON_GetNumberValue(root_protocol) == PROTOCOL_MODBUSRTU)//modbus
     {
         ProtocolConvert_modbus_t* convert = GetProtocolConvert_modbus((DEVICE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "device_type")));
 
@@ -672,6 +682,7 @@ void cJSON_To_ProtocolConvert(char *message)
             uint8_t node_index = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "ni"));
             convert->node_attr[node_index].model_id      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mi"));
             convert->node_attr[node_index].model_type    = (MODEL_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mt"));
+            convert->node_attr[node_index].node_type     = (NODE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "nt"));
             convert->node_attr[node_index].date_type     = (DATE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "dt"));
             convert->node_attr[node_index].fun_code      = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fc"));
             convert->node_attr[node_index].reg_addr      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "a"));
@@ -715,6 +726,7 @@ void cJSON_To_ProtocolConvert(char *message)
             uint8_t node_index = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "ni"));
             convert->node_attr[node_index].model_id      = (uint16_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mi"));
             convert->node_attr[node_index].model_type    = (MODEL_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "mt"));
+            convert->node_attr[node_index].node_type     = (NODE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "nt"));
             convert->node_attr[node_index].date_type     = (DATE_TYPE_e)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "dt"));
             convert->node_attr[node_index].frame_ID      = (uint32_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fi"));
             convert->node_attr[node_index].frame_byte    = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root_node_node_attr_array, "fb"));
@@ -745,6 +757,37 @@ void cJSON_To_ProtocolConvert(char *message)
         Printf_ProtocolConvert_CAN();
     }
 }
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+void cJSON_To_SysFault(char *message)
+{
+    printf("message : %s\n", message);
+
+    cJSON *root = cJSON_Parse(message);
+    if(root == NULL)
+    {
+        const char *ep = cJSON_GetErrorPtr();
+        if (ep != NULL)
+        {
+            printf("cJSON parse error near: %s\r\n", ep);
+        }
+        return;
+    }
+
+    SysFault_t* fault = GetSysFault();
+    if(fault == NULL)
+        return;
+
+    fault->L1_action = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "fault_action_L1"));
+    fault->L2_action = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "fault_action_L2"));
+    fault->L3_action = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "fault_action_L3"));
+    fault->L4_action = (uint8_t)cJSON_GetNumberValue(cJSON_GetObjectItem(root, "fault_action_L4"));
+
+    Printf_SysFault();
+}
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -753,19 +796,19 @@ void cJSON_To_ProtocolConvert(char *message)
 */
 static void Printf_PortConfig(void)
 {
-    for(uint8_t i = 1; i <= PortConfig_modbus_Num; i++)
+    for(uint8_t i = 1; i <= PortConfig_rs485_Num; i++)
     {
-        PortConfig_modbus_t* modbus = GetPortConfig_modbus(i);
-        if(modbus == NULL)
+        PortConfig_rs485_t* rs485 = GetPortConfig_rs485(i);
+        if(rs485 == NULL)
             return;
 
-        printf("modbus port: %d, en: %d, baud: %d, date_bit: %d, stop_bit: %d, parity: %d, device_num: %d\r\n",
-            i, modbus->en, modbus->baud, modbus->date_bit, modbus->stop_bit, modbus->parity, modbus->device_num);
+        printf("rs485 port: %d, en: %d, baud: %d, date_bit: %d, stop_bit: %d, parity: %d, device_num: %d\r\n",
+            i, rs485->en, rs485->baud, rs485->date_bit, rs485->stop_bit, rs485->parity, rs485->device_num);
 
-        for(uint8_t j = 0; j < modbus->device_num; j++)
+        for(uint8_t j = 0; j < rs485->device_num; j++)
         {
-            printf("----- %d : modbus device_type: %d, device_no: %d, device_addr: %d\r\n",
-                j, modbus->device_attr[j].device_type, modbus->device_attr[j].device_no, modbus->device_attr[j].device_addr);
+            printf("----- %d : rs485 device_type: %d, device_no: %d, device_addr: %d\r\n",
+                j, rs485->device_attr[j].device_type, rs485->device_attr[j].device_no, rs485->device_attr[j].device_addr);
         }
         printf("\r\n");
     }
@@ -811,14 +854,14 @@ static void Printf_PortConfig(void)
         printf("\r\n");
     }
 
-    for(uint8_t i = 1; i <= PortConfig_NTC_Num; i++)
+    for(uint8_t i = 1; i <= PortConfig_TEMP_Num; i++)
     {
-        PortConfig_NTC_t* ntc = GetPortConfig_NTC(i);
-        if(ntc == NULL)
+        PortConfig_TEMP_t* temp = GetPortConfig_TEMP(i);
+        if(temp == NULL)
             return;
 
-        printf("NTC port: %d, en: %d, temp: %d, table: %d\r\n",
-            i, ntc->en, ntc->temp, ntc->table);
+        printf("TEMP port: %d, en: %d, temp: %d, table: %d\r\n",
+            i, temp->en, temp->temp, temp->table);
 
         printf("\r\n");
     }
@@ -845,8 +888,8 @@ static void Printf_ProtocolConvert_modbus(void)
 
         for(uint8_t j = 0; j < convert->node_num; j++)
         {
-            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, fun_code: %d, reg_addr: %d, bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
-                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].fun_code, convert->node_attr[j].reg_addr, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
+            printf("----- node %d : model_id: %d, model_type: %d, node_type: %d, date_type: %d, fun_code: %d, reg_addr: %d, bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
+                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].node_type, convert->node_attr[j].date_type, convert->node_attr[j].fun_code, convert->node_attr[j].reg_addr, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
         }
 
         printf("\r\n");
@@ -868,14 +911,27 @@ static void Printf_ProtocolConvert_CAN(void)
 
         for(uint8_t j = 0; j < convert->node_num; j++)
         {
-            printf("----- node %d : model_id: %d, model_type: %d, date_type: %d, frame_ID: 0x%x, frame_byte: %d,bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
-                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].date_type, convert->node_attr[j].frame_ID, convert->node_attr[j].frame_byte, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
+            printf("----- node %d : model_id: %d, model_type: %d, node_type: %d, date_type: %d, frame_ID: 0x%x, frame_byte: %d,bit_field_msb: %d, bit_field_lsb: %d, factor: %f, offset: %f, enum_num: %d\r\n",
+                j, convert->node_attr[j].model_id, convert->node_attr[j].model_type, convert->node_attr[j].node_type, convert->node_attr[j].date_type, convert->node_attr[j].frame_ID, convert->node_attr[j].frame_byte, convert->node_attr[j].bit_field_msb, convert->node_attr[j].bit_field_lsb, convert->node_attr[j].factor, convert->node_attr[j].offset, convert->node_attr[j].enum_num);
         }
         
         printf("\r\n");
     }
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+void Printf_SysFault(void)
+{
+    SysFault_t* fault = GetSysFault();
+    if(fault == NULL)
+        return;
+
+    printf("SysFault: L1_action: %d, L2_action: %d, L3_action: %d, L4_action: %d\r\n",
+        fault->L1_action, fault->L2_action, fault->L3_action, fault->L4_action);
+}
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -884,15 +940,23 @@ static void Printf_ProtocolConvert_CAN(void)
 */
 
 
-const char portconfig_json_string[] = "{\"modbus\":[{\"p\":1,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":2,\"p\":0,\"dn\":1,\"da\":1}]},{\"p\":2,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":1,\"p\":0,\"dn\":1,\"da\":1}]}],\"CAN\":[{\"p\":1,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":3,\"p\":2,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":0}]},{\"p\":2,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":0,\"p\":1,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":1}]}],\"DI\":[{\"p\":1,\"e\":1,\"s\":0,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":2,\"e\":1,\"s\":1,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":3,\"e\":1,\"s\":2,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":4,\"e\":1,\"s\":3,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":5,\"e\":1,\"s4\":4,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":6,\"e\":1,\"s\":5,\"v\":0,\"td\":1000,\"rd\":1000}],\"DO\":[{\"p\":1,\"e\":1,\"c\":0,\"v\":1},{\"p\":2,\"e\":1,\"c\":1,\"v\":1},{\"p\":3,\"e\":1,\"c\":2,\"v\":1},{\"p\":4,\"e\":1,\"c\":3,\"v\":1},{\"p\":5,\"e\":1,\"c\":4,\"v\":1}],\"NTC\":[{\"p\":1,\"e\":1,\"tp\":0,\"tb\":0}]}";
+const char portconfig_json_string[] = "{\"RS485\":[{\"p\":1,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":2,\"p\":0,\"dn\":1,\"da\":1}]},{\"p\":2,\"e\":1,\"b\":9600,\"db\":8,\"sb\":1,\"pa\":0,\"dn\":1,\"da\":[{\"dt\":1,\"p\":0,\"dn\":1,\"da\":1}]}],\"CAN\":[{\"p\":1,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":3,\"p\":2,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":0}]},{\"p\":2,\"e\":1,\"b\":250000,\"dn\":1,\"da\":[{\"dt\":0,\"p\":1,\"dn\":1,\"ma\":1,\"sa\":1,\"af\":1}]}],\"DI\":[{\"p\":1,\"e\":1,\"s\":0,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":2,\"e\":1,\"s\":1,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":3,\"e\":1,\"s\":2,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":4,\"e\":1,\"s\":3,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":5,\"e\":1,\"s4\":4,\"v\":0,\"td\":1000,\"rd\":1000},{\"p\":6,\"e\":1,\"s\":5,\"v\":0,\"td\":1000,\"rd\":1000}],\"DO\":[{\"p\":1,\"e\":1,\"c\":0,\"v\":1},{\"p\":2,\"e\":1,\"c\":1,\"v\":1},{\"p\":3,\"e\":1,\"c\":2,\"v\":1},{\"p\":4,\"e\":1,\"c\":3,\"v\":1},{\"p\":5,\"e\":1,\"c\":4,\"v\":1}],\"TEMP\":[{\"p\":1,\"e\":1,\"tp\":0,\"tb\":0}]}";
 
 
 
-const char protocolconvert_modbus_meter_json_string[] = "{\"protocol\":0,\"device_type\":2,\"area\":{\"area_num\":1,\"area_attr\":[{\"fc\":3,\"a\":97,\"n\":3,\"c\":2000}]},\"node\":{\"node_num\":3,\"node_attr\":[{\"ni\":0,\"mi\":3640,\"mt\":0,\"dt\":1,\"fc\":3,\"a\":97,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":1,\"mi\":3641,\"mt\":0,\"dt\":1,\"fc\":3,\"a\":98,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":2,\"mi\":3642,\"mt\":0,\"dt\":1,\"fc\":3,\"a\":99,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
+
+const char protocolconvert_modbus_meter_json_string[] = "{\"protocol\":0,\"device_type\":2,\"area\":{\"area_num\":1,\"area_attr\":[{\"fc\":3,\"a\":97,\"n\":3,\"c\":2000}]},\"node\":{\"node_num\":3,\"node_attr\":[{\"ni\":0,\"mi\":3640,\"mt\":0,\"nt\":0,\"dt\":1,\"fc\":3,\"a\":97,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":1,\"mi\":3641,\"mt\":0,\"nt\":0,\"dt\":1,\"fc\":3,\"a\":98,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":2,\"mi\":3642,\"mt\":0,\"nt\":0,\"dt\":1,\"fc\":3,\"a\":99,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
 
 
 
-const char protocolconvert_CAN_PCS_json_string[] = "{\"protocol\":1,\"device_type\":0,\"node\":{\"node_num\":3,\"node_attr\":[{\"ni\":0,\"mi\":14600,\"mt\":1,\"dt\":4,\"fi\":403701760,\"fb\":0,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":1,\"mi\":14601,\"mt\":1,\"dt\":4,\"fi\":403701760,\"fb\":2,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":2,\"mi\":14602,\"mt\":1,\"dt\":4,\"fi\":403701760,\"fb\":4,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
+
+
+const char protocolconvert_CAN_PCS_json_string[] = "{\"protocol\":1,\"device_type\":0,\"node\":{\"node_num\":3,\"node_attr\":[{\"ni\":0,\"mi\":14600,\"mt\":1,\"nt\":0,\"dt\":4,\"fi\":403701760,\"fb\":0,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":1,\"mi\":14601,\"mt\":1,\"nt\":0,\"dt\":4,\"fi\":403701760,\"fb\":2,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}},{\"ni\":2,\"mi\":14602,\"mt\":1,\"nt\":0,\"dt\":4,\"fi\":403701760,\"fb\":4,\"m\":0,\"l\":0,\"f\":1,\"o\":0,\"e\":{\"n\":0}}]}}";
+
+
+
+
+const char protocolconvert_SysFault[] = "{\"fault_action_L1\":0,\"fault_action_L2\":0,\"fault_action_L3\":0,\"fault_action_L4\":0}";
 
 
 
@@ -901,11 +965,11 @@ void Init_ProtocolConvert(void)
     memset(ProtocolConvert_modbus, 0, sizeof(ProtocolConvert_modbus));
     memset(ProtocolConvert_CAN, 0, sizeof(ProtocolConvert_CAN));
 
-    memset(PortConfig_modbus, 0, sizeof(PortConfig_modbus));
+    memset(PortConfig_rs485, 0, sizeof(PortConfig_rs485));
     memset(PortConfig_CAN, 0, sizeof(PortConfig_CAN));
     memset(PortConfig_DI, 0, sizeof(PortConfig_DI));
     memset(PortConfig_DO, 0, sizeof(PortConfig_DO));
-    memset(PortConfig_NTC, 0, sizeof(PortConfig_NTC));
+    memset(PortConfig_TEMP, 0, sizeof(PortConfig_TEMP));
 
 
     char* json = NULL;
@@ -922,10 +986,18 @@ void Init_ProtocolConvert(void)
         cJSON_To_ProtocolConvert(json);
 
 
-     //read
+    //read
     json = (char*)protocolconvert_CAN_PCS_json_string;
     if(json != NULL)
-        cJSON_To_ProtocolConvert(json);   
+        cJSON_To_ProtocolConvert(json);
+
+
+    //read
+    json = (char*)protocolconvert_SysFault;
+    if(json != NULL)
+        cJSON_To_SysFault(json);
+
+
 
 }
 

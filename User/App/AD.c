@@ -9,16 +9,16 @@
 
 ----------------------------------------------------------------------------------------------
 */
-NTC_Info_t NTC_Info[NTC_Temp_Max];
+NTC_Info_t NTC_Info[TEMP_Temp_Max];
 
 /*
 ----------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------
 */
-NTC_Info_t* GetNTC_Info(NTC_Temp_e ntc)
+NTC_Info_t* GetNTC_Info(TEMP_Temp_e ntc)
 {
-    if(ntc >= NTC_Temp_Max)
+    if(ntc >= TEMP_Temp_Max)
         return NULL;
 
     return &NTC_Info[ntc];
@@ -52,20 +52,20 @@ uint32_t Read_NTC_Res(uint8_t port)
 
 ----------------------------------------------------------------------------------------------
 */
-void NTC_Pro(uint8_t port)
+void TEMP_Pro(uint8_t port)
 {
-    PortConfig_NTC_t* NTC = GetPortConfig_NTC(port);
-    if(NTC == NULL)
+    PortConfig_TEMP_t* TEMP = GetPortConfig_TEMP(port);
+    if(TEMP == NULL)
         return;
 
-    if(NTC->en == 0)
+    if(TEMP->en == 0)
         return;
 
-    NTC_Info_t* ntc_info = GetNTC_Info(NTC->temp);
+    NTC_Info_t* ntc_info = GetNTC_Info(TEMP->temp);
     if(ntc_info == NULL)
         return;
 
-    ntc_info->temp = GetTemperatureFromNTCTable(Read_NTC_Res(port), NTC->table);
+    ntc_info->temp = GetTemperatureFromNTCTable(Read_NTC_Res(port), TEMP->table);
 }
 
 /*
@@ -81,9 +81,9 @@ void ADC_Task(void)
 
         if(r_event & ADC_Event_Tick)
         {
-            for(uint8_t port = 1; port <= PortConfig_NTC_Num; port++)
+            for(uint8_t port = 1; port <= PortConfig_TEMP_Num; port++)
             {
-                NTC_Pro(port);
+                TEMP_Pro(port);
             }
 
             // printf("%s\r\n", __func__);

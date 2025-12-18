@@ -129,9 +129,9 @@ int main(void)
 
   Init_ProtocolConvert();
 
-  USART_UART_Init(1, GetPortConfig_modbus(1));
-  USART_UART_Init(2, GetPortConfig_modbus(2));
-  USART_UART_Init(3, GetPortConfig_modbus(3));
+  USART_UART_Init(1, GetPortConfig_rs485(1));
+  USART_UART_Init(2, GetPortConfig_rs485(2));
+  USART_UART_Init(3, GetPortConfig_rs485(3));
 
   FDCAN_Init(1, GetPortConfig_CAN(1));
   FDCAN_Init(2, GetPortConfig_CAN(2));

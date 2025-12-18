@@ -39,7 +39,7 @@
 
 typedef enum
 {
-    PROTOCOL_MODBUS = 0,
+    PROTOCOL_MODBUSRTU = 0,
     PROTOCOL_CAN    = 1,
     PROTOCOL_HongHaiSheng_Fire_CAN = 2,
 }PROTOCOL_e;
@@ -71,6 +71,16 @@ typedef enum
     MODEL_TYPE_U32    = 2,
     MODEL_TYPE_S32    = 3,
 }MODEL_TYPE_e;
+
+typedef enum
+{
+    NODE_TYPE_realtime = 0,
+    NODE_TYPE_fault    = 1,
+    NODE_TYPE_config   = 2,
+    NODE_TYPE_instruct = 3,
+    NODE_TYPE_Info     = 4,
+}NODE_TYPE_e;
+
 
 typedef enum
 {
@@ -116,6 +126,7 @@ typedef struct
 {
     uint16_t model_id;//模型ID
     MODEL_TYPE_e model_type;//模型类型
+    NODE_TYPE_e node_type;//节点类型
     DATE_TYPE_e date_type;//数据类型
     uint8_t fun_code;//功能码
     uint16_t reg_addr;//寄存器地址
@@ -147,6 +158,7 @@ typedef struct
 {
     uint16_t model_id;//模型ID
     MODEL_TYPE_e model_type;//模型类型
+    NODE_TYPE_e node_type;//节点类型
     DATE_TYPE_e date_type;//数据类型
     uint32_t frame_ID;//帧ID
     uint8_t frame_byte;//帧字节数
@@ -169,8 +181,8 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-#define PortConfig_modbus_Num (3)
-#define PortConfig_modbus_Device_Num (3)
+#define PortConfig_rs485_Num (3)
+#define PortConfig_rs485_Device_Num (3)
 
 typedef struct
 {
@@ -181,7 +193,7 @@ typedef struct
     
     /*----------------*/
     uint16_t cyclecnt[modbus_area_num_max];//周期计数器
-}modbus_device_attr_t;
+}rs485_device_attr_t;
 
 typedef struct
 {
@@ -191,8 +203,8 @@ typedef struct
     uint8_t stop_bit;//停止位
     uint8_t parity;//校验位
     uint8_t device_num;//设备数量
-    modbus_device_attr_t device_attr[PortConfig_modbus_Device_Num];//设备属性
-}PortConfig_modbus_t;
+    rs485_device_attr_t device_attr[PortConfig_rs485_Device_Num];//设备属性
+}PortConfig_rs485_t;
 
 
 /*
@@ -277,26 +289,40 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-#define PortConfig_NTC_Num (2)
+#define PortConfig_TEMP_Num (2)
 
 typedef enum
 {
-    NTC_Temp_Distribution_cabinet = 0,
-    NTC_Temp_Max,
-}NTC_Temp_e;
+    TEMP_Temp_Distribution_cabinet = 0,
+    TEMP_Temp_Max,
+}TEMP_Temp_e;
 
 typedef enum
 {
-    NTC_Table_3435 = 0,
-    NTC_Table_Max,
-}NTC_Table_e;
+    TEMP_Table_3435 = 0,
+    TEMP_Table_Max,
+}TEMP_Table_e;
 
 typedef struct
 {
     uint8_t en;
-    NTC_Temp_e temp;
-    NTC_Table_e table;
-}PortConfig_NTC_t;
+    TEMP_Temp_e temp;
+    TEMP_Table_e table;
+}PortConfig_TEMP_t;
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+typedef struct
+{
+    uint8_t L1_action;
+    uint8_t L2_action;
+    uint8_t L3_action;
+    uint8_t L4_action;
+}SysFault_t;
+
+
 
 
 /*
@@ -306,11 +332,11 @@ typedef struct
 */
 extern ProtocolConvert_modbus_t* GetProtocolConvert_modbus(DEVICE_TYPE_e device_type);
 extern ProtocolConvert_CAN_t* GetProtocolConvert_CAN(DEVICE_TYPE_e device_type);
-extern PortConfig_modbus_t* GetPortConfig_modbus(uint8_t no);
+extern PortConfig_rs485_t* GetPortConfig_rs485(uint8_t no);
 extern PortConfig_CAN_t* GetPortConfig_CAN(uint8_t no);
 extern PortConfig_DI_t* GetPortConfig_DI(uint8_t no);
 extern PortConfig_DO_t* GetPortConfig_DO(uint8_t no);
-extern PortConfig_NTC_t* GetPortConfig_NTC(uint8_t no);
+extern PortConfig_TEMP_t* GetPortConfig_NTC(uint8_t no);
 
 extern void ConvertToNode_CAN(uint16_t* node, uint8_t* byte, CAN_node_attr_t* convert);
 extern void ConvertToNode_modbus(uint16_t* node, uint8_t* byte, modbus_node_attr_t* convert);
@@ -322,6 +348,7 @@ extern void cJSON_To_PortConfig(char *message);
 extern void cJSON_To_ProtocolConvert(char *message);
 
 extern void Init_ProtocolConvert(void);
+extern PortConfig_TEMP_t* GetPortConfig_TEMP(uint8_t no);
 /*
 ----------------------------------------------------------------------------------------------
 
