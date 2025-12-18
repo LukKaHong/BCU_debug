@@ -46,11 +46,11 @@ void modbusTcp_Read_Reg_To_Node(uint8_t* tx, uint8_t* rx, uint16_t start_addr, u
 
         if(ModbusTCP_ParseReadHoldingRsp(rx, rxlen, trans_id, bms_unit_id, quantity, &data, &data_len) == MBTCP_OK)
         {
-            uint16_t* node = GetNodePointer();
+            uint16_t* node = GetNodeValuePointer();
 
             for(;data_len > 2 && start_addr < Node_Num_Max;)
             {
-                *(GetNodePointer() + start_addr) = (uint16_t)((data[1] << 8) | data[0]);
+                *(GetNodeValuePointer() + start_addr) = (uint16_t)((data[1] << 8) | data[0]);
                 data += 2;
                 data_len -= 2;
             }

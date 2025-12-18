@@ -431,7 +431,7 @@
 typedef struct
 {
     uint16_t value[Node_Num_Max];
-    MODEL_TYPE_e type[Node_Num_Max];
+    NODE_TYPE_e type[Node_Num_Max];
 }Node_t;
 
 
@@ -447,7 +447,8 @@ typedef struct
 
 ----------------------------------------------------------------------------------------------
 */
-extern uint16_t* GetNodePointer(void);
+extern Node_t* GetNodePointer(void);
+extern uint16_t* GetNodeValuePointer(void);
 extern Write_Node_t* GetWriteNodePointer(void);
 extern bool GetNodeRange(DEVICE_TYPE_e device_type, uint8_t no,uint16_t* start, uint16_t* end);
 

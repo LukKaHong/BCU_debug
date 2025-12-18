@@ -48,8 +48,8 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
 
                     if(ModelIdToNodeIndex(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, convert->node_attr[node_num].model_id, &index) == true)
                     {
-                        ConvertToNode_CAN(GetNodePointer() + index, msg->data, &convert->node_attr[node_num]);
-                        // printf("CAN %d node[%d] = %d\n", port, index, GetNodePointer()[index]);
+                        ConvertToNode_CAN(GetNodeValuePointer() + index, msg->data, &convert->node_attr[node_num]);
+                        // printf("CAN %d node[%d] = %d\n", port, index, GetNodeValuePointer()[index]);
                     }
                     
                     // break;

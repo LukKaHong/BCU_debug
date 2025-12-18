@@ -81,7 +81,6 @@ typedef enum
     NODE_TYPE_Info     = 4,
 }NODE_TYPE_e;
 
-
 typedef enum
 {
     DATE_TYPE_BITS      = 0,
