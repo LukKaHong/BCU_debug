@@ -7,7 +7,7 @@
 ----------------------------------------------------------------------------------------------
 */
 #include "main.h"
-
+#include "ProtocolNode.h"
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -19,6 +19,28 @@
 
 ----------------------------------------------------------------------------------------------
 */
+typedef struct
+{
+    uint8_t En;
+    uint8_t Fault;
+    uint8_t Rxflag;
+    uint32_t Cnt;
+    uint32_t Timeout;
+}Comm_Fault_t;
+
+typedef struct
+{
+    Comm_Fault_t Air[Air_Num_Max];
+    Comm_Fault_t Fire[Fire_Num_Max];
+    Comm_Fault_t Meter[Meter_Num_Max];
+    Comm_Fault_t Pv[Pv_Num_Max];
+    Comm_Fault_t Doil[Doil_Num_Max];
+    Comm_Fault_t Coolwater[Coolwater_Num_Max];
+    Comm_Fault_t Dehum[Dehum_Num_Max];
+    Comm_Fault_t BMS[BMS_Num_Max];
+    Comm_Fault_t PCS[PCS_Num_Max];
+}Device_Comm_t;
+
 
 
 /*
