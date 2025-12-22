@@ -31,6 +31,8 @@
         "adc.h": "c",
         "ad.h": "c",
         "cmsis_os2.h": "c",
-        "hal_iic.h": "c"
+        "hal_iic.h": "c",
+        "hal_spi.h": "c",
+        "w25q128.h": "c"
     }
 }

@@ -1120,6 +1120,21 @@
               <FileType>1</FileType>
               <FilePath>..\User\Driver\PCF8523.c</FilePath>
             </File>
+            <File>
+              <FileName>W25Q128.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W25Q128.c</FilePath>
+            </File>
+            <File>
+              <FileName>CANSPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\CANSPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>MCP2515.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\MCP2515.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1129,6 +1144,11 @@
               <FileName>hal_iic.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Hardware\hal_iic.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Hardware\hal_spi.c</FilePath>
             </File>
           </Files>
         </Group>

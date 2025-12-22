@@ -47,7 +47,7 @@ void MX_SPI5_Init(void);
 void MX_SPI6_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+extern uint8_t SPI_ReadWriteByte(uint8_t ch,uint8_t txdata);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -66,7 +66,11 @@
 "bcu_debug\protocol_n9_pcs.o"
 "bcu_debug\ntctable.o"
 "bcu_debug\pcf8523.o"
+"bcu_debug\w25q128.o"
+"bcu_debug\canspi.o"
+"bcu_debug\mcp2515.o"
 "bcu_debug\hal_iic.o"
+"bcu_debug\hal_spi.o"
 --library_type=microlib --strict --scatter "BCU_debug\BCU_debug.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

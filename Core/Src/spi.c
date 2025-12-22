@@ -424,5 +424,27 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 }
 
 /* USER CODE BEGIN 1 */
+uint8_t SPI_ReadWriteByte(uint8_t ch,uint8_t txdata)
+{
+  uint8_t rxdata = 0;
 
+  if(4 == ch)
+  {
+    HAL_SPI_TransmitReceive(&hspi4,&txdata,&rxdata,1, 2000);       		
+  }	
+  else if(5 == ch)
+  {
+    HAL_SPI_TransmitReceive(&hspi5,&txdata,&rxdata,1, 2000);        		
+  }
+  else if(6 == ch)
+  {
+    HAL_SPI_TransmitReceive(&hspi6,&txdata,&rxdata,1, 2000);        		
+  }
+  else
+  {
+    rxdata = 0;
+  }
+
+  return rxdata;
+}
 /* USER CODE END 1 */
