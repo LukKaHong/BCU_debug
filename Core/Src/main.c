@@ -80,6 +80,84 @@ void Printf_Array(uint8_t *str, uint8_t *Array,uint16_t Len)
     printf("\n");
 }
 
+static uint32_t g_delay_cycles_per_us = 0;
+
+void delay_us_init(void)
+{
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  DWT->CYCCNT = 0;
+  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+  g_delay_cycles_per_us = HAL_RCC_GetHCLKFreq() / 1000000U;
+  if (g_delay_cycles_per_us == 0U)
+  {
+    g_delay_cycles_per_us = 1U;
+  }
+}
+
+void delay_us(uint32_t us)
+{
+  if (us == 0U)
+  {
+    return;
+  }
+  if ((DWT->CTRL & DWT_CTRL_CYCCNTENA_Msk) == 0U || g_delay_cycles_per_us == 0U)
+  {
+    delay_us_init();
+  }
+
+  uint64_t total_cycles_64 = (uint64_t)us * (uint64_t)g_delay_cycles_per_us;
+  while (total_cycles_64 != 0U)
+  {
+    uint32_t chunk = (total_cycles_64 > 0xFFFFFFFFULL) ? 0xFFFFFFFFU : (uint32_t)total_cycles_64;
+    uint32_t start = DWT->CYCCNT;
+    while ((uint32_t)(DWT->CYCCNT - start) < chunk)
+    {
+    }
+    total_cycles_64 -= (uint64_t)chunk;
+  }
+}
+
+uint16_t Get_GPIO_Pin_No(uint16_t GPIO_Pin)
+{
+  switch (GPIO_Pin)
+  {
+  case GPIO_PIN_0:
+    return 0;
+  case GPIO_PIN_1:
+    return 1;
+  case GPIO_PIN_2:
+    return 2;
+  case GPIO_PIN_3:
+    return 3;
+  case GPIO_PIN_4:
+    return 4;
+  case GPIO_PIN_5:
+    return 5;
+  case GPIO_PIN_6:
+    return 6;
+  case GPIO_PIN_7:
+    return 7;
+  case GPIO_PIN_8:
+    return 8;
+  case GPIO_PIN_9:
+    return 9;
+  case GPIO_PIN_10:
+    return 10;
+  case GPIO_PIN_11:
+    return 11;
+  case GPIO_PIN_12:
+    return 12;
+  case GPIO_PIN_13:
+    return 13;
+  case GPIO_PIN_14:
+    return 14;
+  case GPIO_PIN_15:
+    return 15;
+  default:
+    return 0;
+  }
+}
+
 
 
 /* USER CODE END 0 */
@@ -125,6 +203,7 @@ int main(void)
   MX_SPI4_Init();
   MX_SPI5_Init();
   /* USER CODE BEGIN 2 */
+  delay_us_init();
   printf("app main\r\n");
 
   Init_ProtocolConvert();

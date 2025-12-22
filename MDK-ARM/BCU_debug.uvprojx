@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App;../User/Protocol;../User/Middle;../User/Table</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App;../User/Protocol;../User/Middle;../User/Table;..\User\Driver;..\User\Hardware</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1114,6 +1114,23 @@
         </Group>
         <Group>
           <GroupName>User/Driver</GroupName>
+          <Files>
+            <File>
+              <FileName>PCF8523.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\PCF8523.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>User/Hardware</GroupName>
+          <Files>
+            <File>
+              <FileName>hal_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Hardware\hal_iic.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

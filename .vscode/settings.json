@@ -30,6 +30,7 @@
         "protocol_honghaisheng_fire.h": "c",
         "adc.h": "c",
         "ad.h": "c",
-        "cmsis_os2.h": "c"
+        "cmsis_os2.h": "c",
+        "hal_iic.h": "c"
     }
 }

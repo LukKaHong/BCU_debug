@@ -55,6 +55,8 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+void delay_us_init(void);
+void delay_us(uint32_t us);
 
 /* USER CODE END EFP */
 
@@ -178,6 +180,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 extern void Printf_Array(uint8_t *str, uint8_t *Array,uint16_t Len);
+extern uint16_t Get_GPIO_Pin_No(uint16_t GPIO_Pin);
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

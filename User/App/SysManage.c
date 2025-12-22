@@ -1,6 +1,6 @@
 #include "SysManage.h"
 #include "cmsis_os.h"
-
+#include "PCF8523.h"
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -155,7 +155,7 @@ void SysManage_Comm_Pro(void)
 void SysManage_Task(void)
 {
     SysManage_Comm_Init();
-    
+
     while(1)
     {
         uint32_t r_event = osEventFlagsWait(SysManage_EventHandle, SysManage_Event_Tick, osFlagsWaitAny, osWaitForever);
