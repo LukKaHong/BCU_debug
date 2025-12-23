@@ -4,6 +4,8 @@
 #include "ProtocolConvert.h"
 #include "ProtocolNode.h"
 #include "PROTOCOL_HongHaiSheng_Fire.h"
+#include "Protocol_n9_PCS.h"
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -16,7 +18,24 @@ void Printf_CAN_Msg(char* string, CanMsgType *msg)
         printf("0x%02x, ", msg->data[i]);
     printf("\n");
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
+void Add_CAN_SendMsg(uint8_t port, CanMsgType *msg)
+{
+    if(port == 1)
+    {
+        CAN_1_SendBuff.Msg[CAN_1_SendBuff.TxIndex] = *msg;
+        if(++CAN_1_SendBuff.TxIndex >= CAN_SendBuff_Max) CAN_1_SendBuff.TxIndex = 0;
+    }
+    else if(port == 2)
+    {
+        CAN_2_SendBuff.Msg[CAN_2_SendBuff.TxIndex] = *msg;
+        if(++CAN_2_SendBuff.TxIndex >= CAN_SendBuff_Max) CAN_2_SendBuff.TxIndex = 0;
+    }
+}
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -71,7 +90,7 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
 
 ----------------------------------------------------------------------------------------------
 */
-void Comm_CAN_Write_Pro(uint8_t port, CanMsgType *msg)
+void Comm_CAN_Write_Pro(uint8_t port)
 {
     PortConfig_CAN_t* CAN = GetPortConfig_CAN(port);
     if(CAN == NULL)
@@ -105,15 +124,14 @@ void Comm_CAN_Write_Pro(uint8_t port, CanMsgType *msg)
                 }
                 else if(CAN->device_attr[device_num].protocol == PROTOCOL_n9_PCS_CAN)
                 {
-
-                    // CAN_PCS_n9_Send(&CAN->device_attr[device_num], msg, model_id, )
+                    CanMsgType msg = {0};
+                    if(CAN_PCS_n9_Send(&CAN->device_attr[device_num], &msg, model_id, &write_node->value[index]) == true)
+                        Add_CAN_SendMsg(port, &msg);
                 }
             }
         }
     }
 }
-
-
 
 
 /*
@@ -133,16 +151,6 @@ void CommCAN_1_Send_Pro(void)
 
         if(++CAN_1_SendBuff.CurIndex >= CAN_SendBuff_Max) CAN_1_SendBuff.CurIndex = 0;
     }
-}
-/*
-----------------------------------------------------------------------------------------------
-
-----------------------------------------------------------------------------------------------
-*/
-void Add_CAN_1_SendMsg(CanMsgType *msg)
-{
-    CAN_1_SendBuff.Msg[CAN_1_SendBuff.TxIndex] = *msg;
-    if(++CAN_1_SendBuff.TxIndex >= CAN_SendBuff_Max) CAN_1_SendBuff.TxIndex = 0;
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -205,17 +213,7 @@ void CommCAN_2_Send_Pro(void)
         if(CAN_2_SendBuff.CurIndex >= CAN_SendBuff_Max) CAN_2_SendBuff.CurIndex = 0;
     }
 }
-/*
-----------------------------------------------------------------------------------------------
 
-----------------------------------------------------------------------------------------------
-*/
-void Add_CAN_2_SendMsg(CanMsgType *msg)
-{
-    CAN_2_SendBuff.Msg[CAN_2_SendBuff.TxIndex] = *msg;
-    CAN_2_SendBuff.TxIndex++;
-    if(CAN_2_SendBuff.TxIndex >= CAN_SendBuff_Max) CAN_2_SendBuff.TxIndex = 0;
-}
 /*
 ----------------------------------------------------------------------------------------------
 

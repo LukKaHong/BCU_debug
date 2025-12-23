@@ -33,6 +33,7 @@
         "cmsis_os2.h": "c",
         "hal_iic.h": "c",
         "hal_spi.h": "c",
-        "w25q128.h": "c"
+        "w25q128.h": "c",
+        "protocol_n9_pcs.h": "c"
     }
 }

@@ -79,15 +79,15 @@ typedef enum
 typedef struct
 {
     uint8_t SysFaultLv;
-
-    int16_t power;
-
-    PCS_Status_t PCS_Status;
     BMS_Status_t BMS_Status;
-    Grid_Status_t Grid_Status;
+    
+    int16_t setpower[PCS_Num_Max];
 
-    PCS_Status_t PCS_Setting;
-    Grid_Status_t Grid_Setting;
+    PCS_Status_t PCS_Status[PCS_Num_Max];
+    PCS_Status_t PCS_Setting[PCS_Num_Max];
+
+    Grid_Status_t Grid_Status[PCS_Num_Max];
+    Grid_Status_t Grid_Setting[PCS_Num_Max];
 }SysInfo_t;
 
 

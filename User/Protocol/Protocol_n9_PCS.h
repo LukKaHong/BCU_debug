@@ -18,7 +18,7 @@
 
 ----------------------------------------------------------------------------------------------
 */
-extern void CAN_PCS_n9_Send(CAN_device_attr_t* device_attr, CanMsgType *msg, uint16_t model_id, uint16_t* value);
+extern bool CAN_PCS_n9_Send(CAN_device_attr_t* device_attr, CanMsgType *msg, uint16_t model_id, uint16_t* value);
 extern void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg);
 /*
 ----------------------------------------------------------------------------------------------

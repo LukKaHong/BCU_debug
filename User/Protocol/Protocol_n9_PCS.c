@@ -382,22 +382,13 @@ void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
 
 ----------------------------------------------------------------------------------------------
 */
-void CAN_PCS_n9_Send(CAN_device_attr_t* device_attr, CanMsgType *msg, uint16_t model_id, uint16_t* value)
+bool CAN_PCS_n9_Send(CAN_device_attr_t* device_attr, CanMsgType *msg, uint16_t model_id, uint16_t* value)
 {
-    // uint8_t device_no = device_attr->device_no;
-
-    // if(device_no == 0 || device_no > PCS_Num_Max)
-    //     return;
-
-    // device_no -= 1;
-
-
-
     switch (model_id)
     {
     case NODE_PCS_CMD_POWER_SET:
         msg->id = 0x18f00000 + (device_attr->slave_addr * 256 + device_attr->master_addr);
-        msg->length = ;
+        msg->length = 8;
         msg->data[0] = 1;
         msg->data[1] = 0x57;
         msg->data[2] = 0x0d;
@@ -406,9 +397,69 @@ void CAN_PCS_n9_Send(CAN_device_attr_t* device_attr, CanMsgType *msg, uint16_t m
         msg->data[5] = 0;
         msg->data[6] = 0;
         msg->data[7] = 0;
-        break;
+        return true;
+    case NODE_PCS_CMD_POWER_ON:
+        if((*value) != 1)
+            return false;
+
+        msg->id = 0x18f00000 + (device_attr->slave_addr * 256 + device_attr->master_addr);
+        msg->length = 8;
+        msg->data[0] = 1;
+        msg->data[1] = 0x91;
+        msg->data[2] = 0x02;
+        msg->data[3] = 1 & 0xff;
+        msg->data[4] = 1 >> 8 & 0xff;
+        msg->data[5] = 0;
+        msg->data[6] = 0;
+        msg->data[7] = 0;
+        return true;
+    case NODE_PCS_CMD_POWER_OFF:
+        if((*value) != 1)
+            return false;
+
+        msg->id = 0x18f00000 + (device_attr->slave_addr * 256 + device_attr->master_addr);
+        msg->length = 8;
+        msg->data[0] = 1;
+        msg->data[1] = 0x91;
+        msg->data[2] = 0x02;
+        msg->data[3] = 0 & 0xff;
+        msg->data[4] = 0 >> 8 & 0xff;
+        msg->data[5] = 0;
+        msg->data[6] = 0;
+        msg->data[7] = 0;
+        return true;
+    case NODE_PCS_CMD_GRID_CONNECT:
+        if((*value) != 1)
+            return false;
+
+        msg->id = 0x18f00000 + (device_attr->slave_addr * 256 + device_attr->master_addr);
+        msg->length = 8;
+        msg->data[0] = 1;
+        msg->data[1] = 0x66;
+        msg->data[2] = 0x50;
+        msg->data[3] = 0 & 0xff;
+        msg->data[4] = 0 >> 8 & 0xff;
+        msg->data[5] = 0;
+        msg->data[6] = 0;
+        msg->data[7] = 0;
+        return true;
+    case NODE_PCS_CMD_GRID_DISCONNECT:
+        if((*value) != 1)
+            return false;
+
+        msg->id = 0x18f00000 + (device_attr->slave_addr * 256 + device_attr->master_addr);
+        msg->length = 8;
+        msg->data[0] = 1;
+        msg->data[1] = 0x66;
+        msg->data[2] = 0x50;
+        msg->data[3] = 1 & 0xff;
+        msg->data[4] = 1 >> 8 & 0xff;
+        msg->data[5] = 0;
+        msg->data[6] = 0;
+        msg->data[7] = 0;
+        return true;
     default:
-        break;
+        return false;
     }
 }
 

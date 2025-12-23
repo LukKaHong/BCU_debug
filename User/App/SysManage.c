@@ -160,39 +160,84 @@ void Cmd_BMS_PowerOn(void)
     
 }
 
-void Cmd_PCS_GridOff(void)
+void Cmd_PCS_GridOff(uint8_t device_no)
 {
-    
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return;
+
+    device_no--;
+    Write_Node_t* write_node = GetWriteNodePointer();
+
+    write_node->writeflag[NODE_PCS_CMD_GRID_DISCONNECT + device_no * Node_Num_PCS] = 1;
+    write_node->value[NODE_PCS_CMD_GRID_DISCONNECT + device_no * Node_Num_PCS] = 1;     
 }
 
-void Cmd_PCS_GridConnect(void)
+void Cmd_PCS_GridConnect(uint8_t device_no)
 {
-    
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return;
+
+    device_no--;
+    Write_Node_t* write_node = GetWriteNodePointer();
+
+    write_node->writeflag[NODE_PCS_CMD_GRID_CONNECT + device_no * Node_Num_PCS] = 1;
+    write_node->value[NODE_PCS_CMD_GRID_CONNECT + device_no * Node_Num_PCS] = 1;     
 }
 
-void Cmd_PCS_PowerOff(void)
+void Cmd_PCS_PowerOff(uint8_t device_no)
 {
-    
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return;
+
+    device_no--;
+    Write_Node_t* write_node = GetWriteNodePointer();
+
+    write_node->writeflag[NODE_PCS_CMD_POWER_OFF + device_no * Node_Num_PCS] = 1;
+    write_node->value[NODE_PCS_CMD_POWER_OFF + device_no * Node_Num_PCS] = 1; 
 }
 
-void Cmd_PCS_PowerOn(void)
+void Cmd_PCS_PowerOn(uint8_t device_no)
 {
-    
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return;
+
+    device_no--;
+    Write_Node_t* write_node = GetWriteNodePointer();
+
+    write_node->writeflag[NODE_PCS_CMD_POWER_ON + device_no * Node_Num_PCS] = 1;
+    write_node->value[NODE_PCS_CMD_POWER_ON + device_no * Node_Num_PCS] = 1;      
 }
 
-void Cmd_PCS_ResetFault(void)
+void Cmd_PCS_ResetFault(uint8_t device_no)
 {
-    
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return;
+
+    device_no--;
+    Write_Node_t* write_node = GetWriteNodePointer();
+
+    write_node->writeflag[NODE_PCS_CMD_FAULT_RESET + device_no * Node_Num_PCS] = 1;
+    write_node->value[NODE_PCS_CMD_FAULT_RESET + device_no * Node_Num_PCS] = 1;   
 }
 
-void Cmd_PCS_Power(int16_t power)
+void Cmd_PCS_SetPower(uint8_t device_no, int16_t power)
 {
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return;
 
+    device_no--;
+    Write_Node_t* write_node = GetWriteNodePointer();
+
+    write_node->writeflag[NODE_PCS_CMD_POWER_SET + device_no * Node_Num_PCS] = 1;
+    write_node->value[NODE_PCS_CMD_POWER_SET + device_no * Node_Num_PCS] = power;
 }
 
-uint8_t Is_Clear_Fault_By_Poweroff(void)
+uint8_t Is_Clear_Fault_By_Poweroff(uint8_t device_no)
 {
-    uint8_t device_no = 0;
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return 0;
+
+    device_no--;
 
     if(
         *(GetNodeValuePointer() + NODE_PCS_EPO_FAULT_FLAG + device_no * Node_Num_PCS) ||
@@ -217,9 +262,12 @@ uint8_t Is_Clear_Fault_By_Poweroff(void)
         return 0;
 }
 
-uint8_t Is_Clear_Fault_By_Reset(void)
+uint8_t Is_Clear_Fault_By_Reset(uint8_t device_no)
 {
-    uint8_t device_no = 0;
+    if(device_no == 0 || device_no >= PCS_Num_Max)
+        return 0;
+
+    device_no--;
 
     if(
         *(GetNodeValuePointer() + NODE_PCS_A_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
@@ -291,67 +339,70 @@ uint8_t Is_Clear_Fault_By_Reset(void)
         return 0;
 }
 
-void SysManage_PCS_Pro(void)
+void SysManage_PCS_Pro(uint8_t device_no)
 {
-    if(Sys_info.Grid_Setting == Grid_Setting_unkown)
+    if(device_no == 0 || device_no >= PCS_Num_Max)
         return;
 
-    if(Sys_info.Grid_Setting != Sys_info.Grid_Status)
-    {
-        Cmd_PCS_PowerOff();
-        Cmd_PCS_Power(0);
+    if(Sys_info.Grid_Setting[device_no] == Grid_Setting_unkown)
+        return;
 
-        if(Sys_info.Grid_Setting == Grid_Setting_Off)
-            Cmd_PCS_GridOff();
-        else if(Sys_info.Grid_Setting == Grid_Setting_connect)
-            Cmd_PCS_GridConnect();
+    if(Sys_info.Grid_Setting[device_no] != Sys_info.Grid_Status[device_no])
+    {
+        Cmd_PCS_PowerOff(device_no);
+        Cmd_PCS_SetPower(device_no, 0);
+
+        if(Sys_info.Grid_Setting[device_no] == Grid_Setting_Off)
+            Cmd_PCS_GridOff(device_no);
+        else if(Sys_info.Grid_Setting[device_no] == Grid_Setting_connect)
+            Cmd_PCS_GridConnect(device_no);
 
         return;
     }
 
-    if(Sys_info.PCS_Status == PCS_Status_standby)
+    if(Sys_info.PCS_Status[device_no] == PCS_Status_standby)
     {
-        if(Sys_info.PCS_Setting == PCS_Status_stop)
+        if(Sys_info.PCS_Setting[device_no] == PCS_Status_stop)
         {
-            Cmd_PCS_PowerOff();
+            Cmd_PCS_PowerOff(device_no);
         }
-        else if(Sys_info.PCS_Setting == PCS_Status_run)
+        else if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
         {
-            Cmd_PCS_Power(Sys_info.power);
+            Cmd_PCS_SetPower(device_no, Sys_info.setpower[device_no]);
         }
     }
-    else if(Sys_info.PCS_Status == PCS_Status_run)
+    else if(Sys_info.PCS_Status[device_no] == PCS_Status_run)
     {
-        if(Sys_info.PCS_Setting == PCS_Status_stop)
+        if(Sys_info.PCS_Setting[device_no] == PCS_Status_stop)
         {
-            Cmd_PCS_PowerOff();
-            Cmd_PCS_Power(0);
+            Cmd_PCS_PowerOff(device_no);
+            Cmd_PCS_SetPower(device_no, 0);
         }
-        else if(Sys_info.PCS_Setting == PCS_Status_run)
+        else if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
         {
-            Cmd_PCS_Power(Sys_info.power);
-        }
-    }
-    else if(Sys_info.PCS_Status == PCS_Status_stop)
-    {
-        if(Sys_info.PCS_Setting == PCS_Status_run)
-        {
-            Cmd_PCS_PowerOn();
+            Cmd_PCS_SetPower(device_no, Sys_info.setpower[device_no]);
         }
     }
-    else if(Sys_info.PCS_Status == PCS_Status_fault)
+    else if(Sys_info.PCS_Status[device_no] == PCS_Status_stop)
     {
-        if(Is_Clear_Fault_By_Poweroff())
+        if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
         {
-            Cmd_PCS_PowerOff();
-            Cmd_PCS_Power(0);
+            Cmd_PCS_PowerOn(device_no);
+        }
+    }
+    else if(Sys_info.PCS_Status[device_no] == PCS_Status_fault)
+    {
+        if(Is_Clear_Fault_By_Poweroff(device_no))
+        {
+            Cmd_PCS_PowerOff(device_no);
+            Cmd_PCS_SetPower(device_no, 0);
         }
 
-        if(Is_Clear_Fault_By_Reset())
+        if(Is_Clear_Fault_By_Reset(device_no))
         {
-            Cmd_PCS_PowerOff();
-            Cmd_PCS_Power(0);
-            Cmd_PCS_ResetFault();
+            Cmd_PCS_PowerOff(device_no);
+            Cmd_PCS_SetPower(device_no, 0);
+            Cmd_PCS_ResetFault(device_no);
         }
     }
 }
@@ -436,7 +487,7 @@ void SysManage_Task(void)
 
 
             SysManage_Pro();
-            SysManage_PCS_Pro();
+            SysManage_PCS_Pro(1);
 
             printf("%s\r\n", __func__);
         }
