@@ -1,7 +1,7 @@
 Dependencies for Project 'BCU_debug', Target 'BCU_debug': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32h743xx.s)(0x694A38F1)(--cpu Cortex-M7.fp.dp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ../Core/Inc-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 532" --pd "_RTE_ SETA 1" --pd "STM32H743xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h743xx.lst --xref -o bcu_debug\startup_stm32h743xx.o --depend bcu_debug\startup_stm32h743xx.d)
-F (../Core/Src/main.c)(0x6948B86B)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\main.o --depend bcu_debug\main.d)
+F (../Core/Src/main.c)(0x694A5EBE)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\main.o --depend bcu_debug\main.d)
 I (../Core/Inc/main.h)(0x6948B875)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67E3674A)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x6923FF6F)
@@ -68,6 +68,7 @@ I (../User/Protocol/ProtocolConvert.h)(0x694A3338)
 I (../Core/Inc/spi.h)(0x6948DDD9)
 I (../Core/Inc/usart.h)(0x6943925A)
 I (../Core/Inc/gpio.h)(0x69242079)
+I (../User/App/SysManage.h)(0x694A5D2C)
 F (../Core/Src/gpio.c)(0x692504B6)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\gpio.o --depend bcu_debug\gpio.d)
 I (../Core/Inc/gpio.h)(0x69242079)
 I (../Core/Inc/main.h)(0x6948B875)
@@ -181,7 +182,7 @@ I (../User/App/CommLAN_2.h)(0x692E5A84)
 I (../User/App/Comm485.h)(0x6938DA1C)
 I (../User/App/DI.h)(0x69369356)
 I (../User/App/AD.h)(0x693FA936)
-I (../User/App/SysManage.h)(0x694A4D0A)
+I (../User/App/SysManage.h)(0x694A5D2C)
 F (../Core/Src/adc.c)(0x69427C4F)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\adc.o --depend bcu_debug\adc.d)
 I (../Core/Inc/adc.h)(0x693FB17F)
 I (../Core/Inc/main.h)(0x6948B875)
@@ -2346,8 +2347,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
 I (../User/Protocol/ProtocolConvert.h)(0x694A3338)
 I (../Core/Inc/adc.h)(0x693FB17F)
 I (../User/Table/NTCTable.h)(0x69439583)
-F (..\User\App\SysManage.c)(0x694A508B)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\sysmanage.o --depend bcu_debug\sysmanage.d)
-I (..\User\App\SysManage.h)(0x694A4D0A)
+F (..\User\App\SysManage.c)(0x694A5F96)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\sysmanage.o --depend bcu_debug\sysmanage.d)
+I (..\User\App\SysManage.h)(0x694A5D2C)
 I (../Core/Inc/main.h)(0x6948B875)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x67E3674A)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x6923FF6F)
@@ -2406,8 +2407,6 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x67E36704)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x67E36705)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x67E36704)
-I (../User/Driver/PCF8523.h)(0x6948B790)
-I (../User/Driver/W25Q128.h)(0x6948DF09)
 F (..\User\Middle\cJSON.c)(0x692FF195)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ../User/App -I ../User/Protocol -I ../User/Middle -I ../User/Table -I ../User/Driver -I ../User/Hardware-I.\RTE\_BCU_debug-ID:\Software\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\Software\Keil\Arm\Packs\Keil\STM32H7xx_DFP\3.1.1\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="532" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o bcu_debug\cjson.o --depend bcu_debug\cjson.d)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\string.h)(0x5F63878A)
 I (D:\Software\Keil\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5F63877C)

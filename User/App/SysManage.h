@@ -78,6 +78,18 @@ typedef enum
 
 typedef struct
 {
+    uint8_t Air_Num;
+    uint8_t Fire_Num;
+    uint8_t Meter_Num;
+    uint8_t Pv_Num;
+    uint8_t Doil_Num;
+    uint8_t Coolwater_Num;
+    uint8_t Dehum_Num;
+    uint8_t BMS_Num;
+    uint8_t PCS_Num;
+    uint8_t BMU_Num;
+
+
     uint8_t SysFaultLv;
     BMS_Status_t BMS_Status;
     
@@ -97,7 +109,7 @@ typedef struct
 ----------------------------------------------------------------------------------------------
 */
 extern void SysManage_Task(void);
-
+extern void SysManage_CalcDeviceNum(void);
 /*
 ----------------------------------------------------------------------------------------------
 

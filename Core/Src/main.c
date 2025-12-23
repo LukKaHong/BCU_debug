@@ -30,6 +30,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ProtocolConvert.h"
+#include "SysManage.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -207,6 +208,7 @@ int main(void)
   printf("app main\r\n");
 
   Init_ProtocolConvert();
+  SysManage_CalcDeviceNum();
 
   USART_UART_Init(1, GetPortConfig_rs485(1));
   USART_UART_Init(2, GetPortConfig_rs485(2));

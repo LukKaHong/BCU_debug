@@ -2,9 +2,6 @@
 #include "cmsis_os.h"
 #include "ProtocolConvert.h"
 
-
-#include "PCF8523.h"
-#include "W25Q128.h"
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -339,70 +336,73 @@ uint8_t Is_Clear_Fault_By_Reset(uint8_t device_no)
         return 0;
 }
 
-void SysManage_PCS_Pro(uint8_t device_no)
+void SysManage_PCS_Pro(void)
 {
-    if(device_no == 0 || device_no >= PCS_Num_Max)
-        return;
-
-    if(Sys_info.Grid_Setting[device_no] == Grid_Setting_unkown)
-        return;
-
-    if(Sys_info.Grid_Setting[device_no] != Sys_info.Grid_Status[device_no])
+    for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
     {
-        Cmd_PCS_PowerOff(device_no);
-        Cmd_PCS_SetPower(device_no, 0);
+        if(device_no == 0 || device_no >= PCS_Num_Max)
+            continue;
 
-        if(Sys_info.Grid_Setting[device_no] == Grid_Setting_Off)
-            Cmd_PCS_GridOff(device_no);
-        else if(Sys_info.Grid_Setting[device_no] == Grid_Setting_connect)
-            Cmd_PCS_GridConnect(device_no);
+        if(Sys_info.Grid_Setting[device_no] == Grid_Setting_unkown)
+            continue;
 
-        return;
-    }
-
-    if(Sys_info.PCS_Status[device_no] == PCS_Status_standby)
-    {
-        if(Sys_info.PCS_Setting[device_no] == PCS_Status_stop)
-        {
-            Cmd_PCS_PowerOff(device_no);
-        }
-        else if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
-        {
-            Cmd_PCS_SetPower(device_no, Sys_info.setpower[device_no]);
-        }
-    }
-    else if(Sys_info.PCS_Status[device_no] == PCS_Status_run)
-    {
-        if(Sys_info.PCS_Setting[device_no] == PCS_Status_stop)
+        if(Sys_info.Grid_Setting[device_no] != Sys_info.Grid_Status[device_no])
         {
             Cmd_PCS_PowerOff(device_no);
             Cmd_PCS_SetPower(device_no, 0);
-        }
-        else if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
-        {
-            Cmd_PCS_SetPower(device_no, Sys_info.setpower[device_no]);
-        }
-    }
-    else if(Sys_info.PCS_Status[device_no] == PCS_Status_stop)
-    {
-        if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
-        {
-            Cmd_PCS_PowerOn(device_no);
-        }
-    }
-    else if(Sys_info.PCS_Status[device_no] == PCS_Status_fault)
-    {
-        if(Is_Clear_Fault_By_Poweroff(device_no))
-        {
-            Cmd_PCS_PowerOff(device_no);
-            Cmd_PCS_SetPower(device_no, 0);
+
+            if(Sys_info.Grid_Setting[device_no] == Grid_Setting_Off)
+                Cmd_PCS_GridOff(device_no);
+            else if(Sys_info.Grid_Setting[device_no] == Grid_Setting_connect)
+                Cmd_PCS_GridConnect(device_no);
+
+            continue;
         }
 
-        if(Is_Clear_Fault_By_Reset(device_no))
+        if(Sys_info.PCS_Status[device_no] == PCS_Status_standby)
         {
-            Cmd_PCS_PowerOff(device_no);
-            Cmd_PCS_SetPower(device_no, 0);
-            Cmd_PCS_ResetFault(device_no);
+            if(Sys_info.PCS_Setting[device_no] == PCS_Status_stop)
+            {
+                Cmd_PCS_PowerOff(device_no);
+            }
+            else if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
+            {
+                Cmd_PCS_SetPower(device_no, Sys_info.setpower[device_no]);
+            }
+        }
+        else if(Sys_info.PCS_Status[device_no] == PCS_Status_run)
+        {
+            if(Sys_info.PCS_Setting[device_no] == PCS_Status_stop)
+            {
+                Cmd_PCS_PowerOff(device_no);
+                Cmd_PCS_SetPower(device_no, 0);
+            }
+            else if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
+            {
+                Cmd_PCS_SetPower(device_no, Sys_info.setpower[device_no]);
+            }
+        }
+        else if(Sys_info.PCS_Status[device_no] == PCS_Status_stop)
+        {
+            if(Sys_info.PCS_Setting[device_no] == PCS_Status_run)
+            {
+                Cmd_PCS_PowerOn(device_no);
+            }
+        }
+        else if(Sys_info.PCS_Status[device_no] == PCS_Status_fault)
+        {
+            if(Is_Clear_Fault_By_Poweroff(device_no))
+            {
+                Cmd_PCS_PowerOff(device_no);
+                Cmd_PCS_SetPower(device_no, 0);
+            }
+
+            if(Is_Clear_Fault_By_Reset(device_no))
+            {
+                Cmd_PCS_PowerOff(device_no);
+                Cmd_PCS_SetPower(device_no, 0);
+                Cmd_PCS_ResetFault(device_no);
+            }
         }
     }
 }
@@ -466,6 +466,84 @@ void SysManage_Pro(void)
     }
 }
 
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+void SysManage_CalcDeviceNum(void)
+{
+    Sys_info.Air_Num = 0;
+    Sys_info.Fire_Num = 0;
+    Sys_info.Meter_Num = 0;
+    Sys_info.Pv_Num = 0;
+    Sys_info.Doil_Num = 0;
+    Sys_info.Coolwater_Num = 0;
+    Sys_info.Dehum_Num = 0;
+    Sys_info.BMS_Num = 0;
+    Sys_info.PCS_Num = 0;
+    Sys_info.BMU_Num = 0;
+
+    for(uint8_t i = 1; i <= PortConfig_rs485_Num; i++)
+    {
+        PortConfig_rs485_t* rs485 = GetPortConfig_rs485(i);
+        if(rs485 == NULL)
+            continue;;
+
+        if(rs485->en == 0)
+            continue;
+
+        for(uint8_t j = 0; j < rs485->device_num; j++)
+        {        
+            if(rs485->device_attr[j].device_type == DEVICE_TYPE_Air)
+                Sys_info.Air_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_Fire)
+                Sys_info.Fire_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_Meter)
+                Sys_info.Meter_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_Pv)
+                Sys_info.Pv_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_Doil)
+                Sys_info.Doil_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_Coolwater)
+                Sys_info.Coolwater_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_Dehum)
+                Sys_info.Dehum_Num++;
+            else if(rs485->device_attr[j].device_type == DEVICE_TYPE_PCS)
+                Sys_info.PCS_Num++;
+        }
+    }
+
+    for(uint8_t i = 1; i <= PortConfig_CAN_Num; i++)
+    {
+        PortConfig_CAN_t* can = GetPortConfig_CAN(i);
+        if(can == NULL)
+            return;
+
+        if(can->en == 0)
+            continue;
+
+        for(uint8_t j = 0; j < can->device_num; j++)
+        {        
+            if(can->device_attr[j].device_type == DEVICE_TYPE_Air)
+                Sys_info.Air_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_Fire)
+                Sys_info.Fire_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_Meter)
+                Sys_info.Meter_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_Pv)
+                Sys_info.Pv_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_Doil)
+                Sys_info.Doil_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_Coolwater)
+                Sys_info.Coolwater_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_Dehum)
+                Sys_info.Dehum_Num++;
+            else if(can->device_attr[j].device_type == DEVICE_TYPE_PCS)
+                Sys_info.PCS_Num++;
+        }
+    }
+}
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -485,9 +563,8 @@ void SysManage_Task(void)
             SysManage_Comm_Pro();
             SysManage_Fault_Pro();
 
-
             SysManage_Pro();
-            SysManage_PCS_Pro(1);
+            SysManage_PCS_Pro();
 
             printf("%s\r\n", __func__);
         }
