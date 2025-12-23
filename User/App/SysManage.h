@@ -14,6 +14,13 @@
 ----------------------------------------------------------------------------------------------
 */
 #define SysManage_Task_Cycle (100)
+
+
+#define SysFaultLv_0        0
+#define SysFaultLv_1        1
+#define SysFaultLv_2        2
+#define SysFaultLv_3        3
+#define SysFaultLv_4        4
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -41,6 +48,47 @@ typedef struct
     Comm_Fault_t PCS[PCS_Num_Max];
 }Device_Comm_t;
 
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+typedef enum
+{
+    PCS_Status_unkown  = 0,
+    PCS_Status_fault   = 1,
+    PCS_Status_standby = 2,
+    PCS_Status_run     = 3,
+    PCS_Status_stop    = 4,
+}PCS_Status_t;
+
+typedef enum
+{
+    BMS_Status_unkown    = 0,
+    BMS_Status_poweron   = 1,
+    BMS_Status_powerdown = 2,
+}BMS_Status_t;
+
+typedef enum
+{
+    Grid_Setting_unkown  = 0,
+    Grid_Setting_Off     = 1,
+    Grid_Setting_connect = 2,
+}Grid_Status_t;
+
+typedef struct
+{
+    uint8_t SysFaultLv;
+
+    int16_t power;
+
+    PCS_Status_t PCS_Status;
+    BMS_Status_t BMS_Status;
+    Grid_Status_t Grid_Status;
+
+    PCS_Status_t PCS_Setting;
+    Grid_Status_t Grid_Setting;
+}SysInfo_t;
 
 
 /*

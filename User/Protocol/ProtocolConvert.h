@@ -319,7 +319,7 @@ typedef struct
     uint8_t L2_action;
     uint8_t L3_action;
     uint8_t L4_action;
-}SysFault_t;
+}SysFaultConfig_t;
 
 
 
@@ -345,6 +345,7 @@ extern uint32_t CAN_ID_Deoffset_calc(uint32_t id, CAN_device_attr_t* device_attr
 
 extern void cJSON_To_PortConfig(char *message);
 extern void cJSON_To_ProtocolConvert(char *message);
+extern SysFaultConfig_t* GetSysFaultConfig(void);
 
 extern void Init_ProtocolConvert(void);
 extern PortConfig_TEMP_t* GetPortConfig_TEMP(uint8_t no);

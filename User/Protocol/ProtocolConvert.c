@@ -17,7 +17,7 @@ PortConfig_CAN_t PortConfig_CAN[PortConfig_CAN_Num];
 PortConfig_DI_t PortConfig_DI[PortConfig_DI_Num];
 PortConfig_DO_t PortConfig_DO[PortConfig_DO_Num];
 PortConfig_TEMP_t PortConfig_TEMP[PortConfig_TEMP_Num];
-SysFault_t SysFault;
+SysFaultConfig_t SysFault;
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -117,7 +117,7 @@ PortConfig_TEMP_t* GetPortConfig_TEMP(uint8_t no)
 
 ----------------------------------------------------------------------------------------------
 */
-SysFault_t* GetSysFault(void)
+SysFaultConfig_t* GetSysFaultConfig(void)
 {
     return &SysFault;
 }
@@ -778,7 +778,7 @@ void cJSON_To_SysFault(char *message)
         return;
     }
 
-    SysFault_t* fault = GetSysFault();
+    SysFaultConfig_t* fault = GetSysFaultConfig();
     if(fault == NULL)
         return;
 
@@ -926,7 +926,7 @@ static void Printf_ProtocolConvert_CAN(void)
 */
 static void Printf_SysFault(void)
 {
-    SysFault_t* fault = GetSysFault();
+    SysFaultConfig_t* fault = GetSysFaultConfig();
     if(fault == NULL)
         return;
 

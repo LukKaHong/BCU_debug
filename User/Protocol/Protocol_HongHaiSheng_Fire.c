@@ -10,7 +10,7 @@ void CAN_Fire_HongHaiSheng_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
 {
     uint8_t device_no = device_attr->device_no;
 
-    if(device_no == 0 || device_no >= Fire_Num_Max)
+    if(device_no == 0 || device_no > Fire_Num_Max)
         return;
 
     device_no -= 1; 
