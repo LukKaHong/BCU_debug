@@ -374,9 +374,6 @@ void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
         default:
             break;
     }
-
-
-
 }
 
 
@@ -385,7 +382,35 @@ void CAN_PCS_n9_Recv(CAN_device_attr_t* device_attr, CanMsgType *msg)
 
 ----------------------------------------------------------------------------------------------
 */
+void CAN_PCS_n9_Send(CAN_device_attr_t* device_attr, CanMsgType *msg, uint16_t model_id, uint16_t* value)
+{
+    // uint8_t device_no = device_attr->device_no;
 
+    // if(device_no == 0 || device_no > PCS_Num_Max)
+    //     return;
+
+    // device_no -= 1;
+
+
+
+    switch (model_id)
+    {
+    case NODE_PCS_CMD_POWER_SET:
+        msg->id = 0x18f00000 + (device_attr->slave_addr * 256 + device_attr->master_addr);
+        msg->length = ;
+        msg->data[0] = 1;
+        msg->data[1] = 0x57;
+        msg->data[2] = 0x0d;
+        msg->data[3] = (*value) & 0xff;
+        msg->data[4] = (*value) >> 8 & 0xff;
+        msg->data[5] = 0;
+        msg->data[6] = 0;
+        msg->data[7] = 0;
+        break;
+    default:
+        break;
+    }
+}
 
 /*
 ----------------------------------------------------------------------------------------------

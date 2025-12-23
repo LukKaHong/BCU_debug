@@ -42,6 +42,7 @@ typedef enum
     PROTOCOL_MODBUSRTU = 0,
     PROTOCOL_CAN    = 1,
     PROTOCOL_HongHaiSheng_Fire_CAN = 2,
+    PROTOCOL_n9_PCS_CAN = 3,
 }PROTOCOL_e;
 
 

@@ -60,8 +60,61 @@ void Comm_CAN_Read_Pro(uint8_t port, CanMsgType *msg)
         {
             CAN_Fire_HongHaiSheng_Recv(&CAN->device_attr[device_num], msg);
         }
+        else if(CAN->device_attr[device_num].protocol == PROTOCOL_n9_PCS_CAN)
+        {
+            CAN_PCS_n9_Recv(&CAN->device_attr[device_num], msg);
+        }
     }
 }
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+void Comm_CAN_Write_Pro(uint8_t port, CanMsgType *msg)
+{
+    PortConfig_CAN_t* CAN = GetPortConfig_CAN(port);
+    if(CAN == NULL)
+        return;
+    
+    if(CAN->en == 0)
+        return;
+
+    for(uint8_t device_num = 0; device_num < CAN->device_num; device_num++)//扫描所有设备
+    {
+        uint16_t start = 0, end = 0;
+        if(GetNodeRange(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, &start, &end) == false)
+            continue;
+
+        Write_Node_t* write_node = GetWriteNodePointer();
+
+        for(uint16_t index = start; index <= end; index++)//扫描所有点表
+        {
+            if(write_node->writeflag[index] == 1)//判断是否需要写入
+            {
+                write_node->writeflag[index] = 0;
+
+                uint16_t model_id = 0;
+                if(NodeIndexToModelId(CAN->device_attr[device_num].device_type, CAN->device_attr[device_num].device_no, index, &model_id) == false)
+                    continue;
+
+                if(CAN->device_attr[device_num].protocol == PROTOCOL_CAN)
+                {
+
+
+                }
+                else if(CAN->device_attr[device_num].protocol == PROTOCOL_n9_PCS_CAN)
+                {
+
+                    // CAN_PCS_n9_Send(&CAN->device_attr[device_num], msg, model_id, )
+                }
+            }
+        }
+    }
+}
+
+
+
 
 /*
 ----------------------------------------------------------------------------------------------

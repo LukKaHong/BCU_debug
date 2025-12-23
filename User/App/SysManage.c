@@ -190,6 +190,107 @@ void Cmd_PCS_Power(int16_t power)
 
 }
 
+uint8_t Is_Clear_Fault_By_Poweroff(void)
+{
+    uint8_t device_no = 0;
+
+    if(
+        *(GetNodeValuePointer() + NODE_PCS_EPO_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_IGBT_HW_OVER_CURR_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BUS_HW_OVER_VOLT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_POWER_MOD_WAVE_LIMIT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BAL_MOD_HW_OVER_CURR_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_24V_POWER_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_FAN_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_CONN_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_IND_OVER_TEMP_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BAL_MOD_OVER_TEMP_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_15V_POWER_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_SYS_FIRE_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BAT_DRY_CONTACT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_DRY_CONTACT_OVERLOAD_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_ENV_OVER_TEMP_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_DRY_CONTACT_OVER_TEMP_FAULT_FLAG + device_no * Node_Num_PCS)
+    )
+        return 1;
+    else
+        return 0;
+}
+
+uint8_t Is_Clear_Fault_By_Reset(void)
+{
+    uint8_t device_no = 0;
+
+    if(
+        *(GetNodeValuePointer() + NODE_PCS_A_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_B_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_C_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_A_UNDER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_B_UNDER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_C_UNDER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_OVER_FREQ + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_UNDER_FREQ + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_PHASE_SEQ_ERR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_A_SW_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_B_SW_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_C_SW_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_VOLT_UNBALANCE + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_CURR_UNBALANCE + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_PHASE_LOSS + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_N_LINE_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_BUS_OVER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_UNCTRL_RECT_BUS_OVER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_UNCTRL_RECT_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_RUN_BUS_OVER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_RUN_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_POS_NEG_BUS_UNBALANCE + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_CURR_MODE_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_DC_PRECHARGE_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_DC_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BAL_MOD_SW_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_TIMEOUT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_A_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_B_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_C_OVER_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_CTRL_BOARD_EEPROM_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_AD_SAMPLE_ZERO_DRIFT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BACKEND_PROTO_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INSULATION_CHECK_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BMS_BAT_SYS_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_STS_COMM_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_BMS_COMM_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_EMS_COMM_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_CAN_COMM_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_CLOSE_FAIL + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_OPEN_FAIL + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_CLOSE_ERR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_OPEN_ERR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_CLOSE_FAIL + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_OPEN_FAIL + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_CLOSE_ERR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_OPEN_ERR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_AC_MAIN_RELAY_ADHESION + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_DC_RELAY_OPEN_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INV_V_A_OVER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INV_V_B_OVER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INV_V_C_OVER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_GRID_ISLAND_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_SYS_RESONANCE_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_SW_OVER_VOLT_CURR + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_HVRT_TIMEOUT_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INV_V_A_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INV_V_B_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_INV_V_C_UNDER_VOLT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_OFF_GRID_NO_SYNC_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_OFF_GRID_SHORT_FAULT + device_no * Node_Num_PCS) ||
+        *(GetNodeValuePointer() + NODE_PCS_LVRT_TIMEOUT_FAULT + device_no * Node_Num_PCS)
+    )
+        return 1;
+    else
+        return 0;
+}
+
 void SysManage_PCS_Pro(void)
 {
     if(Sys_info.Grid_Setting == Grid_Setting_unkown)
@@ -207,7 +308,6 @@ void SysManage_PCS_Pro(void)
 
         return;
     }
-
 
     if(Sys_info.PCS_Status == PCS_Status_standby)
     {
@@ -241,107 +341,25 @@ void SysManage_PCS_Pro(void)
     }
     else if(Sys_info.PCS_Status == PCS_Status_fault)
     {
-
-        uint8_t device_no = 0;
-
-        if(
-            *(GetNodeValuePointer() + NODE_PCS_EPO_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_IGBT_HW_OVER_CURR_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BUS_HW_OVER_VOLT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_POWER_MOD_WAVE_LIMIT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BAL_MOD_HW_OVER_CURR_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_24V_POWER_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_FAN_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_CONN_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_IND_OVER_TEMP_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BAL_MOD_OVER_TEMP_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_15V_POWER_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_SYS_FIRE_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BAT_DRY_CONTACT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_DRY_CONTACT_OVERLOAD_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_ENV_OVER_TEMP_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_DRY_CONTACT_OVER_TEMP_FAULT_FLAG + device_no * Node_Num_PCS)
-        )
+        if(Is_Clear_Fault_By_Poweroff())
         {
             Cmd_PCS_PowerOff();
             Cmd_PCS_Power(0);
         }
 
-        if(
-            *(GetNodeValuePointer() + NODE_PCS_A_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_B_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_C_OVER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_A_UNDER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_B_UNDER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_C_UNDER_VOLT_FAULT_FLAG + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_OVER_FREQ + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_UNDER_FREQ + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_PHASE_SEQ_ERR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_A_SW_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_B_SW_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_C_SW_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_VOLT_UNBALANCE + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_CURR_UNBALANCE + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_PHASE_LOSS + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_N_LINE_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_BUS_OVER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_UNCTRL_RECT_BUS_OVER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_UNCTRL_RECT_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_RUN_BUS_OVER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_RUN_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_POS_NEG_BUS_UNBALANCE + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_CURR_MODE_BUS_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_DC_PRECHARGE_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_DC_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BAL_MOD_SW_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_TIMEOUT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_A_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_B_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_C_OVER_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_CTRL_BOARD_EEPROM_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_AD_SAMPLE_ZERO_DRIFT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BACKEND_PROTO_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INSULATION_CHECK_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BMS_BAT_SYS_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_STS_COMM_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_BMS_COMM_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_EMS_COMM_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_CAN_COMM_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_CLOSE_FAIL + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_OPEN_FAIL + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_CLOSE_ERR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_PRECHARGE_RELAY_OPEN_ERR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_CLOSE_FAIL + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_OPEN_FAIL + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_CLOSE_ERR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_MAIN_RELAY_OPEN_ERR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_AC_MAIN_RELAY_ADHESION + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_DC_RELAY_OPEN_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INV_V_A_OVER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INV_V_B_OVER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INV_V_C_OVER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_GRID_ISLAND_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_SYS_RESONANCE_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_SW_OVER_VOLT_CURR + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_HVRT_TIMEOUT_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INV_V_A_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INV_V_B_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_INV_V_C_UNDER_VOLT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_OFF_GRID_NO_SYNC_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_OFF_GRID_SHORT_FAULT + device_no * Node_Num_PCS) ||
-            *(GetNodeValuePointer() + NODE_PCS_LVRT_TIMEOUT_FAULT + device_no * Node_Num_PCS)
-        )
+        if(Is_Clear_Fault_By_Reset())
         {
             Cmd_PCS_PowerOff();
             Cmd_PCS_Power(0);
             Cmd_PCS_ResetFault();
         }
-
     }
-
 }
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
 void SysManage_Pro_L0(void)
 {
 

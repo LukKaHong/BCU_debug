@@ -27,6 +27,9 @@ static void Comm_485_Read_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
     PortConfig_rs485_t* rs485 = GetPortConfig_rs485(port);
     if(rs485 == NULL)
         return;
+    
+    if(rs485->en == 0)
+        return;
 
     for(uint8_t device_num = 0; device_num < rs485->device_num; device_num++)//扫描所有设备
     {
@@ -141,20 +144,20 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
 
     for(uint8_t device_num = 0; device_num < rs485->device_num; device_num++)//扫描所有设备
     {
-        if(rs485->device_attr[device_num].protocol == PROTOCOL_MODBUSRTU)
+        uint16_t start = 0, end = 0;
+        if(GetNodeRange(rs485->device_attr[device_num].device_type, rs485->device_attr[device_num].device_no, &start, &end) == false)
+            continue;
+
+        Write_Node_t* write_node = GetWriteNodePointer();
+
+        for(uint16_t index = start; index <= end; index++)//扫描所有点表
         {
-            uint16_t start = 0, end = 0;
-            if(GetNodeRange(rs485->device_attr[device_num].device_type, rs485->device_attr[device_num].device_no, &start, &end) == false)
-                continue;
-
-            Write_Node_t* write_node = GetWriteNodePointer();
-
-            for(uint16_t index = start; index <= end; index++)//扫描所有点表
+            if(write_node->writeflag[index] == 1)//判断是否需要写入
             {
-                if(write_node->writeflag[index] == 1)//判断是否需要写入
-                {
-                    write_node->writeflag[index] = 0;
+                write_node->writeflag[index] = 0;
 
+                if(rs485->device_attr[device_num].protocol == PROTOCOL_MODBUSRTU)
+                {
                     uint16_t model_id = 0;
                     if(NodeIndexToModelId(rs485->device_attr[device_num].device_type, rs485->device_attr[device_num].device_no, index, &model_id) == false)
                         continue;
@@ -175,12 +178,11 @@ static void Comm_485_Write_Pro(uint8_t port, uint8_t *tx_buff, uint8_t *rx_buff)
                         ModbusRTU_ParseWriteSingleRsp(rx_buff, rx_len, rs485->device_attr[device_num].device_addr, reg_addr, &value);
                     }
                 }
+                else
+                {
+                    
+                }
             }
-        }
-        else
-        {
-
-
         }
     }
 }

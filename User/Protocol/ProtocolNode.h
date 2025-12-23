@@ -423,6 +423,33 @@
 #define NODE_PCS_EMS_BMS_COMM_FAULT_TIME     16091// EMS(BMS)通讯故障时间阈值
 
 
+
+#define NODE_PCS_CMD_POWER_ON                16300// 开机
+#define NODE_PCS_CMD_POWER_OFF               16301// 关机
+#define NODE_PCS_CMD_GRID_CONNECT            16302// 并网
+#define NODE_PCS_CMD_GRID_DISCONNECT         16303// 离网
+#define NODE_PCS_CMD_SAVE_PARAM              16304// 保存参数
+#define NODE_PCS_CMD_PARAM_INIT              16305// 参数初始化
+#define NODE_PCS_CMD_POWER_SET               16306// 下发功率
+#define NODE_PCS_CMD_STANDBY                 16307// 待机
+#define NODE_PCS_CMD_FAULT_RESET             16308// 故障复位
+#define NODE_PCS_CMD_PARAM_SOLIDIFY          16309// 固化参数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 ----------------------------------------------------------------------------------------------
 
