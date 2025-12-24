@@ -23,6 +23,7 @@
 #include "bdma.h"
 #include "dma.h"
 #include "fdcan.h"
+#include "rng.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
@@ -207,6 +208,7 @@ int main(void)
   MX_ADC3_Init();
   MX_SPI4_Init();
   MX_SPI5_Init();
+  MX_RNG_Init();
   /* USER CODE BEGIN 2 */
   delay_us_init();
   printf("app main\r\n");
@@ -271,8 +273,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 2;
