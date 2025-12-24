@@ -58,18 +58,12 @@ void DMA1_Stream2_IRQHandler(void);
 void DMA1_Stream3_IRQHandler(void);
 void DMA1_Stream4_IRQHandler(void);
 void DMA1_Stream5_IRQHandler(void);
-void DMA1_Stream6_IRQHandler(void);
 void FDCAN1_IT0_IRQHandler(void);
 void FDCAN2_IT0_IRQHandler(void);
 void USART1_IRQHandler(void);
 void USART3_IRQHandler(void);
-void DMA1_Stream7_IRQHandler(void);
 void UART4_IRQHandler(void);
 void TIM6_DAC_IRQHandler(void);
-void SPI4_IRQHandler(void);
-void SPI6_IRQHandler(void);
-void BDMA_Channel0_IRQHandler(void);
-void BDMA_Channel1_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */

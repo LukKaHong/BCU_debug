@@ -4,7 +4,6 @@
 "bcu_debug\gpio.o"
 "bcu_debug\freertos.o"
 "bcu_debug\adc.o"
-"bcu_debug\bdma.o"
 "bcu_debug\dma.o"
 "bcu_debug\fdcan.o"
 "bcu_debug\rng.o"

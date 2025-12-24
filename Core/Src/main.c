@@ -20,7 +20,6 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "adc.h"
-#include "bdma.h"
 #include "dma.h"
 #include "fdcan.h"
 #include "rng.h"
@@ -196,7 +195,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_BDMA_Init();
   MX_DMA_Init();
   MX_UART4_Init();
   MX_SPI6_Init();
