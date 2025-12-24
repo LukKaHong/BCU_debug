@@ -336,12 +336,61 @@ uint8_t Is_Clear_Fault_By_Reset(uint8_t device_no)
         return 0;
 }
 
+void PCS_Allocating_power(int16_t power)
+{
+    // if(power > 0)//charge
+    // {
+    //     if(abs(power) > *(GetNodeValuePointer() + NODE_BMS_MAX_ALLOW_CHARGE_POWER))
+    //         power = *(GetNodeValuePointer() + NODE_BMS_MAX_ALLOW_CHARGE_POWER);
+
+    //     if(Sys_info.powerlimit0flag == 1)    
+    //         power = 0;
+
+
+    //     int16_t power_per_device = power / Sys_info.PCS_Num;
+    //     for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+    //         Sys_info.setpower[device_no] = power_per_device;
+    // }
+    // else if(power < 0)//discharge
+    // {
+    //     int16_t power_per_device = power / Sys_info.PCS_Num;
+    //     for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+    //         Sys_info.setpower[device_no] = power_per_device;
+    // }
+    // else
+    // {
+    //     for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+    //         Sys_info.setpower[device_no] = 0;
+    // }
+
+
+
+
+
+
+
+    // for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+    //     Sys_info.setpower[device_no]
+
+}
+
+
+
 void SysManage_PCS_Pro(void)
 {
     for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
     {
         if(device_no == 0 || device_no >= PCS_Num_Max)
             continue;
+
+        switch (*(GetNodeValuePointer() + NODE_PCS_WORK_STATUS + device_no * Node_Num_PCS))
+        {
+        case 0: Sys_info.PCS_Status[device_no] = PCS_Status_stop;break;
+        case 1:Sys_info.PCS_Status[device_no] = PCS_Status_standby;break;
+        case 2:Sys_info.PCS_Status[device_no] = PCS_Status_run;break;
+        case 3:Sys_info.PCS_Status[device_no] = PCS_Status_fault;break;
+        default:continue;break;
+        }
 
         if(Sys_info.Grid_Setting[device_no] == Grid_Setting_unkown)
             continue;
@@ -413,27 +462,42 @@ void SysManage_PCS_Pro(void)
 */
 void SysManage_Pro_L0(void)
 {
+    for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+        Sys_info.PCS_Setting[device_no] = PCS_Status_run;
 
+    Sys_info.powerlimit0flag = 0;
 }
 
 void SysManage_Pro_L1_act1(void)
 {
+    for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+        Sys_info.PCS_Setting[device_no] = PCS_Status_run;
 
+    Sys_info.powerlimit0flag = 0;
 }
 
 void SysManage_Pro_L2_act1(void)
 {
+    for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+        Sys_info.PCS_Setting[device_no] = PCS_Status_run;
 
+    Sys_info.powerlimit0flag = 1;
 }
 
 void SysManage_Pro_L3_act1(void)
 {
+    for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+        Sys_info.PCS_Setting[device_no] = PCS_Status_stop;
 
+    Sys_info.powerlimit0flag = 0;
 }
 
 void SysManage_Pro_L4_act1(void)
 {
+    for(uint8_t device_no = 0; device_no < Sys_info.PCS_Num; device_no++)
+        Sys_info.PCS_Setting[device_no] = PCS_Status_stop;
 
+    Sys_info.powerlimit0flag = 0;
 }
 
 void SysManage_Pro(void)

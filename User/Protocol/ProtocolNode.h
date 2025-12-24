@@ -86,10 +86,72 @@
 
 ----------------------------------------------------------------------------------------------
 */
+/* BMS 状态与数据定义 */
+#define NODE_BMS_BAT_TOTAL_VOLT                 10600 // 电池总压
+#define NODE_BMS_OUT_TOTAL_VOLT                 10601 // 外总压
+#define NODE_BMS_DC_CURRENT                     10602 // 直流电流
+#define NODE_BMS_FORCE_CHARGE_STATUS            10603 // 强充状态
+#define NODE_BMS_SOC                            10604 // SOC
+#define NODE_BMS_SOH                            10605 // SOH
+#define NODE_BMS_MAX_CELL_VOLT                  10606 // 最大单体电压
+#define NODE_BMS_MAX_CELL_VOLT_BMU_ID           10607 // 最大单体电压BMU号
+#define NODE_BMS_MAX_CELL_VOLT_POS_ID           10608 // 最大单体电压BMU内位号
+#define NODE_BMS_MIN_CELL_VOLT                  10609 // 最小单体电压
+#define NODE_BMS_MIN_CELL_VOLT_BMU_ID           10610 // 最小单体电压BMU号
+#define NODE_BMS_MIN_CELL_VOLT_POS_ID           10611 // 最小单体电压BMU内位号
+#define NODE_BMS_MAX_CELL_TEMP                  10612 // 最大单体温度
+#define NODE_BMS_MAX_CELL_TEMP_BMU_ID           10613 // 最大单体温度BMU号
+#define NODE_BMS_MAX_CELL_TEMP_POS_ID           10614 // 最大单体温度BMU内位号
+#define NODE_BMS_MIN_CELL_TEMP                  10615 // 最小单体温度
+#define NODE_BMS_MIN_CELL_TEMP_BMU_ID           10616 // 最小单体温度BMU号
+#define NODE_BMS_MIN_CELL_TEMP_POS_ID           10617 // 最小单体温度BMU内位号
+#define NODE_BMS_AVG_CELL_VOLT                  10618 // 平均单体电压
+#define NODE_BMS_CELL_VOLT_DIFF                 10619 // 单体电压极差
+#define NODE_BMS_AVG_CELL_TEMP                  10620 // 平均单体温度
+#define NODE_BMS_CELL_TEMP_DIFF                 10621 // 单体温度极差
+#define NODE_BMS_MAX_PACK_VOLT                  10622 // 最大PACK电压
+#define NODE_BMS_MAX_PACK_VOLT_BMU_ID           10623 // 最大PACK电压BMU号
+#define NODE_BMS_MIN_PACK_VOLT                  10624 // 最小PACK电压
+#define NODE_BMS_MIN_PACK_VOLT_BMU_ID           10625 // 最小PACK电压BMU号
+#define NODE_BMS_THERMAL_TEMP_DIFF              10626 // 热控温度极差
+#define NODE_BMS_AVG_PACK_VOLT                  10627 // 平均PACK电压
+#define NODE_BMS_PACK_VOLT_DIFF                 10628 // PACK电压极差
+#define NODE_BMS_INSULATION_R_POS               10629 // 绝缘阻值(R+)
+#define NODE_BMS_INSULATION_R_NEG               10630 // 绝缘阻值(R-)
+#define NODE_BMS_MAX_POLE_TEMP                  10631 // 最大极柱温度
+#define NODE_BMS_MAX_POLE_TEMP_BMU_ID           10632 // 最大极柱温度BMU号
+#define NODE_BMS_MAX_POLE_TEMP_POS              10633 // 最大极柱温度BMU内正负极
+#define NODE_BMS_MIN_POLE_TEMP                  10634 // 最小极柱温度
+#define NODE_BMS_MIN_POLE_TEMP_BMU_ID           10635 // 最小极柱温度BMU号
+#define NODE_BMS_MIN_POLE_TEMP_POS              10636 // 最小极柱温度BMU内正负极
+#define NODE_BMS_MAIN_POS_CONTACTOR_STATUS      10637 // 主正接触器状态
+#define NODE_BMS_MAIN_NEG_CONTACTOR_STATUS      10638 // 主负接触器状态
+#define NODE_BMS_PRECHARGE_CONTACTOR_STATUS     10639 // 预充接触器状态
+#define NODE_BMS_DC_BREAKER_STATUS              10640 // 直流断路器状态
+#define NODE_BMS_ACCUMULATED_VOLT               10641 // 累加电压
+#define NODE_BMS_MAIN_POS_VOLT                  10642 // 主正电压
+#define NODE_BMS_MAIN_NEG_VOLT                  10643 // 主负电压
+#define NODE_BMS_AC_BREAKER_STATUS              10644 // 交流断路器状态
+#define NODE_BMS_AC_MICRO_BREAK_STATUS          10645 // 交流微断状态
+#define NODE_BMS_AUX_POWER_VOLT                 10646 // 辅助电源电压
+#define NODE_BMS_SYSTEM_FAULT_LEVEL             10647 // 当前系统故障等级
+#define NODE_BMS_DC_POWER                       10648 // 直流功率
+#define NODE_BMS_AC_POWER                       10649 // 交流功率
+#define NODE_BMS_CYCLE_COUNT                    10650 // 实际循环次数
+#define NODE_BMS_DAILY_CHARGE_ENERGY_H          10651 // 电池当日充电量 H
+#define NODE_BMS_DAILY_CHARGE_ENERGY_L          10652 // 电池当日充电量 L
+#define NODE_BMS_DAILY_DISCHARGE_ENERGY_H       10653 // 电池当日放电量 H
+#define NODE_BMS_DAILY_DISCHARGE_ENERGY_L       10654 // 电池当日放电量 L
+#define NODE_BMS_MAX_ALLOW_CHARGE_POWER         10655 // 当前最大允许充电功率
+#define NODE_BMS_MAX_ALLOW_DISCHARGE_POWER      10656 // 当前最大允许放电功率
 
 
 
+/*
+----------------------------------------------------------------------------------------------
 
+----------------------------------------------------------------------------------------------
+*/
 
 /* PCS 输出与状态定义 */
 #define NODE_PCS_V_AB                  14600 // 输出AB线电压

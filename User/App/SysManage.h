@@ -55,11 +55,10 @@ typedef struct
 */
 typedef enum
 {
-    PCS_Status_unkown  = 0,
-    PCS_Status_fault   = 1,
-    PCS_Status_standby = 2,
-    PCS_Status_run     = 3,
-    PCS_Status_stop    = 4,
+    PCS_Status_stop    = 0,
+    PCS_Status_standby = 1,
+    PCS_Status_run     = 2,
+    PCS_Status_fault   = 3,
 }PCS_Status_t;
 
 typedef enum
@@ -88,6 +87,8 @@ typedef struct
     uint8_t BMS_Num;
     uint8_t PCS_Num;
     uint8_t BMU_Num;
+
+    uint8_t powerlimit0flag;
 
 
     uint8_t SysFaultLv;
