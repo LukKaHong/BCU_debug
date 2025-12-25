@@ -44,7 +44,7 @@ static void app_eth1_handle(uint8_t* inData,uint16_t inLen,uint8_t* outData,uint
 
 ----------------------------------------------------------------------------------------------
 */
-void LAN_ZVPP_ECSUpper_Init(void)
+void LAN_1_Init(void)
 {
 	ECSSock = -1;
 	UpperSock = -1;
@@ -244,7 +244,7 @@ void LAN_W5500_Pro(void)
 	}
 	else if(3 == LANinfo.connect)  //重置网口、DHCP服务
 	{
-		LAN_ZVPP_ECSUpper_Init();
+		LAN_1_Init();
 		LANinfo.connect = 0;
 	}
 }
@@ -274,6 +274,8 @@ void Receiv_LAN_EMS(uint8_t* rx, uint16_t rxlen, uint8_t* tx, uint16_t* txlen)
 */
 void CommLAN_1_Task(void)
 {
+	LAN_1_Init();
+
     while(1)
     {
         uint32_t r_event = osEventFlagsWait(CommLAN_1_EventHandle, CommLAN_1_Event_Tick, osFlagsWaitAny, osWaitForever);
@@ -281,10 +283,9 @@ void CommLAN_1_Task(void)
         if(r_event & CommLAN_1_Event_Tick)
         {
             //printf("%s\r\n", __func__);
+
+			LAN_W5500_Pro();
         }
-				
-		LAN_W5500_Pro();
-        // SPI_ReadWriteByte(6, 0xaa);
     }
 }
 

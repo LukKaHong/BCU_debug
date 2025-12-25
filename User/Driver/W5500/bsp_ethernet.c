@@ -93,7 +93,7 @@ _ethConfig ethConfig[Eth_Num] = {
 										.netInfo.sn   = {255,255,255,0},
 										.netInfo.gw   = {172,19,130,1},
 										.netInfo.dns  = {0,0,0,0},
-										.netInfo.dhcp =  NETINFO_DHCP,
+										.netInfo.dhcp =  NETINFO_STATIC,
 										
 										.memSize[0] = {4,4,4,4,0,0,0,0},
 										.memSize[1] = {4,4,4,4,0,0,0,0},
@@ -278,8 +278,8 @@ void ETH1_netSet(void)
 	uint8_t chipNum = 0;
 
 	/* Network initialization */
-	// ctlnetwork(chipNum, CN_SET_NETINFO, (void*)&(ethConfig[0].netInfo));
-	network_init(chipNum, ethernet_buf, (void*)&(ethConfig[0].netInfo));
+	ctlnetwork(chipNum, CN_SET_NETINFO, (void*)&(ethConfig[0].netInfo));
+	// network_init(chipNum, ethernet_buf, (void*)&(ethConfig[0].netInfo));
 	ctlnetwork(chipNum, CN_GET_NETINFO, (void*)&(ethConfig[0].netInfo));
 
 	/*����w5500�ĳ�ʱʱ�䣬Ĭ��ֵΪ��ʱ200ms������8�Σ�û����Ҫ���Բ�����*/

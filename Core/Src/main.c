@@ -212,7 +212,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   delay_us_init();
   printf("app main\r\n");
-  LAN_ZVPP_ECSUpper_Init();
+  
   Init_ProtocolConvert();
   SysManage_CalcDeviceNum();
 
