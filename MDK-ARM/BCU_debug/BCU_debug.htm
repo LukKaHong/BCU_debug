@@ -3,7 +3,7 @@
 <title>Static Call Graph - [BCU_debug\BCU_debug.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image BCU_debug\BCU_debug.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Dec 25 11:06:58 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Dec 25 13:59:10 2025
 <BR><P>
 <H3>Maximum Stack Usage =        464 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2871,7 +2871,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[21a]"></a>SysManage_Comm_Init</STRONG> (Thumb, 190 bytes, Stack size 0 bytes, sysmanage.o(i.SysManage_Comm_Init))
+<P><STRONG><a name="[21a]"></a>SysManage_Comm_Init</STRONG> (Thumb, 410 bytes, Stack size 0 bytes, sysmanage.o(i.SysManage_Comm_Init))
 <BR><BR>[Called By]<UL><LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysManage_Task
 </UL>
 
@@ -3140,8 +3140,6 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = WIZCHIP_WRITE
 </UL>
 <BR>[Called By]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EtnHandle
-<LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH2_netSet
-<LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH1_netSet
 <LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wizphy_setphypmode
 <LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wizphy_setphyconf
 <LI><a href="#[255]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wizphy_reset
@@ -3163,6 +3161,8 @@ Global Symbols
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctlwizchip
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;connect
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;close
+<LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH2_netSet
+<LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH1_netSet
 <LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;default_ip_update
 <LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;default_ip_conflict
 <LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;check_DHCP_leasedIP
@@ -3517,9 +3517,9 @@ Global Symbols
 <P><STRONG><a name="[1e9]"></a>createTcpClientSocket</STRONG> (Thumb, 212 bytes, Stack size 40 bytes, bsp_ethernet.o(i.createTcpClientSocket))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = createTcpClientSocket &rArr; rng_init &rArr; HAL_RNG_Init &rArr; HAL_RNG_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rng_init
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;socket
+<BR>[Calls]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;socket
 <LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;w5500_rng_get_random_num
+<LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rng_init
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LAN_ZVPP_ECSUpper_Init
@@ -5552,10 +5552,10 @@ Local Symbols
 <P><STRONG><a name="[9]"></a>ETH1_Init</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, bsp_ethernet.o(i.ETH1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = ETH1_Init &rArr; ETH1_netSet &rArr; network_init &rArr; wiz_dhcp_process &rArr; DHCP_run &rArr; parseDHCPMSG &rArr; recvfrom &rArr; wiz_recv_data &rArr; WIZCHIP_READ_BUF
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH1_netSet
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reg_wizchip_spi_cbfunc
+<BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reg_wizchip_spi_cbfunc
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reg_wizchip_cs_cbfunc
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctlwizchip
+<LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH1_netSet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp_ethernet.o(.data)
 </UL>
@@ -5609,10 +5609,10 @@ Local Symbols
 <P><STRONG><a name="[10]"></a>ETH2_Init</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, bsp_ethernet.o(i.ETH2_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = ETH2_Init &rArr; ctlwizchip &rArr; wizchip_init &rArr; wizchip_sw_reset &rArr; WIZCHIP_WRITE_BUF
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH2_netSet
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reg_wizchip_spi_cbfunc
+<BR>[Calls]<UL><LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reg_wizchip_spi_cbfunc
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reg_wizchip_cs_cbfunc
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctlwizchip
+<LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH2_netSet
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> bsp_ethernet.o(.data)
 </UL>
