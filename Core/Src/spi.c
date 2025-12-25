@@ -130,7 +130,7 @@ void MX_SPI6_Init(void)
   hspi6.Init.CLKPolarity = SPI_POLARITY_HIGH;
   hspi6.Init.CLKPhase = SPI_PHASE_2EDGE;
   hspi6.Init.NSS = SPI_NSS_SOFT;
-  hspi6.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi6.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi6.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi6.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi6.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -305,15 +305,24 @@ uint8_t SPI_ReadWriteByte(uint8_t ch,uint8_t txdata)
 
   if(4 == ch)
   {
-    HAL_SPI_TransmitReceive(&hspi4,&txdata,&rxdata,1, 2000);       		
+    if(HAL_SPI_TransmitReceive(&hspi4,&txdata,&rxdata,1, 2000)!=HAL_OK)    		
+    {
+      rxdata = 0xFF;
+    }
   }	
   else if(5 == ch)
   {
-    HAL_SPI_TransmitReceive(&hspi5,&txdata,&rxdata,1, 2000);        		
+    if(HAL_SPI_TransmitReceive(&hspi5,&txdata,&rxdata,1, 2000)!=HAL_OK)    		
+    {
+      rxdata = 0xFF;
+    } 		
   }
   else if(6 == ch)
   {
-    HAL_SPI_TransmitReceive(&hspi6,&txdata,&rxdata,1, 2000);        		
+    if(HAL_SPI_TransmitReceive(&hspi6,&txdata,&rxdata,1, 2000)!=HAL_OK)    		
+    {
+      rxdata = 0xFF;
+    }      		
   }
   else
   {

@@ -74,6 +74,13 @@
 "bcu_debug\mcp2515.o"
 "bcu_debug\hal_iic.o"
 "bcu_debug\hal_spi.o"
+"bcu_debug\bsp_ethernet.o"
+"bcu_debug\bsp_socket.o"
+"bcu_debug\bsp_spi_bus.o"
+"bcu_debug\bsp_w5500.o"
+"bcu_debug\bsp_wizchip_conf.o"
+"bcu_debug\dhcp.o"
+"bcu_debug\wiz_interface.o"
 --library_type=microlib --strict --scatter "BCU_debug\BCU_debug.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

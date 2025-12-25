@@ -31,6 +31,8 @@
 /* USER CODE BEGIN Includes */
 #include "ProtocolConvert.h"
 #include "SysManage.h"
+#include "LAN_ZVPP_ECSUpper_IF.h"
+#include "dhcp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -63,6 +65,12 @@ void MX_FREERTOS_Init(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
+
+static uint32_t fac_us=0;							//us?車那㊣㊣?3?那y
+
+#if SYSTEM_SUPPORT_OS		
+    static uint16_t fac_ms=0;				        //ms?車那㊣㊣?3?那y,?迆os??,∩迆㊣赤?????迆??米?ms那y
+#endif
 /* USER CODE BEGIN 0 */
 int fputc(int ch, FILE *f)
 {
@@ -117,6 +125,29 @@ void delay_us(uint32_t us)
     }
     total_cycles_64 -= (uint64_t)chunk;
   }
+}
+
+void delay_ms(uint32_t nms)
+{	
+	if(xTaskGetSchedulerState()!=taskSCHEDULER_NOT_STARTED)//?米赤3辰??-??DD
+	{		
+		//printf("%s: %d\r\n", __FILE__,__LINE__);
+		if(nms>=fac_ms)						//?車那㊣米?那㊣??∩車車迆OS米?℅?谷迄那㊣???邦?迆 
+		{ 
+				//printf("%s: %d\r\n", __FILE__,__LINE__);
+   			vTaskDelay(nms/fac_ms);	 		//FreeRTOS?車那㊣
+		}
+		nms%=fac_ms;						//OS辰??-?T﹞“足芍1??a?∩D?米??車那㊣芍?,2谷車???赤“﹞?那??車那㊣    
+	}
+	delay_us((uint32_t)(nms*1000));				//??赤“﹞?那??車那㊣
+}
+
+//?車那㊣nms,2??芍辰y?e豕???米¯?豕
+//nms:辰a?車那㊣米?ms那y
+void delay_xms(uint32_t nms)
+{
+	uint32_t i;
+	for(i=0;i<nms;i++) delay_us(1000);
 }
 
 uint16_t Get_GPIO_Pin_No(uint16_t GPIO_Pin)
@@ -197,7 +228,7 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_UART4_Init();
-  MX_SPI6_Init();
+//  MX_SPI6_Init();
   MX_FDCAN1_Init();
   MX_FDCAN2_Init();
   MX_USART1_UART_Init();
@@ -210,7 +241,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   delay_us_init();
   printf("app main\r\n");
-
+  LAN_ZVPP_ECSUpper_Init();
   Init_ProtocolConvert();
   SysManage_CalcDeviceNum();
 
@@ -351,7 +382,7 @@ void PeriphCommonClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
-
+  static uint32_t wiz_timer_1ms_count = 0;
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM6) {
     HAL_IncTick();
@@ -360,6 +391,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim->Instance == TIM6) 
   {
     Task_Cycle_Count();
+		
+		wiz_timer_1ms_count++;
+		if (wiz_timer_1ms_count >= 1000)
+		{
+				DHCP_time_handler();
+				wiz_timer_1ms_count = 0;
+		}
   }
 
   /* USER CODE END Callback 1 */
