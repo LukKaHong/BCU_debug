@@ -1,7 +1,7 @@
 #include "SysManage.h"
 #include "cmsis_os.h"
 #include "ProtocolConvert.h"
-
+#include "Led_Ctrl.h"
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -9,6 +9,25 @@
 */
 Device_Comm_t Device_Comm;
 SysInfo_t Sys_info;
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+Device_Comm_t* GetDeviceCommPointer(void)
+{
+    return &Device_Comm;
+}
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+SysInfo_t* GetSysInfoPointer(void)
+{
+    return &Sys_info;
+}
+
 /*
 ----------------------------------------------------------------------------------------------
 
@@ -60,40 +79,62 @@ void Comm_Fault_Pro(Comm_Fault_t* comm_fault)
 */
 void SysManage_Comm_Init(void)
 {
-    Device_Comm.Air[0].En      = 1;
-    Device_Comm.Air[0].Timeout = 10000;
+    Device_Comm.ECU.En      = 1;
+    Device_Comm.ECU.Timeout = 10000;
 
-    Device_Comm.Fire[0].En      = 1;
-    Device_Comm.Fire[0].Timeout = 10000;
-    Device_Comm.Fire[1].En      = 1;
-    Device_Comm.Fire[1].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.Air_Num; i++)
+    {
+        Device_Comm.Air[i].En      = 1;
+        Device_Comm.Air[i].Timeout = 10000;
+    }
 
-    Device_Comm.Meter[0].En      = 1;
-    Device_Comm.Meter[0].Timeout = 10000;
-    Device_Comm.Meter[1].En      = 1;
-    Device_Comm.Meter[1].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.Air_Num; i++)
+    {
+        Device_Comm.Fire[i].En      = 1;
+        Device_Comm.Fire[i].Timeout = 10000;
+    }
+    
+    for(uint8_t i = 0; i < Sys_info.Meter_Num; i++)
+    {
+        Device_Comm.Meter[i].En      = 1;
+        Device_Comm.Meter[i].Timeout = 10000;
+    }
 
-    Device_Comm.Pv[0].En      = 1;
-    Device_Comm.Pv[0].Timeout = 10000;
-    Device_Comm.Pv[1].En      = 1;
-    Device_Comm.Pv[1].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.Pv_Num; i++)
+    {
+        Device_Comm.Pv[i].En      = 1;
+        Device_Comm.Pv[i].Timeout = 10000;
+    }
 
-    Device_Comm.Doil[0].En      = 1;
-    Device_Comm.Doil[0].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.Doil_Num; i++)
+    {
+        Device_Comm.Doil[i].En      = 1;
+        Device_Comm.Doil[i].Timeout = 10000;
+    }
 
-    Device_Comm.Coolwater[0].En      = 1;
-    Device_Comm.Coolwater[0].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.Coolwater_Num; i++)
+    {
+        Device_Comm.Coolwater[i].En      = 1;
+        Device_Comm.Coolwater[i].Timeout = 10000;
+    }
 
-    Device_Comm.Dehum[0].En      = 1;
-    Device_Comm.Dehum[0].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.Dehum_Num; i++)
+    {
+        Device_Comm.Dehum[i].En      = 1;
+        Device_Comm.Dehum[i].Timeout = 10000;
+    }
 
-    Device_Comm.BMS[0].En      = 1;
-    Device_Comm.BMS[0].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.BMS_Num; i++)
+    {
+        Device_Comm.BMS[i].En      = 1;
+        Device_Comm.BMS[i].Timeout = 10000;
+    }
 
-    Device_Comm.PCS[0].En      = 1;
-    Device_Comm.PCS[0].Timeout = 10000;
-    Device_Comm.PCS[1].En      = 1;
-    Device_Comm.PCS[1].Timeout = 10000;
+    for(uint8_t i = 0; i < Sys_info.PCS_Num; i++)
+    {
+        Device_Comm.PCS[i].En      = 1;
+        Device_Comm.PCS[i].Timeout = 10000;
+    }
 }
 /*
 ----------------------------------------------------------------------------------------------
@@ -611,7 +652,7 @@ void SysManage_CalcDeviceNum(void)
 
 ----------------------------------------------------------------------------------------------
 */
-void SysManage_Status_Display(void)
+void SysManage_SelfCheck(void)
 {
 
 }
@@ -623,6 +664,7 @@ void SysManage_Status_Display(void)
 void SysManage_Task(void)
 {
     SysManage_Comm_Init();
+    // Led_Init();
 
     while(1)
     {

@@ -34,6 +34,7 @@
         "hal_iic.h": "c",
         "hal_spi.h": "c",
         "w25q128.h": "c",
-        "protocol_n9_pcs.h": "c"
+        "protocol_n9_pcs.h": "c",
+        "led_ctrl.h": "c"
     }
 }

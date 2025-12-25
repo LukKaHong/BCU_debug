@@ -37,6 +37,7 @@ typedef struct
 
 typedef struct
 {
+    Comm_Fault_t ECU;  
     Comm_Fault_t Air[Air_Num_Max];
     Comm_Fault_t Fire[Fire_Num_Max];
     Comm_Fault_t Meter[Meter_Num_Max];
@@ -45,8 +46,20 @@ typedef struct
     Comm_Fault_t Coolwater[Coolwater_Num_Max];
     Comm_Fault_t Dehum[Dehum_Num_Max];
     Comm_Fault_t BMS[BMS_Num_Max];
-    Comm_Fault_t PCS[PCS_Num_Max];
+    Comm_Fault_t PCS[PCS_Num_Max]; 
 }Device_Comm_t;
+/*
+----------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------
+*/
+typedef struct
+{
+    uint8_t Flashflag;
+    uint8_t SDflag;
+    uint8_t RTCflag;
+    uint8_t EEflag;
+}SelfCheck_t;
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -111,6 +124,8 @@ typedef struct
 */
 extern void SysManage_Task(void);
 extern void SysManage_CalcDeviceNum(void);
+extern SysInfo_t* GetSysInfoPointer(void);
+extern Device_Comm_t* GetDeviceCommPointer(void);
 /*
 ----------------------------------------------------------------------------------------------
 
