@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App;../User/Protocol;../User/Middle;../User/Table;../User/Driver;../User/Hardware</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../User/App;../User/Protocol;../User/Middle;../User/Table;../User/Driver;../User/Hardware;../User/Driver/W5500</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1261,6 +1261,46 @@
               <FileName>hal_spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\Hardware\hal_spi.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>User/Driver/W5500</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_ethernet.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\bsp_ethernet.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\bsp_socket.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_spi_bus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\bsp_spi_bus.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_w5500.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\bsp_w5500.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wizchip_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\bsp_wizchip_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>dhcp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\dhcp.c</FilePath>
+            </File>
+            <File>
+              <FileName>wiz_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Driver\W5500\wiz_interface.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -22,6 +22,12 @@ void SpiCsLow(uint8_t spitype)
 		case SPI_W25Q:
 			HAL_GPIO_WritePin(W25Q_CS_PORT,W25Q_CS_PIN,GPIO_PIN_RESET);
 			break;
+		case SPI_LAN1:
+			HAL_GPIO_WritePin(LAN1_CS_PORT,LAN1_CS_PIN,GPIO_PIN_RESET);
+			break;
+		case SPI_LAN2:
+			HAL_GPIO_WritePin(LAN2_CS_PORT,LAN2_CS_PIN,GPIO_PIN_RESET);
+			break;
 		// case SPI_ToCAN:
 		// 	HAL_GPIO_WritePin(SpiToCan_CS_PORT,SpiToCan_CS_PIN,GPIO_PIN_RESET);
 		// 	break;	
@@ -42,6 +48,12 @@ void SpiCsHigh(uint8_t spitype)
 		case SPI_W25Q:
 			HAL_GPIO_WritePin(W25Q_CS_PORT,W25Q_CS_PIN,GPIO_PIN_SET);
 			break;
+		case SPI_LAN1:
+			HAL_GPIO_WritePin(LAN1_CS_PORT,LAN1_CS_PIN,GPIO_PIN_SET);
+			break;
+		case SPI_LAN2:
+			HAL_GPIO_WritePin(LAN2_CS_PORT,LAN2_CS_PIN,GPIO_PIN_SET);
+			break;
 		// case SPI_ToCAN:
 		// 	HAL_GPIO_WritePin(SpiToCan_CS_PORT,SpiToCan_CS_PIN,GPIO_PIN_SET);
 		// 	break;	
@@ -61,6 +73,10 @@ uint8_t SpiSendByte(uint8_t spitype,uint8_t byte)
 	{	
 		case SPI_W25Q:
 			return SPI_ReadWriteByte(5,byte);
+		case SPI_LAN1:
+			return SPI_ReadWriteByte(6,byte);
+		case SPI_LAN2:
+			return SPI_ReadWriteByte(4,byte);
 		// case SPI_ToCAN:
 		// 	return STM32_SPI_ReadWriteByte(3,byte);		
 		default:
