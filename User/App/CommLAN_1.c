@@ -280,7 +280,7 @@ void CommLAN_1_Task(void)
 
         if(r_event & CommLAN_1_Event_Tick)
         {
-            printf("%s\r\n", __func__);
+            //printf("%s\r\n", __func__);
         }
 				
 		LAN_W5500_Pro();

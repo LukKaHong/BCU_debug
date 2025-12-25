@@ -18,7 +18,7 @@
 //    uint8_t error_count = 0;
 //    while (1)
 //    {
-//        delay_ms(1000);
+//        HAL_Delay(1000);
 //        if (getVERSIONR() != W5500_VERSION)
 //        {
 //            error_count++;
@@ -55,7 +55,7 @@
 //    uint8_t phy_link_status;
 //    do
 //    {
-//        delay_ms(1000);
+//        HAL_Delay(1000);
 //        ctlwizchip(CW_GET_PHYLINK, (void *)&phy_link_status);
 //        if (phy_link_status == PHY_LINK_ON)
 //        {

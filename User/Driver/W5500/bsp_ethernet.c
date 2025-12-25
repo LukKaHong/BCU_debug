@@ -1,14 +1,14 @@
 /*
 *********************************************************************************************************
 *
-*	Ä£¿éÃû³Æ : ÒÔÌ«Íø½Ó¿ÚÇý¶¯³ÌÐò
-*	ÎÄ¼þÃû³Æ : bsp_ethernet.c
-*	°æ    ±¾ : V1.0
-*	Ëµ    Ã÷ : ÒÔÌ«Íø½Ó¿ÚÇý¶¯³ÌÐò,Ë«W5500
+*	Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½Ì«ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ : bsp_ethernet.c
+*	ï¿½ï¿½    ï¿½ï¿½ : V1.0
+*	Ëµ    ï¿½ï¿½ : ï¿½ï¿½Ì«ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ë«W5500
 *
-*	ÐÞ¸Ä¼ÇÂ¼ :
-*		°æ±¾ºÅ  ÈÕÆÚ        ×÷Õß     ËµÃ÷
-*		V1.1    2021-11-22  wr     ÕýÊ½·¢²¼
+*	ï¿½Þ¸Ä¼ï¿½Â¼ :
+*		ï¿½æ±¾ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½        ï¿½ï¿½ï¿½ï¿½     Ëµï¿½ï¿½
+*		V1.1    2021-11-22  wr     ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½
 *
 *
 *********************************************************************************************************
@@ -75,7 +75,7 @@ static uint32_t w5500_rng_get_random_num(void)
 /* last local TCP port */
 static uint16_t tcp_port = W5500_TCP_LOCAL_PORT_RANGE_START;
 
-/*¶¨ÒåethÍø¿¨ÐÅÏ¢£¬Èç¹û¶à¿éW5500ÍøÂçÊÊÅä°åÔÚÍ¬Ò»ÏÖ³¡¹¤×÷£¬ÇëÊ¹ÓÃ²»Í¬µÄMACµØÖ·*/
+/*ï¿½ï¿½ï¿½ï¿½ethï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½W5500ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ò»ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã²ï¿½Í¬ï¿½ï¿½MACï¿½ï¿½Ö·*/
 _ethConfig ethConfig[Eth_Num] = {
 									{
 										.ethID = 0,
@@ -129,7 +129,7 @@ _ethConfig ethConfig[Eth_Num] = {
 									}
 								};
 
-/* Tcp Server SocketÅäÖÃ½á¹¹Ìå³õÊ¼»¯ */
+/* Tcp Server Socketï¿½ï¿½ï¿½Ã½á¹¹ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ */
 _tcpserverConfig tcpsConfig[Eth_Num] = {
 												{
 													.enable = 0,
@@ -144,7 +144,7 @@ _tcpserverConfig tcpsConfig[Eth_Num] = {
 													.funcAddr = defaultHandle
 												}
 											};	
-/* Tcp Client SocketÅäÖÃ½á¹¹Ìå³õÊ¼»¯ */				
+/* Tcp Client Socketï¿½ï¿½ï¿½Ã½á¹¹ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ */				
 _tcpclientConfig tcpcConfig[Eth_Num] = {
 												{
 													.enable = 1,
@@ -170,9 +170,9 @@ void ethernet_print_none(void)  {return ;};
 void (*_ethernet_print)  (void) = ethernet_print_none;
 
 /**
-*@brief		clientÁ¬½Óserver³É¹¦ºóµÄ³õÊ¼ÐÅÏ¢´òÓ¡º¯Êý
-*@param		³õÊ¼ÐÅÏ¢´òÓ¡º¯ÊýÖ±Ö¸Õë
-*@return	ÎÞ
+*@brief		clientï¿½ï¿½ï¿½ï¿½serverï¿½É¹ï¿½ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½Ï¢ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½
+*@param		ï¿½ï¿½Ê¼ï¿½ï¿½Ï¢ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ö±Ö¸ï¿½ï¿½
+*@return	ï¿½ï¿½
 */
 void reg_ethernet_print_func(void (*eth_print)(void))
 {
@@ -187,7 +187,7 @@ void reg_ethernet_print_func(void (*eth_print)(void))
    }
 }
 
-wiz_NetTimeout sWIZNetTimeout = {.time_100us = 0x64, .retry_cnt = 5};           /* ³¬Ê±0x64*0.1ms ÖØÊÔ 5´Î; Ð¾Æ¬Ä¬ÈÏÎª³¬Ê±200ms£¬ÖØÊÔ8´Î */
+wiz_NetTimeout sWIZNetTimeout = {.time_100us = 0x64, .retry_cnt = 5};           /* ï¿½ï¿½Ê±0x64*0.1ms ï¿½ï¿½ï¿½ï¿½ 5ï¿½ï¿½; Ð¾Æ¬Ä¬ï¿½ï¿½Îªï¿½ï¿½Ê±200msï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ */
 
 
 /**
@@ -198,7 +198,7 @@ wiz_NetTimeout sWIZNetTimeout = {.time_100us = 0x64, .retry_cnt = 5};           
 void defaultHandle(uint8_t* inData,uint16_t inLen,uint8_t* outData,uint16_t *outLen) {};
 	
 /**
-  * @brief  ½øÈëÁÙ½çÇø
+  * @brief  ï¿½ï¿½ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½
   * @retval None
   */
 void ETH_SPI_CrisEnter(void)
@@ -206,7 +206,7 @@ void ETH_SPI_CrisEnter(void)
 	__set_PRIMASK(1);
 }
 /**
-  * @brief  ÍË³öÁÙ½çÇø
+  * @brief  ï¿½Ë³ï¿½ï¿½Ù½ï¿½ï¿½ï¿½
   * @retval None
   */
 void ETH_SPI_CrisExit(void)
@@ -215,8 +215,8 @@ void ETH_SPI_CrisExit(void)
 }
 
 /**
-  * @brief  ´ÓSPI×ÜÏß·¢ËÍ1×Ö½ÚÊý¾Ý
-  * @retval ¶Áµ½µÄÊý¾Ý
+  * @brief  ï¿½ï¿½SPIï¿½ï¿½ï¿½ß·ï¿½ï¿½ï¿½1ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½
+  * @retval ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   */
 void ETH1_SPI_WriteByte(uint8_t TxData)
 {			
@@ -224,8 +224,8 @@ void ETH1_SPI_WriteByte(uint8_t TxData)
 }
 
 /**
-  * @brief  ´ÓSPI×ÜÏß¶ÁÈ¡1×Ö½ÚÊý¾Ý
-  * @retval ¶Áµ½µÄÊý¾Ý
+  * @brief  ï¿½ï¿½SPIï¿½ï¿½ï¿½ß¶ï¿½È¡1ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½
+  * @retval ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   */
 uint8_t ETH1_SPI_ReadByte(void)
 {		
@@ -233,7 +233,7 @@ uint8_t ETH1_SPI_ReadByte(void)
 }
 
 /**
-  * @brief  Æ¬Ñ¡ÐÅºÅÊä³öµÍµçÆ½
+  * @brief  Æ¬Ñ¡ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Æ½
   * @retval None
   */
 void ETH1_SPI_CS_Select(void)
@@ -241,7 +241,7 @@ void ETH1_SPI_CS_Select(void)
 	 HAL_GPIO_WritePin(A_W5500_SCSn_GPIO_Port, A_W5500_SCSn_Pin, GPIO_PIN_RESET);
 }
 /**
-  * @brief  Æ¬Ñ¡ÐÅºÅÊä³ö¸ßµçÆ½
+  * @brief  Æ¬Ñ¡ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Æ½
   * @retval None
   */
 void ETH1_SPI_CS_Deselect(void)
@@ -250,25 +250,25 @@ void ETH1_SPI_CS_Deselect(void)
 }
 
 /**
-  * @brief  ¸´Î»W5500Ð¾Æ¬
+  * @brief  ï¿½ï¿½Î»W5500Ð¾Æ¬
   * @retval None
   */
 void ETH1_RESET(void)
 {
-	HAL_GPIO_WritePin(A_W5500_RSTn_GPIO_Port, A_W5500_RSTn_Pin, GPIO_PIN_RESET); /*¸´Î»¹Ü½ÅÊä³öµÍµçÆ½ */
+	HAL_GPIO_WritePin(A_W5500_RSTn_GPIO_Port, A_W5500_RSTn_Pin, GPIO_PIN_RESET); /*ï¿½ï¿½Î»ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Æ½ */
 //	bsp_DelayMS(5);
-	delay_ms(5);
-	HAL_GPIO_WritePin(A_W5500_RSTn_GPIO_Port, A_W5500_RSTn_Pin, GPIO_PIN_SET); 	/*¸´Î»¹Ü½ÅÊä³ö¸ßµçÆ½ */
+	HAL_Delay(5);
+	HAL_GPIO_WritePin(A_W5500_RSTn_GPIO_Port, A_W5500_RSTn_Pin, GPIO_PIN_SET); 	/*ï¿½ï¿½Î»ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Æ½ */
 //	bsp_DelayMS(50);
-	delay_ms(50);
+	HAL_Delay(50);
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: ETH1_netSet
-*	¹¦ÄÜËµÃ÷: Íø¿Ú1ÍøÂçÉèÖÃ(IP¡¢mask¡¢gateµÈÍøÂçÐÅÏ¢)
-*	ÐÎ    ²Î£ºÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: ETH1_netSet
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(IPï¿½ï¿½maskï¿½ï¿½gateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢)
+*	ï¿½ï¿½    ï¿½Î£ï¿½ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 #define ETHERNET_BUF_MAX_SIZE (1024 * 2)
@@ -282,13 +282,13 @@ void ETH1_netSet(void)
 	network_init(chipNum, ethernet_buf, (void*)&(ethConfig[0].netInfo));
 	ctlnetwork(chipNum, CN_GET_NETINFO, (void*)&(ethConfig[0].netInfo));
 
-	/*µ÷Õûw5500µÄ³¬Ê±Ê±¼ä£¬Ä¬ÈÏÖµÎª³¬Ê±200ms£¬ÖØÊÔ8´Î£¬Ã»ÓÐÐèÒª¿ÉÒÔ²»µ÷Õû*/
+	/*ï¿½ï¿½ï¿½ï¿½w5500ï¿½Ä³ï¿½Ê±Ê±ï¿½ä£¬Ä¬ï¿½ï¿½ÖµÎªï¿½ï¿½Ê±200msï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½Î£ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	//ctlnetwork(CN_SET_TIMEOUT, (void*)&sWIZNetTimeout);
 
-	/* 5*3Ãëkeep aliveÊý¾Ý·¢ËÍ²»Í¨£¬ÔòÖØÆôsocket */
-	setRTR(chipNum,5);									/* ³¬Ê±Ê±¼ä */
-	WIZCHIP_WRITE(chipNum, Sn_KPALVTR(SOCK_TCPS),0x03);	/*´ò¿ªkeep aliveÄ£Ê½*/
-	WIZCHIP_WRITE(chipNum, Sn_KPALVTR(SOCK_TCPC),0x03);	/*´ò¿ªkeep aliveÄ£Ê½*/	
+	/* 5*3ï¿½ï¿½keep aliveï¿½ï¿½ï¿½Ý·ï¿½ï¿½Í²ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½socket */
+	setRTR(chipNum,5);									/* ï¿½ï¿½Ê±Ê±ï¿½ï¿½ */
+	WIZCHIP_WRITE(chipNum, Sn_KPALVTR(SOCK_TCPS),0x03);	/*ï¿½ï¿½keep aliveÄ£Ê½*/
+	WIZCHIP_WRITE(chipNum, Sn_KPALVTR(SOCK_TCPC),0x03);	/*ï¿½ï¿½keep aliveÄ£Ê½*/	
 	
 	// Display Network Information
 	#ifdef __DEF_IINCHIP_DBG__
@@ -302,10 +302,10 @@ void ETH1_netSet(void)
 }
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: ETH1_Init
-*	¹¦ÄÜËµÃ÷: Íø¿Ú1³õÊ¼»¯º¯Êý
-*	ÐÎ    ²Î£ºÎÞ
-*	·µ »Ø Öµ: 0£º³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: ETH1_Init
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½ï¿½    ï¿½Î£ï¿½ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 0ï¿½ï¿½ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t ETH1_Init(void)
@@ -317,11 +317,11 @@ int8_t ETH1_Init(void)
 	//Host dependent peripheral initialized
 	// First of all, Should register SPI callback functions implemented by user for accessing WIZCHIP 
 	/* Critical section callback */
-	//	reg_wizchip_cris_cbfunc(ETH_SPI_CrisEnter, ETH_SPI_CrisExit);	//×¢²áÁÙ½çÇøº¯Êý
+	//	reg_wizchip_cris_cbfunc(ETH_SPI_CrisEnter, ETH_SPI_CrisExit);	//×¢ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/* Chip selection call back */
 	reg_wizchip_cs_cbfunc(chipNum,ethConfig[0].SPI.CS._select, ethConfig[0].SPI.CS._deselect);  // CS must be tried with LOW
 	/* SPI Read & Write callback function */
-	reg_wizchip_spi_cbfunc(chipNum,ethConfig[0].SPI._read_byte, ethConfig[0].SPI._write_byte);	//×¢²á¶ÁÐ´º¯Êý
+	reg_wizchip_spi_cbfunc(chipNum,ethConfig[0].SPI._read_byte, ethConfig[0].SPI._write_byte);	//×¢ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 	/* WIZCHIP SOCKET Buffer initialize */
 	if(ctlwizchip(chipNum,CW_INIT_WIZCHIP,(void*)ethConfig[0].memSize) == -1) return -1;
 	
@@ -332,8 +332,8 @@ int8_t ETH1_Init(void)
 }
 
 /**
-  * @brief  ´ÓSPI×ÜÏß·¢ËÍ1×Ö½ÚÊý¾Ý
-  * @retval ¶Áµ½µÄÊý¾Ý
+  * @brief  ï¿½ï¿½SPIï¿½ï¿½ï¿½ß·ï¿½ï¿½ï¿½1ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½
+  * @retval ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   */
 void ETH2_SPI_WriteByte(uint8_t TxData)
 {			
@@ -341,8 +341,8 @@ void ETH2_SPI_WriteByte(uint8_t TxData)
 }
 
 /**
-  * @brief  ´ÓSPI×ÜÏß¶ÁÈ¡1×Ö½ÚÊý¾Ý
-  * @retval ¶Áµ½µÄÊý¾Ý
+  * @brief  ï¿½ï¿½SPIï¿½ï¿½ï¿½ß¶ï¿½È¡1ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½
+  * @retval ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   */
 uint8_t ETH2_SPI_ReadByte(void)
 {		
@@ -350,7 +350,7 @@ uint8_t ETH2_SPI_ReadByte(void)
 }
 
 /**
-  * @brief  Æ¬Ñ¡ÐÅºÅÊä³öµÍµçÆ½
+  * @brief  Æ¬Ñ¡ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Æ½
   * @retval None
   */
 void ETH2_SPI_CS_Select(void)
@@ -358,7 +358,7 @@ void ETH2_SPI_CS_Select(void)
 //	 HAL_GPIO_WritePin(SPI5_SCS_PORT, SPI5_SCS_PIN, GPIO_PIN_RESET);
 }
 /**
-  * @brief  Æ¬Ñ¡ÐÅºÅÊä³ö¸ßµçÆ½
+  * @brief  Æ¬Ñ¡ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Æ½
   * @retval None
   */
 void ETH2_SPI_CS_Deselect(void)
@@ -367,25 +367,25 @@ void ETH2_SPI_CS_Deselect(void)
 }
 
 /**
-  * @brief  ¸´Î»W5500Ð¾Æ¬
+  * @brief  ï¿½ï¿½Î»W5500Ð¾Æ¬
   * @retval None
   */
 void ETH2_RESET(void)
 {
-//	HAL_GPIO_WritePin(SPI5_RST_PORT, SPI5_RST_PIN, GPIO_PIN_RESET); /*¸´Î»¹Ü½ÅÊä³öµÍµçÆ½ */
+//	HAL_GPIO_WritePin(SPI5_RST_PORT, SPI5_RST_PIN, GPIO_PIN_RESET); /*ï¿½ï¿½Î»ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½Æ½ */
 ////	bsp_DelayMS(5);
-//	delay_ms(5);
-//	HAL_GPIO_WritePin(SPI5_RST_PORT, SPI5_RST_PIN, GPIO_PIN_SET); 	/*¸´Î»¹Ü½ÅÊä³ö¸ßµçÆ½ */
+//	HAL_Delay(5);
+//	HAL_GPIO_WritePin(SPI5_RST_PORT, SPI5_RST_PIN, GPIO_PIN_SET); 	/*ï¿½ï¿½Î»ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Æ½ */
 ////	bsp_DelayMS(50);
-//	delay_ms(50);
+//	HAL_Delay(50);
 }
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: ETH1_netSet
-*	¹¦ÄÜËµÃ÷: Íø¿Ú1ÍøÂçÉèÖÃ(IP¡¢mask¡¢gateµÈÍøÂçÐÅÏ¢)
-*	ÐÎ    ²Î£ºÎÞ
-*	·µ »Ø Öµ: ÎÞ
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: ETH1_netSet
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(IPï¿½ï¿½maskï¿½ï¿½gateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢)
+*	ï¿½ï¿½    ï¿½Î£ï¿½ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: ï¿½ï¿½
 *********************************************************************************************************
 */
 void ETH2_netSet(void)
@@ -396,13 +396,13 @@ void ETH2_netSet(void)
 	ctlnetwork(chipNum, CN_SET_NETINFO, (void*)&(ethConfig[1].netInfo));
 	ctlnetwork(chipNum, CN_GET_NETINFO, (void*)&(ethConfig[1].netInfo));
 
-	/*µ÷Õûw5500µÄ³¬Ê±Ê±¼ä£¬Ä¬ÈÏÖµÎª³¬Ê±200ms£¬ÖØÊÔ8´Î£¬Ã»ÓÐÐèÒª¿ÉÒÔ²»µ÷Õû*/
+	/*ï¿½ï¿½ï¿½ï¿½w5500ï¿½Ä³ï¿½Ê±Ê±ï¿½ä£¬Ä¬ï¿½ï¿½ÖµÎªï¿½ï¿½Ê±200msï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½Î£ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	//ctlnetwork(CN_SET_TIMEOUT, (void*)&sWIZNetTimeout);
 
-	/* 5*3Ãëkeep aliveÊý¾Ý·¢ËÍ²»Í¨£¬ÔòÖØÆôsocket */
-	setRTR(chipNum,5);									/* ³¬Ê±Ê±¼ä */
-	IINCHIP_WRITE(chipNum,Sn_KPALVTR(SOCK_TCPS),0x03);	/*´ò¿ªkeep aliveÄ£Ê½*/
-	IINCHIP_WRITE(chipNum,Sn_KPALVTR(SOCK_TCPC),0x03);	/*´ò¿ªkeep aliveÄ£Ê½*/	
+	/* 5*3ï¿½ï¿½keep aliveï¿½ï¿½ï¿½Ý·ï¿½ï¿½Í²ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½socket */
+	setRTR(chipNum,5);									/* ï¿½ï¿½Ê±Ê±ï¿½ï¿½ */
+	IINCHIP_WRITE(chipNum,Sn_KPALVTR(SOCK_TCPS),0x03);	/*ï¿½ï¿½keep aliveÄ£Ê½*/
+	IINCHIP_WRITE(chipNum,Sn_KPALVTR(SOCK_TCPC),0x03);	/*ï¿½ï¿½keep aliveÄ£Ê½*/	
 	
 	// Display Network Information
 	#ifdef __DEF_IINCHIP_DBG__
@@ -416,10 +416,10 @@ void ETH2_netSet(void)
 }
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: ETH1_Init
-*	¹¦ÄÜËµÃ÷: Íø¿Ú1³õÊ¼»¯º¯Êý
-*	ÐÎ    ²Î£ºÎÞ
-*	·µ »Ø Öµ: 0£º³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: ETH1_Init
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½ï¿½    ï¿½Î£ï¿½ï¿½ï¿½
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 0ï¿½ï¿½ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t ETH2_Init(void)
@@ -431,11 +431,11 @@ int8_t ETH2_Init(void)
 	//Host dependent peripheral initialized
 	// First of all, Should register SPI callback functions implemented by user for accessing WIZCHIP 
 	/* Critical section callback */
-	//	reg_wizchip_cris_cbfunc(ETH_SPI_CrisEnter, ETH_SPI_CrisExit);	//×¢²áÁÙ½çÇøº¯Êý
+	//	reg_wizchip_cris_cbfunc(ETH_SPI_CrisEnter, ETH_SPI_CrisExit);	//×¢ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/* Chip selection call back */
 	reg_wizchip_cs_cbfunc(chipNum,ethConfig[1].SPI.CS._select, ethConfig[1].SPI.CS._deselect);  // CS must be tried with LOW
 	/* SPI Read & Write callback function */
-	reg_wizchip_spi_cbfunc(chipNum,ethConfig[1].SPI._read_byte, ethConfig[1].SPI._write_byte);	//×¢²á¶ÁÐ´º¯Êý
+	reg_wizchip_spi_cbfunc(chipNum,ethConfig[1].SPI._read_byte, ethConfig[1].SPI._write_byte);	//×¢ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
 	/* WIZCHIP SOCKET Buffer initialize */
 	if(ctlwizchip(chipNum,CW_INIT_WIZCHIP,(void*)ethConfig[1].memSize) == -1) return -1;
 	
@@ -448,22 +448,22 @@ int8_t ETH2_Init(void)
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: initEthHard
-*	¹¦ÄÜËµÃ÷: W5500Íø¿Ú³õÊ¼»¯
-*	ÐÎ    ²Î: 
-*				ethID		Íø¿¨ID,´ËµçÂ·°åÖ»ÓÐ1¸öÍø¿¨£¬Òò´ËethID=0
-*				spiBaud  	SPI×ÜÏßÊ±ÖÓÆµÂÊ£¬Ö§³ÖµÄ²ÎÊýÈçÏÂ£º
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: initEthHard
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: W5500ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: 
+*				ethID		ï¿½ï¿½ï¿½ï¿½ID,ï¿½Ëµï¿½Â·ï¿½ï¿½Ö»ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ethID=0
+*				spiBaud  	SPIï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Æµï¿½Ê£ï¿½Ö§ï¿½ÖµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½
 *							SPI_BAUD_100M    (0x00000000UL)	//100Mhz
 *							SPI_BAUD_50M     (0x10000000UL)	//50Mhz
 *							SPI_BAUD_25M     (0x20000000UL)	//25Mhz	
 *							SPI_BAUD_12M5    (0x30000000UL)	//12.5Mhz
 *							SPI_BAUD_6M25    (0x40000000UL)	//6.25Mhz                                                    
-*             	ipAddr      ÒªÉèÖÃµÄIPµØÖ·Ö¸Õë                         
-*             	ipMask      ÒªÉèÖÃµÄ×ÓÍøÑÚÂëÖ¸Õë
-*		¡¡		gwAddr 		ÒªÉèÖÃµÄÍø¹ØÖ¸Õë
-*            	mac         ÒªÉèÖÃµÄmacµØÖ·Ö¸Õë£¬²»ÐÞ¸ÄmacµØÖ·µÄÇé¿öÏÂÖ¸ÕëÉèÖÃÎªNULL
+*             	ipAddr      Òªï¿½ï¿½ï¿½Ãµï¿½IPï¿½ï¿½Ö·Ö¸ï¿½ï¿½                         
+*             	ipMask      Òªï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+*		ï¿½ï¿½		gwAddr 		Òªï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+*            	mac         Òªï¿½ï¿½ï¿½Ãµï¿½macï¿½ï¿½Ö·Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½Þ¸ï¿½macï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªNULL
 *
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t initEthHard(uint8_t ethID,uint32_t spiBaud,uint8_t* ipAddr,uint8_t* ipMask,uint8_t* gwAddr, uint8_t* mac)
@@ -473,13 +473,13 @@ int8_t initEthHard(uint8_t ethID,uint32_t spiBaud,uint8_t* ipAddr,uint8_t* ipMas
 		return -1;
 	}	
 	
-	/* ³õÊ¼»¯SPI ×ÜÏß */
+	/* ï¿½ï¿½Ê¼ï¿½ï¿½SPI ï¿½ï¿½ï¿½ï¿½ */
 	// ethConfig[ethID].SPI._Init(spiBaud,SPI_PHASE_2EDGE, SPI_POLARITY_HIGH);
 	ethConfig[ethID].SPI._Init();
 	/* reset eth */
 	ethConfig[ethID]._ethReset();
 	
-	/* ÍøÂç²ÎÊýÉèÖÃ */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	if(!ipAddr || !ipMask || !gwAddr) 
 	{
 		return -1;
@@ -496,7 +496,7 @@ int8_t initEthHard(uint8_t ethID,uint32_t spiBaud,uint8_t* ipAddr,uint8_t* ipMas
 		memcpy(ethConfig[ethID].netInfo.mac,mac,6);
 	}	
 	
-	if(ethConfig[ethID]._ethInit()==0) //W5500ÍøÂç²ÎÊý¡¢ÖØÊÔµÈ²ÎÊý³õÊ¼»¯
+	if(ethConfig[ethID]._ethInit()==0) //W5500ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÔµÈ²ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 	{
 		ethConfig[ethID].enable = 1;
 		return 0;
@@ -505,16 +505,16 @@ int8_t initEthHard(uint8_t ethID,uint32_t spiBaud,uint8_t* ipAddr,uint8_t* ipMas
 }
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: modifyIP
-*	¹¦ÄÜËµÃ÷: Íø¿¨ÍøÂçÐÅÏ¢ÐÞ¸Ä
-*	ÐÎ    ²Î: 
-*				ethID		Íø¿¨ID,´ËµçÂ·°åÖ»ÓÐ1¸öÍø¿¨£¬Òò´ËethID=0                                              
-*             	ipAddr      ÒªÉèÖÃµÄIPµØÖ·Ö¸Õë                         
-*             	ipMask      ÒªÉèÖÃµÄ×ÓÍøÑÚÂëÖ¸Õë
-*		¡¡		gwAddr 		ÒªÉèÖÃµÄÍø¹ØÖ¸Õë
-*            	mac         ÒªÉèÖÃµÄmacµØÖ·Ö¸Õë£¬²»ÐÞ¸ÄmacµØÖ·µÄÇé¿öÏÂÖ¸ÕëÉèÖÃÎªNULL
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: modifyIP
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Þ¸ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: 
+*				ethID		ï¿½ï¿½ï¿½ï¿½ID,ï¿½Ëµï¿½Â·ï¿½ï¿½Ö»ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ethID=0                                              
+*             	ipAddr      Òªï¿½ï¿½ï¿½Ãµï¿½IPï¿½ï¿½Ö·Ö¸ï¿½ï¿½                         
+*             	ipMask      Òªï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+*		ï¿½ï¿½		gwAddr 		Òªï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+*            	mac         Òªï¿½ï¿½ï¿½Ãµï¿½macï¿½ï¿½Ö·Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½Þ¸ï¿½macï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªNULL
 *
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t modifyIP(uint8_t ethID,uint8_t* ipAddr,uint8_t* ipMask,uint8_t* gwAddr, uint8_t* mac)
@@ -529,7 +529,7 @@ int8_t modifyIP(uint8_t ethID,uint8_t* ipAddr,uint8_t* ipMask,uint8_t* gwAddr, u
 		return -1;
 	}
 		
-	/*ÍøÂç²ÎÊýÉèÖÃ*/
+	/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
 	if(!ipAddr || !ipMask || !gwAddr) 
 	{
 		return -1;
@@ -553,15 +553,15 @@ int8_t modifyIP(uint8_t ethID,uint8_t* ipAddr,uint8_t* ipMask,uint8_t* gwAddr, u
 }
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: createTcpServerSocket
-*	¹¦ÄÜËµÃ÷: ´´½¨Tcp Server Socket
-*	ÐÎ    ²Î: 
-*				ethID			Íø¿¨ID,´ËµçÂ·°åÖ»ÓÐ1¸öÍø¿¨£¬Òò´ËethID=0  
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: createTcpServerSocket
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½Tcp Server Socket
+*	ï¿½ï¿½    ï¿½ï¿½: 
+*				ethID			ï¿½ï¿½ï¿½ï¿½ID,ï¿½Ëµï¿½Â·ï¿½ï¿½Ö»ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ethID=0  
 *				socketID		socket ID                                                
 *             	serverPort      server Port                          
-*		¡¡		funcAddr 		Ó¦ÓÃ²ãcallbackº¯Êý
+*		ï¿½ï¿½		funcAddr 		Ó¦ï¿½Ã²ï¿½callbackï¿½ï¿½ï¿½ï¿½
 *
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t createTcpServerSocket(uint8_t ethID, uint16_t socketID,uint16_t serverPort,void * funcAddr)
@@ -583,7 +583,7 @@ int8_t createTcpServerSocket(uint8_t ethID, uint16_t socketID,uint16_t serverPor
 	tcpsConfig[chipNum].serverPort = serverPort;
 	tcpsConfig[chipNum].funcAddr = (void (*)(uint8_t *, uint16_t, uint8_t *, uint16_t *))funcAddr;
 	
-	/*´ò¿ªsocket*/
+	/*ï¿½ï¿½socket*/
 	socket(chipNum,socketID ,Sn_MR_TCP,serverPort,Sn_MR_ND);	
 	
 	/* enable TcpServerSocket */
@@ -593,17 +593,17 @@ int8_t createTcpServerSocket(uint8_t ethID, uint16_t socketID,uint16_t serverPor
 }
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: createTcpClientSocket
-*	¹¦ÄÜËµÃ÷: ´´½¨Tcp Client Socket
-*	ÐÎ    ²Î: 
-*				ethID			Íø¿¨ID,´ËµçÂ·°åÖ»ÓÐ1¸öÍø¿¨£¬Òò´ËethID=0  
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: createTcpClientSocket
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½Tcp Client Socket
+*	ï¿½ï¿½    ï¿½ï¿½: 
+*				ethID			ï¿½ï¿½ï¿½ï¿½ID,ï¿½Ëµï¿½Â·ï¿½ï¿½Ö»ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ethID=0  
 *				socketID		socket ID                                                
 *             	remotePort      remote Port                         
 *             	remoteIp      	remote IP 
 *             	localPort       local Port                         
-*		¡¡		funcAddr 		Ó¦ÓÃ²ãcallbackº¯Êý
+*		ï¿½ï¿½		funcAddr 		Ó¦ï¿½Ã²ï¿½callbackï¿½ï¿½ï¿½ï¿½
 *
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t createTcpClientSocket(uint8_t ethID, uint16_t socketID,uint16_t remotePort,uint8_t* remoteIp,uint16_t localPort,void * funcAddr) 
@@ -632,7 +632,7 @@ int8_t createTcpClientSocket(uint8_t ethID, uint16_t socketID,uint16_t remotePor
 	memcpy(tcpcConfig[ethID].remoteIp,remoteIp,4);
 	tcpcConfig[ethID].funcAddr = (void (*)(uint8_t *, uint16_t, uint8_t *, uint16_t *))funcAddr;
 	printf("localPort = %d\r\n", tcp_port);
-	/*´ò¿ªsocket*/
+	/*ï¿½ï¿½socket*/
 	if(socket(0,socketID,Sn_MR_TCP,tcp_port,Sn_MR_ND) == socketID)
 	{
 		/* enable TcpClientSocket */
@@ -667,11 +667,11 @@ int8_t w5500_send(uint8_t socket, uint8_t * buf, uint16_t len)
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: EtnHandle
-*	¹¦ÄÜËµÃ÷: Íø¿¨×´Ì¬´¦Àíº¯Êý
-*	ÐÎ    ²Î: 
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: EtnHandle
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: 
 *	
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t EtnHandle(uint8_t ethID)
@@ -684,7 +684,7 @@ int8_t EtnHandle(uint8_t ethID)
 		return -1;
 	}
 	
-	/* Íø¿¨Î´Ê¹ÄÜ */
+	/* ï¿½ï¿½ï¿½ï¿½Î´Ê¹ï¿½ï¿½ */
 	if(ethConfig[0].enable == 0) 
 	{
 		return -1;
@@ -696,44 +696,44 @@ int8_t EtnHandle(uint8_t ethID)
 		close(chipNum,tcpcConfig[ethID].socketID);
 	}
 
-	/* Tcp Server Socket ÒÑÊ¹ÄÜ */
+	/* Tcp Server Socket ï¿½ï¿½Ê¹ï¿½ï¿½ */
 	if(tcpsConfig[ethID].enable == 1)
 	{
-		/* »ñÈ¡socketµÄ×´Ì¬ */
+		/* ï¿½ï¿½È¡socketï¿½ï¿½×´Ì¬ */
 		switch(getSn_SR(chipNum,tcpsConfig[ethID].socketID))									
 		{
-			/* socket´¦ÓÚ¹Ø±Õ×´Ì¬ */
+			/* socketï¿½ï¿½ï¿½Ú¹Ø±ï¿½×´Ì¬ */
 			case SOCK_CLOSED:	
-				/*Çå³ý¿ÉÄÜ´æÔÚµÄ³¬Ê±ÖÐ¶Ï±êÖ¾*/ 	
+				/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ÚµÄ³ï¿½Ê±ï¿½Ð¶Ï±ï¿½Ö¾*/ 	
 				if (getSn_IR(chipNum,tcpsConfig[ethID].socketID) & Sn_IR_TIMEOUT)
 				{
 					IINCHIP_WRITE(chipNum,Sn_IR(tcpsConfig[ethID].socketID), (Sn_IR_TIMEOUT)); 
 				}
-				/* ´ò¿ªsocket */
+				/* ï¿½ï¿½socket */
 				socket(chipNum,tcpsConfig[ethID].socketID ,Sn_MR_TCP,tcpsConfig[ethID].serverPort,Sn_MR_ND);	  
 				break;     
 			
-			/* socketÒÑ³õÊ¼»¯×´Ì¬ */
+			/* socketï¿½Ñ³ï¿½Ê¼ï¿½ï¿½×´Ì¬ */
 			case SOCK_INIT:	
-				/* socket½¨Á¢¼àÌý */					
+				/* socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */					
 				listen(chipNum,tcpsConfig[ethID].socketID);								  
 				break;
 			
-			/* socket´¦ÓÚÁ¬½Ó½¨Á¢×´Ì¬ */
+			/* socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½×´Ì¬ */
 			case SOCK_ESTABLISHED:												          
 				
 				if(getSn_IR(chipNum,tcpsConfig[ethID].socketID) & Sn_IR_CON)
 				{
-					setSn_IR(chipNum,tcpsConfig[ethID].socketID, Sn_IR_CON);					/*Çå³ý½ÓÊÕÖÐ¶Ï±êÖ¾Î»*/
+					setSn_IR(chipNum,tcpsConfig[ethID].socketID, Sn_IR_CON);					/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾Î»*/
 				}
 					
-				/* ²é¿´ÊÇ·ñÓÐÊý¾Ý */
+				/* ï¿½é¿´ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 				tcpsConfig[ethID].inData.len = getSn_RX_RSR(chipNum, tcpsConfig[ethID].socketID);			   
 				if(tcpsConfig[ethID].inData.len > 0)
 				{
-					/* ½ÓÊÕÀ´×ÔClientµÄÊý¾Ý */
+					/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Clientï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 					recv(chipNum,tcpsConfig[ethID].socketID,tcpsConfig[ethID].inData.buff,tcpsConfig[ethID].inData.len);	
-					/* µ÷ÓÃÓ¦ÓÃ²ãÊý¾Ý´¦Àícallbackº¯Êý */
+					/* ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã²ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½callbackï¿½ï¿½ï¿½ï¿½ */
 					tcpsConfig[ethID].outData.len=0;
 					memset(tcpsConfig[ethID].outData.buff,0,2048);
 //					tcpsConfig[ethID].funcAddr(tcpsConfig[ethID].inData.buff,tcpsConfig[ethID].inData.len,tcpsConfig[ethID].outData.buff,&tcpsConfig[ethID].outData.len);
@@ -744,7 +744,7 @@ int8_t EtnHandle(uint8_t ethID)
 				}
 				break;
 			
-			case SOCK_CLOSE_WAIT:												            /*socket´¦ÓÚµÈ´ý¹Ø±Õ×´Ì¬*/
+			case SOCK_CLOSE_WAIT:												            /*socketï¿½ï¿½ï¿½ÚµÈ´ï¿½ï¿½Ø±ï¿½×´Ì¬*/
 				close(chipNum,tcpsConfig[ethID].socketID);
 				break;
 			
@@ -753,45 +753,45 @@ int8_t EtnHandle(uint8_t ethID)
 		}
 	}
 	
-	/* Tcp Client Socket ÒÑÊ¹ÄÜ */
+	/* Tcp Client Socket ï¿½ï¿½Ê¹ï¿½ï¿½ */
 	if(tcpcConfig[ethID].enable == 1)
 	{
-		/* »ñÈ¡socketµÄ×´Ì¬ */
+		/* ï¿½ï¿½È¡socketï¿½ï¿½×´Ì¬ */
 		switch(getSn_SR(chipNum,tcpcConfig[ethID].socketID))								  	
 		{
-			/* socket´¦ÓÚ¹Ø±Õ×´Ì¬ */
+			/* socketï¿½ï¿½ï¿½Ú¹Ø±ï¿½×´Ì¬ */
 			case SOCK_CLOSED:
-				/*Çå³ý¿ÉÄÜ´æÔÚµÄ³¬Ê±ÖÐ¶Ï±êÖ¾*/ 	
+				/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ÚµÄ³ï¿½Ê±ï¿½Ð¶Ï±ï¿½Ö¾*/ 	
 				if (getSn_IR(chipNum,tcpcConfig[ethID].socketID) & Sn_IR_TIMEOUT)
 				{
 					IINCHIP_WRITE(chipNum,Sn_IR(tcpcConfig[ethID].socketID), (Sn_IR_TIMEOUT)); 
 				}			
-				/* ´ò¿ªsocket */
+				/* ï¿½ï¿½socket */
 				socket(chipNum,tcpcConfig[ethID].socketID,Sn_MR_TCP,tcpcConfig[ethID].localPort,Sn_MR_ND);
 				break;
 			
-			/* socket´¦ÓÚ³õÊ¼»¯×´Ì¬ */
+			/* socketï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½×´Ì¬ */
 			case SOCK_INIT:	
-				/* socketÁ¬½Ó·þÎñÆ÷ */ 					
+				/* socketï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ */ 					
 				if(connect(chipNum,tcpcConfig[ethID].socketID,tcpcConfig[ethID].remoteIp,tcpcConfig[ethID].remotePort)==SOCK_OK)
 				{					
 					bit=1;
 				}
 				break;
-			/* socket´¦ÓÚÁ¬½Ó½¨Á¢×´Ì¬ */
+			/* socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½×´Ì¬ */
 			case SOCK_ESTABLISHED: 												           
 				if(getSn_IR(chipNum,tcpcConfig[ethID].socketID) & Sn_IR_CON)
 				{
-					setSn_IR(chipNum,tcpcConfig[ethID].socketID, Sn_IR_CON); 					/* Çå³ý½ÓÊÕÖÐ¶Ï±êÖ¾Î» */
+					setSn_IR(chipNum,tcpcConfig[ethID].socketID, Sn_IR_CON); 					/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï±ï¿½Ö¾Î» */
 					_ethernet_print();
 				}
 				return 1;	
-			/* socket´¦ÓÚµÈ´ý¹Ø±Õ×´Ì¬ */	
+			/* socketï¿½ï¿½ï¿½ÚµÈ´ï¿½ï¿½Ø±ï¿½×´Ì¬ */	
 			case SOCK_CLOSE_WAIT: 											    	         
 				close(chipNum,tcpcConfig[ethID].socketID);
 				break;
 				
-			/* socket´¦ÓÚÁ¬½ÓÖÐ¼ä×´Ì¬ */				
+			/* socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½×´Ì¬ */				
 			case SOCK_SYNSENT: 											    	         	
 				break;
 			
@@ -804,15 +804,15 @@ int8_t EtnHandle(uint8_t ethID)
 	
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: SocketDataSend
-*	¹¦ÄÜËµÃ÷: Í¨¹ýsocket·¢ËÍÊý¾Ý£¬socket ÎªÁ¬½Ó×´Ì¬²ÅÄÜ·¢ËÍ³É¹¦
-*	ÐÎ    ²Î: 
-*				ethID			Íø¿¨ID,´ËµçÂ·°åÖ»ÓÐ1¸öÍø¿¨£¬Òò´ËethID=0  
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: SocketDataSend
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: Í¨ï¿½ï¿½socketï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½socket Îªï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ü·ï¿½ï¿½Í³É¹ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: 
+*				ethID			ï¿½ï¿½ï¿½ï¿½ID,ï¿½Ëµï¿½Â·ï¿½ï¿½Ö»ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ethID=0  
 *				socketID		socket ID                                                
-*             	outData      	·¢ËÍÊý¾ÝµÄÖ¸Õë                         
-*             	outLen      	·¢ËÍÊý¾ÝµÄ³¤¶È
+*             	outData      	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½Ö¸ï¿½ï¿½                         
+*             	outLen      	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÝµÄ³ï¿½ï¿½ï¿½
 *
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t SocketDataSend(uint8_t ethID, uint16_t socketID,uint8_t* outData,uint16_t outLen)
@@ -824,7 +824,7 @@ int8_t SocketDataSend(uint8_t ethID, uint16_t socketID,uint8_t* outData,uint16_t
 		return -1;
 	}	
 	
-	/* Íø¿¨Î´Ê¹ÄÜ */
+	/* ï¿½ï¿½ï¿½ï¿½Î´Ê¹ï¿½ï¿½ */
 	if(ethConfig[ethID].enable == 0) 
 	{
 		return -1;
@@ -833,7 +833,7 @@ int8_t SocketDataSend(uint8_t ethID, uint16_t socketID,uint8_t* outData,uint16_t
 //	chipNum = ethID;
 
 
-	/* socket ÎªÁ¬½Ó×´Ì¬ */
+	/* socket Îªï¿½ï¿½ï¿½ï¿½×´Ì¬ */
 	if(getSn_SR(0,socketID) == SOCK_ESTABLISHED )
 	{
 		int32_t sockret = 0;
@@ -858,13 +858,13 @@ int8_t SocketDataSend(uint8_t ethID, uint16_t socketID,uint8_t* outData,uint16_t
 
 /*
 *********************************************************************************************************
-*	º¯ Êý Ãû: SocketClose
-*	¹¦ÄÜËµÃ÷: ¹Ø±Õsocket£¬²¢Ê§ÄÜ
-*	ÐÎ    ²Î: 
-*				ethID			Íø¿¨ID,´ËµçÂ·°åÖ»ÓÐ1¸öÍø¿¨£¬Òò´ËethID=0  
+*	ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½: SocketClose
+*	ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½: ï¿½Ø±ï¿½socketï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+*	ï¿½ï¿½    ï¿½ï¿½: 
+*				ethID			ï¿½ï¿½ï¿½ï¿½ID,ï¿½Ëµï¿½Â·ï¿½ï¿½Ö»ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ethID=0  
 *				socketID		socket ID                                                
 *
-*	·µ »Ø Öµ: 	0:³É¹¦ -1£ºÊ§°Ü
+*	ï¿½ï¿½ ï¿½ï¿½ Öµ: 	0:ï¿½É¹ï¿½ -1ï¿½ï¿½Ê§ï¿½ï¿½
 *********************************************************************************************************
 */
 int8_t SocketClose(uint8_t ethID, uint16_t socketID)
@@ -876,7 +876,7 @@ int8_t SocketClose(uint8_t ethID, uint16_t socketID)
 		return -1;
 	}	
 	
-	/* Íø¿¨Î´Ê¹ÄÜ */
+	/* ï¿½ï¿½ï¿½ï¿½Î´Ê¹ï¿½ï¿½ */
 	if(ethConfig[ethID].enable == 0) 
 	{
 		return -1;

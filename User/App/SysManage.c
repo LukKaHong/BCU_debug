@@ -677,7 +677,7 @@ void SysManage_Task(void)
             SysManage_Pro();
             SysManage_PCS_Pro();
 
-            printf("%s\r\n", __func__);
+            //printf("%s\r\n", __func__);
         }
     }
 }

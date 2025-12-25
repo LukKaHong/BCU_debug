@@ -86,7 +86,7 @@ void ADC_Task(void)
                 TEMP_Pro(port);
             }
 
-            printf("%s\r\n", __func__);
+            //printf("%s\r\n", __func__);
         }
     }
 }

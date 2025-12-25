@@ -181,9 +181,9 @@ void delay_xms(uint32_t nms);
 #define VNC_C_Pin GPIO_PIN_7
 #define VNC_C_GPIO_Port GPIOI
 
-
-#define SYSTEM_SUPPORT_OS		1
 /* USER CODE BEGIN Private defines */
+#define SYSTEM_SUPPORT_OS		1
+
 extern void Printf_Array(uint8_t *str, uint8_t *Array,uint16_t Len);
 extern uint16_t Get_GPIO_Pin_No(uint16_t GPIO_Pin);
 /* USER CODE END Private defines */
